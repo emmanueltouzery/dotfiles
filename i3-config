@@ -183,6 +183,18 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+mode "sound" {
+        bindsym k exec "amixer set Master -q 5%+"
+        bindsym j exec "amixer set Master -q 5%-"
+        bindsym m exec "amixer -q sset Master,0 toggle"
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+Shift+s mode "default"
+}
+
+bindsym $mod+Shift+s mode "sound"
+
 exec --no-startup-id dropbox start
 exec_always --no-startup-id numlockx on
 exec_always --no-startup-id volumeicon
