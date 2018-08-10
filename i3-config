@@ -194,6 +194,7 @@ mode "sound" {
 }
 
 bindsym $mod+Shift+s mode "sound"
+bindsym $mod+Shift+d exec "/home/emmanuel/home/gsimplecal-install/bin/gsimplecal"
 
 exec --no-startup-id dropbox start
 exec_always --no-startup-id numlockx on
