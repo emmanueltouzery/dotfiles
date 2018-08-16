@@ -1,3 +1,13 @@
+exec --no-startup-id xrandr --output VGA-1 --off --output eDP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-2 --off --output HDMI-1 --off --output DP-2 --off --output DP-1 --primary --mode 2560x1600 --pos 1920x0 --rotate normal
 exec --no-startup-id nm-applet
 exec --no-startup-id slack
 exec --no-startup-id skypeforlinux
+
+set $laptop_output eDP-1
+set $external_output DP-1
+
+workspace $ws1 output $external_output
+workspace $ws2 output $external_output
+workspace $ws3 output $external_output
+workspace $ws4 output $external_output
+workspace $ws5 output $external_output

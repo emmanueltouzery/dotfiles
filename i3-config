@@ -113,7 +113,7 @@ set $ws2 "2"
 set $ws3 "3 "
 set $ws4 "4"
 set $ws5 "5"
-set $ws6 "6"
+set $ws6 "6 "
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
@@ -144,6 +144,8 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 assign [class="Gimp-"] $ws3
+assign [class="Slack"] $ws6
+assign [class="Skype"] $ws6
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
