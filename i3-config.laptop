@@ -1,7 +1,10 @@
+for_window [class="projectpad"] move scratchpad
+
 exec --no-startup-id xrandr --output VGA-1 --off --output eDP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-2 --off --output HDMI-1 --off --output DP-2 --off --output DP-1 --primary --mode 2560x1600 --pos 1920x0 --rotate normal
 exec --no-startup-id nm-applet
 exec --no-startup-id slack
 exec --no-startup-id skypeforlinux
+exec --no-startup-id projectpad
 
 set $laptop_output eDP-1
 set $external_output DP-1

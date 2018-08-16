@@ -160,8 +160,8 @@ bindsym $mod+Shift+minus move scratchpad
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show; floating disable
 
-# Show the sup-mail scratchpad window, if any.
-#bindsym mod4+s [title="^Sup ::"] scratchpad show
+# Show the projectpad scratchpad window, if any.
+bindsym $mod+p [title="^ProjectPAD"] scratchpad show
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
