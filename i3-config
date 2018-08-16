@@ -215,10 +215,10 @@ exec --no-startup-id compton -b
 show_marks yes
 
 # scrot screenshot
-# bindsym Ctrl+Print exec scrot -e 'mv $f /tmp/'
-# bindsym Ctrl+Shift+Print exec scrot -e 'mv $f /tmp/ && flatpak run org.gimp.GIMP /tmp/$f'
-bindsym --release Print exec scrot -s -e 'mv $f /tmp/'
-bindsym --release Shift+Print exec scrot -s -e 'mv $f /tmp/ && flatpak run org.gimp.GIMP /tmp/$f'
+# bindsym Ctrl+Print exec scrot -e 'mv $f ~/Pictures/'
+# bindsym Ctrl+Shift+Print exec scrot -e 'mv $f ~/Pictures/ && flatpak run org.gimp.GIMP ~/Pictures/$f'
+bindsym --release Print exec scrot -s -e 'mv $f ~/Pictures/'
+bindsym --release Shift+Print exec scrot -s -e 'mv $f ~/Pictures/ && flatpak run org.gimp.GIMP ~/Pictures/$f'
 
 exec --no-startup-id feh --bg-scale ~/Dropbox/wallpapers/2018-08-04\ 10.34.43.jpg
 
