@@ -7,3 +7,5 @@ clock_label = SGT
 clock_tz = :Asia/Singapore
 clock_label = San Francisco
 clock_tz = :America/Los_Angeles
+clock_label = India
+clock_tz = :Asia/Kolkata
