@@ -220,7 +220,7 @@ show_marks yes
 bindsym --release Print exec scrot -s -e 'mv $f ~/Pictures/'
 bindsym --release Shift+Print exec scrot -s -e 'mv $f ~/Pictures/ && flatpak run org.gimp.GIMP ~/Pictures/$f'
 
-set $wallpaper ~/Dropbox/wallpapers/2018-08-04\ 10.34.43.jpg
+set $wallpaper ~/Dropbox/wallpapers/wallpaper.jpg
 
 # lock screen command
 bindsym $mod+Shift+o exec "i3lock -i /usr/share/backgrounds/f28/default/wide/f28.png -t"
