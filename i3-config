@@ -216,7 +216,7 @@ show_marks yes
 
 # scrot screenshot
 # bindsym Ctrl+Print exec scrot -e 'mv $f ~/Pictures/'
-# bindsym Ctrl+Shift+Print exec scrot -e 'mv $f ~/Pictures/ && flatpak run org.gimp.GIMP ~/Pictures/$f'
+# bindsym Ctrl+Shift+Print exec scrot -e 'mv $f ~/Pictures/ && gimp ~/Pictures/$f'
 bindsym --release Print exec scrot -s -e 'mv $f ~/Pictures/'
 bindsym --release Shift+Print exec scrot -s -e 'mv $f ~/Pictures/ && flatpak run org.gimp.GIMP ~/Pictures/$f'
 
