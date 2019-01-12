@@ -1,0 +1,5 @@
+cat $HOME/home/dotfiles/i3-config > $HOME/.config/i3/config
+cat $HOME/home/dotfiles/i3-config.laptop >> $HOME/.config/i3/config
+
+# http://unix.stackexchange.com/a/21308/36566
+e() { emacsclient -c "$@" --alternate-editor= & }
