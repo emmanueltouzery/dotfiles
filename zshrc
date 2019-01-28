@@ -74,7 +74,7 @@ POWERLEVEL9K_SHORTEN_STRATEGY="Default"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fasd mvn npm zsh-autosuggestions)
+plugins=(git mvn npm fasd zsh-autosuggestions history history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 
