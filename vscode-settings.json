@@ -23,6 +23,20 @@
                     "args": []
                 }
             ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "j",
+                "="
+            ],
+            "after": [],
+            "commands": [
+                {
+                    "command": "editor.action.format",
+                    "args": []
+                }
+            ]
         }
     ],
     "vim.normalModeKeyBindings": [
