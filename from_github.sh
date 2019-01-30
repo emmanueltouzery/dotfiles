@@ -3,3 +3,4 @@ cp ~/home/dotfiles/i3-config ~/.config/i3/config
 mkdir -p ~/.config/gsimplecal/
 cp ~/home/dotfiles/gsimplecal-config  ~/.config/gsimplecal/config
 cp gnome-control-center.desktop ~/.local/share/applications
+cp vscode-settings.json ~/.config/Code/User
