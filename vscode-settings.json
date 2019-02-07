@@ -1110,6 +1110,20 @@
                     "args": []
                 }
             ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "p",
+                "g"
+            ],
+            "after": [],
+            "commands": [
+                {
+                    "command": "workbench.action.showEditorsInActiveGroup",
+                    "args": []
+                }
+            ]
         }
     ],
     "vim.insertModeKeyBindings": [
@@ -1123,5 +1137,7 @@
             ]
         }
     ],
-    "vim.easymotion": true
+    "vim.easymotion": true,
+    "workbench.statusBar.feedback.visible": false,
+    "breadcrumbs.enabled": true
 }
