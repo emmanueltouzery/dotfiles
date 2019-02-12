@@ -1124,6 +1124,20 @@
                     "args": []
                 }
             ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "w",
+                "D"
+            ],
+            "after": [],
+            "commands": [
+                {
+                    "command": "workbench.action.closeOtherEditors",
+                    "args": []
+                }
+            ]
         }
     ],
     "vim.insertModeKeyBindings": [
@@ -1139,5 +1153,6 @@
     ],
     "vim.easymotion": true,
     "workbench.statusBar.feedback.visible": false,
-    "breadcrumbs.enabled": true
+    "breadcrumbs.enabled": true,
+    "workbench.editor.enablePreview": false
 }
