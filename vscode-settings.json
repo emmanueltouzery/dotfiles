@@ -1138,6 +1138,20 @@
                     "args": []
                 }
             ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "f",
+                "T"
+            ],
+            "after": [],
+            "commands": [
+                {
+                    "command": "workbench.files.action.showActiveFileInExplorer",
+                    "args": []
+                }
+            ]
         }
     ],
     "vim.insertModeKeyBindings": [
