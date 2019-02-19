@@ -1152,6 +1152,19 @@
                     "args": []
                 }
             ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "n",
+                "f"
+            ],
+            "commands": [
+                {
+                    "command": "editor.action.revealDefinition",
+                    "args": []
+                }
+            ]
         }
     ],
     "vim.insertModeKeyBindings": [
