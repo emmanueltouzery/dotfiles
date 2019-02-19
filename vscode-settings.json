@@ -1157,7 +1157,7 @@
             "before": [
                 "<leader>",
                 "n",
-                "f"
+                "d"
             ],
             "commands": [
                 {
