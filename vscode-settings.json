@@ -1156,12 +1156,12 @@
         {
             "before": [
                 "<leader>",
-                "n",
-                "d"
+                "g",
+                "b"
             ],
             "commands": [
                 {
-                    "command": "editor.action.revealDefinition",
+                    "command": "gitlens.toggleFileBlame",
                     "args": []
                 }
             ]
@@ -1169,12 +1169,12 @@
         {
             "before": [
                 "<leader>",
-                "g",
+                "n",
                 "b"
             ],
             "commands": [
                 {
-                    "command": "gitlens.toggleFileBlame",
+                    "command": "workbench.action.navigateBack",
                     "args": []
                 }
             ]
