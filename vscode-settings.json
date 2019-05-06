@@ -2,6 +2,7 @@
     "workbench.editor.showTabs": false,
     "editor.minimap.enabled": false,
     "window.zoomLevel": 0,
+    "files.hotExit": "onExitAndWindowClose",
 
     "gitlens.codeLens.authors.enabled": false,
 
