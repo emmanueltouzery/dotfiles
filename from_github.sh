@@ -5,3 +5,5 @@ cp ~/home/dotfiles/gsimplecal-config  ~/.config/gsimplecal/config
 cp gnome-control-center.desktop ~/.local/share/applications
 mkdir -p ~/.config/Code/User
 cp vscode-settings.json ~/.config/Code/User/settings.json
+mkdir -p ~/.config/kitty/
+cp kitty.config ~/.config/kitty/kitty.conf
