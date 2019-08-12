@@ -1,10 +1,13 @@
 export TERM="xterm-256color"
-source ~/.fonts/*.sh
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 POWERLEVEL9K_MODE='awesome-fontconfig'
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
 # Path to your oh-my-zsh installation.
   export ZSH=/home/emmanuel/.oh-my-zsh
 
@@ -12,9 +15,11 @@ POWERLEVEL9K_MODE='awesome-fontconfig'
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="powerlevel9k/powerlevel9k"
+
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs dir_writable)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time)
 POWERLEVEL9K_STATUS_VERBOSE=false
+
 # POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 # POWERLEVEL9K_SHORTEN_DELIMITER=""
 # POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
@@ -107,8 +112,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-
 POWERLEVEL9K_DIR_PATH_SEPARATOR="%F{black} $(print_icon 'LEFT_SUBSEGMENT_SEPARATOR') %F{black}"
+# POWERLEVEL9K_HOME_FOLDER_ABBREVIATION="%k%F{white}~%F{blue}"
 POWERLEVEL9K_HOME_FOLDER_ABBREVIATION=""
 
 # https://github.com/zzrough/gs-extensions-drop-down-terminal/issues/57#issuecomment-170202054
@@ -169,6 +174,7 @@ tput initc 15 910 910 910
 
 # https://unix.stackexchange.com/a/114243/36566
 zstyle ':completion:*' special-dirs true
+
 
 source $HOME/.zprofile
 source $HOME/.oh-my-zsh/custom/plugins/zsh-you-should-use/you-should-use.plugin.zsh
