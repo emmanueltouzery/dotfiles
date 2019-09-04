@@ -146,6 +146,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 assign [class="Gimp-"] $ws3
 assign [class="Gimp"] $ws3
 assign [class="Slack"] $ws2
+assign [class="discord"] $ws2
 assign [class="Skype"] $ws2
 
 # reload the configuration file

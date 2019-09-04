@@ -6,6 +6,7 @@ bindsym $mod+Return exec kitty
 exec --no-startup-id xrandr --output VGA-1 --off --output eDP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-2 --off --output HDMI-1 --off --output DP-2 --off --output DP-1 --primary --mode 2560x1600 --pos 1920x0 --rotate normal
 exec --no-startup-id nm-applet
 exec --no-startup-id flatpak run --filesystem=home com.slack.Slack
+exec --no-startup-id flatpak run --filesystem=home com.discordapp.Discord
 exec --no-startup-id skypeforlinux
 exec --no-startup-id projectpad
 
