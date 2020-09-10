@@ -163,7 +163,7 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show; floating disable
 
 # Show the projectpad scratchpad window, if any.
-bindsym $mod+p [title="^ProjectPAD"] scratchpad show
+bindsym $mod+p [title="^Projectpad"] scratchpad show
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
