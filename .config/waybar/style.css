@@ -1,0 +1,126 @@
+/* @import "../../.cache/wal/colors-waybar.css"; */
+
+* {
+    border: none;
+    border-radius: 0;
+    /* font-family: Roboto, Helvetica, Arial, sans-serif; */
+    /* font-size: 13px; */
+    /* font-family: DejaVu Sans Mono; */
+    font-family: DejaVuSansMono Nerd Font;
+    font-size: 14px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: #323232;
+    /*background: @background; */
+    /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
+    border-bottom: 3px solid rgba(255, 255, 255, 0.15);
+    color: @foreground;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background: transparent;
+    color: @foreground;
+    border-bottom: 3px solid transparent;
+}
+
+#workspaces button.focused {
+    background: rgba(255, 255, 255, 0.15);
+    border-bottom: 3px solid @foreground;
+    /* color: @background; */
+    /* background: @foreground; */
+}
+
+#mode {
+    /* background: @color1; */
+    background-color: rgb(200, 0, 0);
+    border-bottom: 3px solid white;
+}
+
+#clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode, #custom-top, #custom-uptime, #custom-vpn, #custom-internet, #custom-disk, #custom-mem, #custom-bt, #custom-brightness {
+    padding: 0 3px;
+    margin: 0 5px;
+}
+
+#clock {
+    /* background-color: #64727D; */
+    /* background: #2980b9; */
+}
+
+#battery {
+    /* background-color: rgba(43, 59, 43, 0.5); */
+}
+
+#battery.charging {
+    background-color: rgba(104, 211, 104, 0.5);
+}
+
+/*
+#battery.warning {
+    color: black;
+    background-color: rgb(255, 208, 0);
+}
+ 
+#battery.critical {
+    background-color: rgb(200, 0, 0);
+} 
+*/
+
+#battery.warning:not(.charging) {
+    color: black;
+    background-color: rgb(255, 208, 0);
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: black;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background: rgb(200, 0, 0);
+    color: white;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#cpu {
+    /* background: rgba(43, 48, 59, 0.5); */
+}
+
+#memory {
+    /* background: rgba(43, 48, 59, 0.5); */
+}
+
+#network {
+    /* background: #2980b9; */
+}
+
+#network.disconnected {
+    /* background: #f53c3c; */
+}
+
+#pulseaudio {
+    /* background: #f1c40f; */
+    /* color: black; */
+}
+
+#pulseaudio.muted {
+    /* background: #90b1b1; */
+    /* color: #2a5c45; */
+}
+
+/* #custom-spotify {
+    background: #66cc99;
+    color: #2a5c45;
+} */
+
+#tray {
+    /* background-color: #2980b9; */
+}
