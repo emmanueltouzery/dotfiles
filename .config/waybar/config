@@ -1,0 +1,96 @@
+{
+    "position": "bottom",
+    "height": 24,
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-right": ["idle_inhibitor", "custom/brightness", "custom/internet", "custom/vpn#example", "custom/bt", "cpu", "custom/mem", "custom/disk", "battery", "clock", "pulseaudio", "tray"],
+
+    // modules config
+    "sway/workspaces": {
+        "enable-bar-scroll": true,
+        "disable-scroll-wraparound": true
+    },
+    // scripts: https://github.com/x70b1/polybar-scripts/tree/master/polybar-scripts
+    // fontawesome icons: https://fontawesome.com/v4.7.0/cheatsheet/
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "max-length" : "5",
+        "format-icons": {
+            "activated": "🛑",
+            "deactivated": "⏲"
+        }
+    },
+    "clock": {
+        //"format": "{:%d  %H:%M:%S}",
+        //"format-alt": "{:%Y-%m-%d  %H:%M:%S}",
+        "format": "{:%Y-%m-%d  %H:%M:%S}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "interval": 5,
+        "on-click-middle": "gnome-calendar"
+    },
+    "cpu": {
+        "format": " {usage}%"
+    },
+    "custom/mem": {
+        "format": " {}",
+        "max-length": 15,
+        "interval": 15,
+        "exec": "$HOME/.config/waybar/mem.sh"
+    },
+    "custom/disk": {
+        "format": " {}",
+        "max-length": 80,
+        "escape": false,
+        "exec": "df -h | grep home | sed \"s/  / /g\" | cut -d\" \" -f4,5",
+        "interval": 60,
+        "on-click": "k4dirstat",
+        "tooltip": false
+    },
+    "battery": {
+        "bat": "BAT0",
+        "states": {
+            //"good": 95,
+            "warning": 25,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        // "format-good": "", // An empty format will hide the module
+        "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
+//    "network": {
+//        "interface": "enp0s31f6",
+//        "format-ethernet": " {ipaddr}",
+//        "format-alt": "",
+//        "interval": 5,
+//        "format-disconnected": " "
+//    },
+//    "network#net2": {
+//        "interface": "wlp0s20f3",
+//        "format-wifi": " {ipaddr} {signalStrength}% {essid}",
+//        "format-alt": "",
+//        "max-length": 26,
+//        "interval": 5,
+//        "format-disconnected": " "
+//    },
+    "pulseaudio": {
+        //"scroll-step": 1,
+        "format": "{icon} {volume}",
+        "format-bluetooth": "{icon} {volume}%",
+        "format-muted": "🔇",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "on-click": "amixer set Master toggle", // dnf install pavucontrol
+        "on-click-right": "pavucontrol" // dnf install pavucontrol
+    },
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 7
+     }
+}
