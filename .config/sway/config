@@ -25,6 +25,9 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # output * bg /usr/share/backgrounds/default.png fill
 output * bg ~/Dropbox/wallpapers/wallpaper.jpg fill
+
+set $lockwallpaper ~/Dropbox/wallpapers/wallpaper.jpg
+
 #
 # Example configuration:
 #
@@ -37,10 +40,10 @@ output * bg ~/Dropbox/wallpapers/wallpaper.jpg fill
 # Example configuration:
 #
 exec swayidle -w \
-          timeout 300 'swaylock -f -c 000000' \
-          timeout 600 'swaymsg "output * dpms off"' \
+          timeout 300 'swaylock -i $lockwallpaper --scaling=fill' \
+          timeout 310 'swaymsg "output * dpms off"' \
                resume 'swaymsg "output * dpms on"' \
-          before-sleep 'swaylock -f -c 000000'
+          before-sleep 'swaylock -i $lockwallpaper --scaling=fill'
 
 # no window title if there's only one window in a workspace
 # https://www.joshmcguigan.com/blog/hot-take-fedora-gnome-arch-sway/
@@ -195,6 +198,7 @@ set $output2 eDP-1
     for_window [app_id="projectpad" title="Projectpad"] move scratchpad
     for_window [app_id="gnome-calculator"] floating enable
     for_window [class="VirtualBox Manager"] floating enable
+    for_window [title="Remmina Remote Desktop Client"] floating enable
 
 #
 # Layout stuff:
@@ -297,8 +301,9 @@ exec /usr/libexec/xdg-desktop-portal-wlr
 
 exec swaymsg titlebar_padding 5 1
 
-exec --no-startup-id nm-applet --indicator
-exec --no-startup-id flatpak run --filesystem=home com.slack.Slack
-exec --no-startup-id flatpak run --filesystem=home com.discordapp.Discord
-exec --no-startup-id skypeforlinux
-exec --no-startup-id ~/home/projectpad-cli/target/debug/projectpad
+exec nm-applet --indicator
+exec flatpak run --filesystem=home com.slack.Slack
+exec flatpak run --filesystem=home com.discordapp.Discord
+exec skypeforlinux
+exec ~/home/projectpad-cli/target/debug/projectpad
+exec dropbox start
