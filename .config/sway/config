@@ -291,6 +291,8 @@ bindsym --release $mod+Print exec grim -g "$(slurp)" - | wl-copy
 bindsym --release $mod+Shift+Print exec grim -g "$(slurp)" ~/Downloads/$(date +'%Y-%m-%d-%H%M%S.png')
 bindsym --release $mod+Ctrl+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') ~/Downloads/$(date +'%Y-%m-%d-%H%M%S.png')
 bindsym --release $mod+Ctrl+Shift+Print exec grim ~/Downloads/$(date +'%Y-%m-%d-%H%M%S.png')
+# https://www.reddit.com/r/swaywm/comments/bw9m52/how_to_take_a_screenshot_of_currently_active/epwnlti/
+bindsym Ctrl+Shift+Print exec swaymsg -t get_tree | jq -r '.. | (.nodes? // empty)[] | if (.focused) then select(.focused) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)" else (.floating_nodes? // empty)[] | select(.visible) | select(.focused) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)" end' | grim -g - - | wl-copy
 
 # https://github.com/flatpak/xdg-desktop-portal/issues/285#issuecomment-665109459
 
