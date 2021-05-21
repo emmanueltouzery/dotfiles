@@ -267,18 +267,31 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+mode "sound" {
+        bindsym k exec "amixer set Master -q 5%+"
+        bindsym j exec "amixer set Master -q 5%-"
+        bindsym m exec "amixer -q sset Master,0 toggle"
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+Shift+s mode "default"
+}
+bindsym $mod+Shift+s mode "sound"
+
 #
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    swaybar_command '/home/emmanuel/home/Waybar/build/waybar'
+    # swaybar_command '/home/emmanuel/home/Waybar/build/waybar'
     # swaybar_command 'waybar'
-    # position bottom
+    position bottom
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    #status_command while date +'%Y-%m-%d %H:%M:%S'; do sleep 1; done
+    status_command while ~/.config/sway/swaybar_status.sh; do sleep 1; done
+
+    # bindcode 272 pavucontrol
 
     # colors {
     #     statusline #ffffff
@@ -298,6 +311,7 @@ bindsym --release $mod+Ctrl+Print exec grim -o $(swaymsg -t get_outputs | jq -r 
 bindsym --release $mod+Ctrl+Shift+Print exec grim ~/Downloads/$(date +'%Y-%m-%d-%H%M%S.png')
 # https://www.reddit.com/r/swaywm/comments/bw9m52/how_to_take_a_screenshot_of_currently_active/epwnlti/
 bindsym Ctrl+Shift+Print exec swaymsg -t get_tree | jq -r '.. | (.nodes? // empty)[] | if (.focused) then select(.focused) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)" else (.floating_nodes? // empty)[] | select(.visible) | select(.focused) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)" end' | grim -g - - | wl-copy
+bindsym $mod+c exec wl-paste | wl-copy
 
 # https://github.com/flatpak/xdg-desktop-portal/issues/285#issuecomment-665109459
 
