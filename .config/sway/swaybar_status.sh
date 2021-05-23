@@ -2,7 +2,7 @@
 # set -euo pipefail
 
 disk=$(df -h -t ext4 | grep home | sed "s/  / /g" | cut -d" " -f4,5)
-now=$(date +'%Y-%m-%d %H:%M:%S')
+now=$(date +'%Y-%m-%d %H:%M')
 bat_name=$(upower -e | grep 'BAT')
 bat=$(upower -i $bat_name  | grep percentage | awk '{print " " $2}')
 mem=$(free -h | tail -n 2 | awk '{print "\t" $3}' | tr '\n' ' ' | awk '{print $1 " " $2}')

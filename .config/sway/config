@@ -268,9 +268,9 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 mode "sound" {
-        bindsym k exec "amixer set Master -q 5%+"
-        bindsym j exec "amixer set Master -q 5%-"
-        bindsym m exec "amixer -q sset Master,0 toggle"
+        bindsym k exec "amixer set Master -q 5%+; sh ~/.config/sway/display_volume.sh"
+        bindsym j exec "amixer set Master -q 5%-; sh ~/.config/sway/display_volume.sh"
+        bindsym m exec "amixer -q sset Master,0 toggle; sh ~/.config/sway/display_volume.sh"
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -289,7 +289,7 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while ~/.config/sway/swaybar_status.sh; do sleep 1; done
+    status_command while ~/.config/sway/swaybar_status.sh; do sleep 10; done
 
     # bindcode 272 pavucontrol
 
@@ -329,3 +329,4 @@ exec flatpak run --filesystem=home com.discordapp.Discord
 exec skypeforlinux
 exec flatpak run com.github.emmanueltouzery.projectpad
 exec dropbox start
+exec mkfifo /tmp/wobpipe && tail -f /tmp/wobpipe | wob
