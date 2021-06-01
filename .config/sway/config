@@ -39,16 +39,24 @@ set $lockwallpaper ~/Dropbox/wallpapers/wallpaper.jpg
 #
 # Example configuration:
 #
-exec swayidle \
-          timeout 300 'swaylock -i $lockwallpaper --scaling=fill' \
-          timeout 310 'swaymsg "output * dpms off"' \
-               resume 'swaymsg "output * dpms on"' \
-          before-sleep 'swaylock -i $lockwallpaper --scaling=fill'
+# exec swayidle \
+#           timeout 300 'swaylock -i $lockwallpaper --scaling=fill' \
+#           timeout 310 'swaymsg "output * dpms off"' \
+#                resume 'swaymsg "output * dpms on"' \
+#           before-sleep 'swaylock -i $lockwallpaper --scaling=fill'
+
 # exec swayidle -w \
 #           timeout 300 'swaylock -i $lockwallpaper --scaling=fill' \
 #           timeout 310 'swaymsg "output * dpms off"' \
 #                resume 'swaymsg "output * dpms on"' \
 #           before-sleep 'swaylock -i $lockwallpaper --scaling=fill'
+
+                #timeout 300 'swaylock -f -c 000000' \
+                #before-sleep 'swaylock -f -c 000000'
+exec swayidle -w \
+                timeout 300 'swaymsg "output * dpms off"' \
+                     resume 'swaymsg "output * dpms on"' \
+           before-sleep 'swaylock -i $lockwallpaper --scaling=fill'
 
 # no window title if there's only one window in a workspace
 # https://www.joshmcguigan.com/blog/hot-take-fedora-gnome-arch-sway/
@@ -312,6 +320,7 @@ bindsym --release $mod+Ctrl+Shift+Print exec grim ~/Downloads/$(date +'%Y-%m-%d-
 # https://www.reddit.com/r/swaywm/comments/bw9m52/how_to_take_a_screenshot_of_currently_active/epwnlti/
 bindsym Ctrl+Shift+Print exec swaymsg -t get_tree | jq -r '.. | (.nodes? // empty)[] | if (.focused) then select(.focused) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)" else (.floating_nodes? // empty)[] | select(.visible) | select(.focused) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)" end' | grim -g - - | wl-copy
 bindsym $mod+c exec wl-paste | wl-copy
+bindsym $mod+Alt+l exec swaylock -i $lockwallpaper --scaling=fill
 
 # https://github.com/flatpak/xdg-desktop-portal/issues/285#issuecomment-665109459
 
