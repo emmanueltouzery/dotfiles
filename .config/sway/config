@@ -276,9 +276,12 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 mode "sound" {
-        bindsym k exec "amixer -c 0 set Master -q 5%+; sh ~/.config/sway/display_volume.sh"
-        bindsym j exec "amixer -c 0 set Master -q 5%-; sh ~/.config/sway/display_volume.sh"
-        bindsym m exec "amixer -c 0 -q sset Master,0 toggle; sh ~/.config/sway/display_volume.sh"
+        # bindsym k exec "amixer -c 0 set Master -q 5%+; sh ~/.config/sway/display_volume.sh"
+        # bindsym j exec "amixer -c 0 set Master -q 5%-; sh ~/.config/sway/display_volume.sh"
+        # bindsym m exec "amixer -c 0 -q sset Master,0 toggle; sh ~/.config/sway/display_volume.sh"
+        bindsym k exec "pactl set-sink-volume @DEFAULT_SINK@ +5%; sh ~/.config/sway/display_volume.sh"
+        bindsym j exec "pactl set-sink-volume @DEFAULT_SINK@ -5%; sh ~/.config/sway/display_volume.sh"
+        bindsym m exec "pactl set-sink-mute @DEFAULT_SINK@ toggle; sh ~/.config/sway/display_volume.sh"
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
