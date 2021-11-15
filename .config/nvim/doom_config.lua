@@ -290,7 +290,7 @@ local doom = {
   -- @default = "FiraCode Nerd Font", @default font size = 15,
   -- WARNING: Font sizes must be in string format!
   guifont = "FiraCode Nerd Font",
-  guifont_size = "15",
+  guifont_size = "11",
 
   -- change Which Key background color
   -- can use hex, or normal color names (eg: Red, Gree, Blue)
