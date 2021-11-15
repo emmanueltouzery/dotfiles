@@ -411,6 +411,14 @@ require('telescope').setup {
 
 require('telescope').load_extension('fzf')
 
+require('neogit').setup {
+  signs = {
+    -- { CLOSED, OPENED }
+    section = { "▶", "▼" },
+    item = { "▶", "▼" },
+    hunk = { "", "" },
+  }
+}
 
 -- https://vim.fandom.com/wiki/Map_Ctrl-Backspace_to_delete_previous_word
 vim.cmd('inoremap <C-h> <C-\\><C-o>dB')
