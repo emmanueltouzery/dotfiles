@@ -412,6 +412,10 @@ require('telescope').setup {
 require('telescope').load_extension('fzf')
 
 
+-- https://vim.fandom.com/wiki/Map_Ctrl-Backspace_to_delete_previous_word
+vim.cmd('inoremap <C-h> <C-\\><C-o>dB')
+vim.cmd('inoremap <C-BS> <C-\\><C-o>db')
+
 return {
   doom = doom,
   nvim = nvim,
