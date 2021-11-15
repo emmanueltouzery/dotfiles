@@ -16,5 +16,6 @@ return {
     'airblade/vim-rooter',
     'nvim-telescope/telescope-live-grep-raw.nvim',
     {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
-    't9md/vim-choosewin'
+    't9md/vim-choosewin',
+    'tpope/vim-fugitive',
 }
