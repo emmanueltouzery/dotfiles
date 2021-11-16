@@ -326,9 +326,23 @@ function _G.my_open_tele()
     vim.fn.feedkeys(w)
 end
 
+-- https://vi.stackexchange.com/a/3749/38754
+function open_file_branch(branch, fname)
+    vim.api.nvim_command('new')
+    vim.api.nvim_exec('silent r! git show ' .. branch .. ':' .. fname, false)
+    vim.api.nvim_command('1d')
+    local fname_without_path = fname:match( "([^/]+)$")
+    vim.api.nvim_exec('silent file [' .. branch .. '] ' .. fname_without_path, false)
+    vim.api.nvim_command('filetype detect')
+    vim.api.nvim_command('setlocal readonly')
+    vim.bo.readonly = true
+    vim.bo.modified = false
+    vim.bo.modifiable = false
+end
+
 function _G.pick_file_from_branch(branch)
     local fname = vim.fn.expand('%:p')
-    local relative_fname = fname:gsub(vim.fn.getcwd(), '')
+    local relative_fname = fname:gsub(vim.fn.getcwd() .. '/', '')
     local pickers = require "telescope.pickers"
     local finders = require "telescope.finders"
     local conf = require("telescope.config").values
@@ -345,7 +359,8 @@ function _G.pick_file_from_branch(branch)
               actions.close(prompt_bufnr)
               local selection = action_state.get_selected_entry()
               -- open fugitive for that branch and filename
-              vim.cmd('Gedit ' .. branch .. ':' .. selection[1])
+              -- vim.cmd('Gedit ' .. branch .. ':' .. selection[1])
+              open_file_branch(branch, selection[1])
             end)
             return true
         end,
@@ -380,6 +395,12 @@ function _G.open_file_git_branch()
           return true
         end,
     }):find()
+    --local branch = require('telescope.builtin').git_branches {}
+    --print(branch)
+    --require("telescope.builtin").git_files {
+    --    show_untracked = false,
+    --    git_command = {"git","ls-tree","-r", "--name-only", branch}
+    --}
 end
 
 -- {{{ Nvim
