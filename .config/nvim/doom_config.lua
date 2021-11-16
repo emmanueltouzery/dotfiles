@@ -340,15 +340,19 @@ function open_file_branch(branch, fname)
     vim.bo.modifiable = false
 end
 
-function _G.pick_file_from_branch(branch)
+function get_relative_fname()
     local fname = vim.fn.expand('%:p')
-    local relative_fname = fname:gsub(vim.fn.getcwd() .. '/', '')
+    return fname:gsub(vim.fn.getcwd() .. '/', '')
+end
+
+function pick_file_from_branch(branch)
     local pickers = require "telescope.pickers"
     local finders = require "telescope.finders"
     local conf = require("telescope.config").values
     local actions = require "telescope.actions"
     local action_state = require "telescope.actions.state"
     local opts = {}
+    local relative_fname = get_relative_fname()
     opts.initial_model = 'insert'
     pickers.new(opts, {
         prompt_title = "filename",
@@ -390,17 +394,73 @@ function _G.open_file_git_branch()
             actions.close(prompt_bufnr)
             local selection = action_state.get_selected_entry()
             local branch = selection[1]:sub(3)
-            _G.pick_file_from_branch(branch)
+            pick_file_from_branch(branch)
           end)
           return true
         end,
     }):find()
-    --local branch = require('telescope.builtin').git_branches {}
-    --print(branch)
-    --require("telescope.builtin").git_files {
-    --    show_untracked = false,
-    --    git_command = {"git","ls-tree","-r", "--name-only", branch}
-    --}
+end
+
+function parse_blame_record(lines, i)
+    i = i + 1 -- ignore the commit guid
+    local record = {}
+    while lines[i] and not lines[i]:match('^\t') do
+        local l = lines[i]
+        if l:match('^author ') then
+            record.author = l:sub(8)
+        -- for some reason author-time doesn't match, so i put a dot
+        elseif l:match('^author.time ') then 
+            print("date " .. l:sub(13))
+            record.date = os.date('*t', l:sub(13))
+        end
+        i = i + 1
+    end
+    i = i + 1
+    return i, record
+end
+
+function render_blame_sidebar(results)
+    vim.api.nvim_command('new')
+    local i = 1
+    while results[i] do
+        local r = results[i]
+        vim.fn.append('$', string.format('%02d-%02d %s',r.date.year, r.date.month, r.author))
+        i = i + 1
+    end
+    vim.api.nvim_command('setlocal readonly')
+    vim.bo.readonly = true
+    vim.bo.modified = false
+    vim.bo.modifiable = false
+end
+
+function handle_blame(lines)
+    local committer;
+    local date;
+    local i = 1
+    local results = {}
+    while lines[i] do
+        i, line_info = parse_blame_record(lines, i)
+        table.insert(results, line_info)
+    end
+    render_blame_sidebar(results)
+end
+
+function _G.git_blame()
+    local relative_fname = get_relative_fname()
+    local Job = require'plenary.job'
+    local output = {}
+    Job:new {
+        command = 'git',
+        args = {'blame', relative_fname, '-p', '--line-porcelain'},
+        on_stdout = function(error, data, self)
+            table.insert(output, data)
+        end,
+        on_exit = function(self, code, signal)
+            vim.schedule_wrap(function()
+                handle_blame(output)
+            end)()
+        end
+    }:start()
 end
 
 -- {{{ Nvim
