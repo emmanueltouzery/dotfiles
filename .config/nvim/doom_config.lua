@@ -529,6 +529,58 @@ function _G.git_blame_close()
     end
 end
 
+function time_machine_statusline()
+    vim.api.nvim_command('set laststatus=2')
+    vim.api.nvim_command('set statusline=')
+    vim.api.nvim_command('set statusline+=%#StatusLineNC#')
+    vim.api.nvim_command('set statusline+=[Time\\ Machine]')
+    vim.api.nvim_command('set statusline+=%#Title#')
+    vim.api.nvim_command('set statusline+=\\ Emmanuel\\ Touzery')
+    vim.api.nvim_command('set statusline+=:\\ ')
+    vim.api.nvim_command('set statusline+=%#TabLineSel#')
+    vim.api.nvim_command('set statusline+=Remove\\ obsolete\\ stuff')
+    vim.api.nvim_command('set statusline+=%#TabLine#')
+    vim.api.nvim_command('set statusline+=\\ 2021-08-22\\ 14:06\\ ')
+    -- vim.api.nvim_command('set statusline+=2021-08-22\\ 14:06\\ (8\\ days\\ ago)\\ ')
+    vim.api.nvim_command('set statusline+=\\|\\ Change\\ 48\\/48\\ ')
+    vim.api.nvim_command('set statusline+=%#StatusLineNC#')
+    vim.api.nvim_command('set statusline+=<c-p>\\ Previous\\ change\\ \\|\\ <c-n>\\ Next\\ change\\ \\|\\ <c-y>\\ Copy\\ commit\\ SHA\\ \\|\\ [q]uit')
+end
+
+function parse_time_machine_record()
+    local record = {}
+end
+
+function handle_time_machine()
+    local i = 1
+    local results = {}
+    while lines[i] do
+        i, line_info = parse_time_machine_record(lines, i)
+        table.insert(results, line_info)
+    end
+end
+
+-- 'git log --no-merges -- afc/pom.xml'
+function _G.git_time_machine()
+    local relative_fname = get_relative_fname()
+    local Job = require'plenary.job'
+    local output = {}
+    Job:new {
+        command = 'git',
+        -- i'd really want a plumbing command here, but i think there isn't one
+        -- https://stackoverflow.com/a/29239964/516188
+        args = {'log', '--no-merges', '--follow', '--', relative_fname},
+        on_stdout = function(error, data, self)
+            table.insert(output, data)
+        end,
+        on_exit = function(self, code, signal)
+            vim.schedule_wrap(function()
+                handle_time_machine(output)
+            end)()
+        end
+    }:start()
+end
+
 -- {{{ Nvim
 local nvim = {
   -- Set custom Neovim global variables
