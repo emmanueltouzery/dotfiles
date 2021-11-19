@@ -529,21 +529,66 @@ function _G.git_blame_close()
     end
 end
 
-function time_machine_statusline(records, i)
-    local record = records[i]
+function open_time_machine()
+    vim.api.nvim_exec('silent r! git show ' .. branch .. ':' .. fname, false)
+    vim.api.nvim_command('1d')
+    local fname_without_path = fname:match( "([^/]+)$")
+    vim.api.nvim_exec('silent file [' .. branch .. '] ' .. fname_without_path, false)
+    vim.api.nvim_command('filetype detect')
+    vim.api.nvim_command('setlocal readonly')
+    vim.bo.readonly = true
+    vim.bo.modified = false
+    vim.bo.modifiable = false
+end
+
+local Str = require'plenary.strings'
+
+function force_length(msg, len)
+    if Str.strdisplaywidth(msg) > len then
+        return Str.truncate(msg, len)
+    else
+        return Str.align_str(msg, len, false)
+    end
+end
+
+function statusline_escape(msg)
+    return msg:gsub(' ', '\\ '):gsub('"', '\\"')
+end
+
+function time_machine_statusline(i)
+    local record = vim.b.time_machine_entries[i]
     vim.api.nvim_command('set laststatus=2')
     vim.api.nvim_command('set statusline=')
     vim.api.nvim_command('set statusline+=%#StatusLineNC#')
-    vim.api.nvim_command('set statusline+=['  .. (#records + 1 - i) .. '\\/' .. #records .. ']')
+    vim.api.nvim_command('set statusline+=['  .. (#vim.b.time_machine_entries + 1 - i) .. '\\/' .. #vim.b.time_machine_entries .. ']')
     vim.api.nvim_command('set statusline+=%#Title#')
-    vim.api.nvim_command('set statusline+=\\ ' .. record.author:gsub(' ', '\\ '))
-    vim.api.nvim_command('set statusline+=:\\ ')
+    vim.api.nvim_command('set statusline+=\\ ' .. statusline_escape(force_length(record.author, 18)))
+    vim.api.nvim_command('set statusline+=\\ ')
     vim.api.nvim_command('set statusline+=%#TabLineSel#')
-    vim.api.nvim_command('set statusline+=' .. record.message:gsub(' ', '\\ '))
+    vim.api.nvim_command('set statusline+=' .. statusline_escape(force_length(record.message, 50)))
     vim.api.nvim_command('set statusline+=%#TabLine#')
     vim.api.nvim_command('set statusline+=\\ ' .. record.date:gsub(' ', '\\ ') .. '\\ ')
     vim.api.nvim_command('set statusline+=%#StatusLineNC#')
     vim.api.nvim_command('set statusline+=<c-p>\\ Previous\\ \\|\\ <c-n>\\ Next\\ \\|\\ <c-y>\\ Copy\\ commit\\ SHA\\ \\|\\ [q]uit')
+end
+
+function git_time_machine_display()
+    local i = vim.b.time_machine_cur_idx
+    time_machine_statusline(i)
+end
+
+function _G.git_time_machine_next()
+    if vim.b.time_machine_cur_idx > 1 then
+        vim.b.time_machine_cur_idx = vim.b.time_machine_cur_idx - 1
+    end
+    git_time_machine_display()
+end
+
+function _G.git_time_machine_previous()
+    if vim.b.time_machine_cur_idx < #vim.b.time_machine_entries then
+        vim.b.time_machine_cur_idx = vim.b.time_machine_cur_idx + 1
+    end
+    git_time_machine_display()
 end
 
 function parse_time_machine_record(lines, i)
@@ -571,12 +616,19 @@ function handle_time_machine(lines)
         i, line_info = parse_time_machine_record(lines, i)
         table.insert(results, line_info)
     end
-    time_machine_statusline(results, 1)
+    vim.b.time_machine_entries = results
+    vim.b.time_machine_cur_idx = 1
+    _G.git_time_machine_next()
 end
 
 -- 'git log --no-merges -- afc/pom.xml'
 function _G.git_time_machine()
     local relative_fname = get_relative_fname()
+    vim.api.nvim_command('new')
+    vim.api.nvim_command('nnoremap <buffer> <c-p> :lua git_time_machine_previous()<CR>')
+    vim.api.nvim_command('nnoremap <buffer> <c-n> :lua git_time_machine_next()<CR>')
+    vim.api.nvim_command('nnoremap <buffer> <c-y> :lua git_time_machine_copy_sha()<CR>')
+    vim.api.nvim_command('nnoremap <buffer> q :lua git_time_machine_quit()<CR>')
     local Job = require'plenary.job'
     local output = {}
     Job:new {
