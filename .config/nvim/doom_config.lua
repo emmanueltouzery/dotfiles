@@ -529,35 +529,49 @@ function _G.git_blame_close()
     end
 end
 
-function time_machine_statusline()
+function time_machine_statusline(records, i)
+    local record = records[i]
     vim.api.nvim_command('set laststatus=2')
     vim.api.nvim_command('set statusline=')
     vim.api.nvim_command('set statusline+=%#StatusLineNC#')
-    vim.api.nvim_command('set statusline+=[Time\\ Machine]')
+    vim.api.nvim_command('set statusline+=['  .. (#records + 1 - i) .. '\\/' .. #records .. ']')
     vim.api.nvim_command('set statusline+=%#Title#')
-    vim.api.nvim_command('set statusline+=\\ Emmanuel\\ Touzery')
+    vim.api.nvim_command('set statusline+=\\ ' .. record.author:gsub(' ', '\\ '))
     vim.api.nvim_command('set statusline+=:\\ ')
     vim.api.nvim_command('set statusline+=%#TabLineSel#')
-    vim.api.nvim_command('set statusline+=Remove\\ obsolete\\ stuff')
+    vim.api.nvim_command('set statusline+=' .. record.message:gsub(' ', '\\ '))
     vim.api.nvim_command('set statusline+=%#TabLine#')
-    vim.api.nvim_command('set statusline+=\\ 2021-08-22\\ 14:06\\ ')
-    -- vim.api.nvim_command('set statusline+=2021-08-22\\ 14:06\\ (8\\ days\\ ago)\\ ')
-    vim.api.nvim_command('set statusline+=\\|\\ Change\\ 48\\/48\\ ')
+    vim.api.nvim_command('set statusline+=\\ ' .. record.date:gsub(' ', '\\ ') .. '\\ ')
     vim.api.nvim_command('set statusline+=%#StatusLineNC#')
-    vim.api.nvim_command('set statusline+=<c-p>\\ Previous\\ change\\ \\|\\ <c-n>\\ Next\\ change\\ \\|\\ <c-y>\\ Copy\\ commit\\ SHA\\ \\|\\ [q]uit')
+    vim.api.nvim_command('set statusline+=<c-p>\\ Previous\\ \\|\\ <c-n>\\ Next\\ \\|\\ <c-y>\\ Copy\\ commit\\ SHA\\ \\|\\ [q]uit')
 end
 
-function parse_time_machine_record()
+function parse_time_machine_record(lines, i)
+    if lines[i]:sub(1, 7) ~= "commit " then
+        error("Expected 'commit', got " .. lines[i])
+    end
     local record = {}
+    record.sha = lines[i]:sub(8)
+    i = i + 1
+    record.author = lines[i]:sub(9):gsub(' <.*$', '')
+    i = i + 1
+    record.date = lines[i]:sub(9, 24)
+    i = i + 2
+    record.message = lines[i]:sub(5)
+    while i <= #lines and lines[i]:sub(1, 7) ~= 'commit ' do
+        i = i + 1
+    end
+    return i, record
 end
 
-function handle_time_machine()
+function handle_time_machine(lines)
     local i = 1
     local results = {}
     while lines[i] do
         i, line_info = parse_time_machine_record(lines, i)
         table.insert(results, line_info)
     end
+    time_machine_statusline(results, 1)
 end
 
 -- 'git log --no-merges -- afc/pom.xml'
@@ -569,7 +583,7 @@ function _G.git_time_machine()
         command = 'git',
         -- i'd really want a plumbing command here, but i think there isn't one
         -- https://stackoverflow.com/a/29239964/516188
-        args = {'log', '--no-merges', '--follow', '--', relative_fname},
+        args = {'log', '--no-merges', '--follow', '--date=iso', '--', relative_fname},
         on_stdout = function(error, data, self)
             table.insert(output, data)
         end,
