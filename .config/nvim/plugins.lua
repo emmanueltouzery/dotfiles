@@ -17,5 +17,5 @@ return {
     'nvim-telescope/telescope-live-grep-raw.nvim',
     {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
     't9md/vim-choosewin',
-    'tpope/vim-fugitive',
+    'sindrets/diffview.nvim'
 }

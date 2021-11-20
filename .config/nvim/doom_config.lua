@@ -742,6 +742,11 @@ require('neogit').setup {
   }
 }
 
+require('diffview').setup()
+require('diffview').init()
+
+vim.opt.fillchars = vim.opt.fillchars + 'diff:╱'
+
 -- https://vim.fandom.com/wiki/Map_Ctrl-Backspace_to_delete_previous_word
 vim.cmd('inoremap <C-h> <C-\\><C-o>dB')
 vim.cmd('inoremap <C-BS> <C-\\><C-o>db')
