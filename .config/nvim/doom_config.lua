@@ -328,16 +328,11 @@ end
 
 -- https://vi.stackexchange.com/a/3749/38754
 function open_file_branch(branch, fname)
-    vim.api.nvim_command('new')
     vim.api.nvim_exec('silent r! git show ' .. branch .. ':' .. fname, false)
     vim.api.nvim_command('1d')
     local fname_without_path = fname:match( "([^/]+)$")
     vim.api.nvim_exec('silent file [' .. branch .. '] ' .. fname_without_path, false)
     vim.api.nvim_command('filetype detect')
-    vim.api.nvim_command('setlocal readonly')
-    vim.bo.readonly = true
-    vim.bo.modified = false
-    vim.bo.modifiable = false
 end
 
 function get_relative_fname()
@@ -360,11 +355,16 @@ function pick_file_from_branch(branch)
         sorter = conf.generic_sorter(opts),
         attach_mappings = function(prompt_bufnr, map)
             actions.select_default:replace(function()
-              actions.close(prompt_bufnr)
-              local selection = action_state.get_selected_entry()
-              -- open fugitive for that branch and filename
-              -- vim.cmd('Gedit ' .. branch .. ':' .. selection[1])
-              open_file_branch(branch, selection[1])
+                actions.close(prompt_bufnr)
+                local selection = action_state.get_selected_entry()
+                -- open fugitive for that branch and filename
+                -- vim.cmd('Gedit ' .. branch .. ':' .. selection[1])
+                vim.api.nvim_command('new')
+                open_file_branch(branch, selection[1])
+                vim.api.nvim_command('setlocal readonly')
+                vim.bo.readonly = true
+                vim.bo.modified = false
+                vim.bo.modifiable = false
             end)
             return true
         end,
@@ -529,18 +529,6 @@ function _G.git_blame_close()
     end
 end
 
-function open_time_machine()
-    vim.api.nvim_exec('silent r! git show ' .. branch .. ':' .. fname, false)
-    vim.api.nvim_command('1d')
-    local fname_without_path = fname:match( "([^/]+)$")
-    vim.api.nvim_exec('silent file [' .. branch .. '] ' .. fname_without_path, false)
-    vim.api.nvim_command('filetype detect')
-    vim.api.nvim_command('setlocal readonly')
-    vim.bo.readonly = true
-    vim.bo.modified = false
-    vim.bo.modifiable = false
-end
-
 local Str = require'plenary.strings'
 
 function force_length(msg, len)
@@ -555,12 +543,11 @@ function statusline_escape(msg)
     return msg:gsub(' ', '\\ '):gsub('"', '\\"')
 end
 
-function time_machine_statusline(i)
-    local record = vim.b.time_machine_entries[i]
+function _G.time_machine_statusline(i, entries_count, record)
     vim.api.nvim_command('set laststatus=2')
     vim.api.nvim_command('set statusline=')
     vim.api.nvim_command('set statusline+=%#StatusLineNC#')
-    vim.api.nvim_command('set statusline+=['  .. (#vim.b.time_machine_entries + 1 - i) .. '\\/' .. #vim.b.time_machine_entries .. ']')
+    vim.api.nvim_command('set statusline+=['  .. (entries_count + 1 - i) .. '\\/' .. entries_count .. ']')
     vim.api.nvim_command('set statusline+=%#Title#')
     vim.api.nvim_command('set statusline+=\\ ' .. statusline_escape(force_length(record.author, 18)))
     vim.api.nvim_command('set statusline+=\\ ')
@@ -570,11 +557,20 @@ function time_machine_statusline(i)
     vim.api.nvim_command('set statusline+=\\ ' .. record.date:gsub(' ', '\\ ') .. '\\ ')
     vim.api.nvim_command('set statusline+=%#StatusLineNC#')
     vim.api.nvim_command('set statusline+=<c-p>\\ Previous\\ \\|\\ <c-n>\\ Next\\ \\|\\ <c-y>\\ Copy\\ commit\\ SHA\\ \\|\\ [q]uit')
+    vim.api.nvim_command('set statusline+=%<') -- please truncate at the end
 end
 
 function git_time_machine_display()
     local i = vim.b.time_machine_cur_idx
-    time_machine_statusline(i)
+    local commit_sha = vim.b.time_machine_entries[i].sha
+    local save_pos = vim.fn.getpos(".")
+    -- clear buffer
+    vim.api.nvim_command('%delete')
+    open_file_branch(commit_sha, vim.b.time_machine_rel_fname)
+    vim.fn.setpos('.', save_pos)
+    local record = vim.b.time_machine_entries[i]
+    local entries_count = #vim.b.time_machine_entries
+    vim.defer_fn(function() _G.time_machine_statusline(i, entries_count, record) end, 50)
 end
 
 function _G.git_time_machine_next()
@@ -629,6 +625,7 @@ function _G.git_time_machine()
     vim.api.nvim_command('nnoremap <buffer> <c-n> :lua git_time_machine_next()<CR>')
     vim.api.nvim_command('nnoremap <buffer> <c-y> :lua git_time_machine_copy_sha()<CR>')
     vim.api.nvim_command('nnoremap <buffer> q :lua git_time_machine_quit()<CR>')
+    vim.b.time_machine_rel_fname = relative_fname
     local Job = require'plenary.job'
     local output = {}
     Job:new {
