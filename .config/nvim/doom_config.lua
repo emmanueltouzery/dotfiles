@@ -326,6 +326,14 @@ function _G.my_open_tele()
     vim.fn.feedkeys(w)
 end
 
+function _G.maximize()
+    local fname = vim.fn.expand('%:p')
+    local save_pos = vim.fn.getpos(".")
+    vim.cmd('tabnew')
+    vim.cmd('e ' .. fname)
+    vim.fn.setpos('.', save_pos)
+end
+
 -- {{{ Nvim
 local nvim = {
   -- Set custom Neovim global variables
