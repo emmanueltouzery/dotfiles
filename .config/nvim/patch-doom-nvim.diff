@@ -1,5 +1,5 @@
 diff --git a/lua/doom/modules/config/doom-telescope.lua b/lua/doom/modules/config/doom-telescope.lua
-index 06e0b1e..49912e7 100644
+index 06e0b1e..4edd4ae 100644
 --- a/lua/doom/modules/config/doom-telescope.lua
 +++ b/lua/doom/modules/config/doom-telescope.lua
 @@ -6,6 +6,9 @@ return function()
@@ -12,3 +12,12 @@ index 06e0b1e..49912e7 100644
        find_command = {
          "rg",
          "--no-heading",
+@@ -62,6 +65,8 @@ return function()
+           ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+           ["<Leader>f"] = actions.close, -- works like a toggle, sometimes can be buggy
+           ["<CR>"] = actions.select_default + actions.center,
++          ["<C-n>"] = actions.cycle_history_next,
++          ["<C-p>"] = actions.cycle_history_prev,
+         },
+         n = {
+           ["<C-j>"] = actions.move_selection_next,
