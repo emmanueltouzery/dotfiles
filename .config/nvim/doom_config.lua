@@ -407,17 +407,17 @@ local nvim = {
 }
 -- }}}
 
--- i want a wider space for file names (for instance with
--- java projects having tons of subfolders). Also the preview
--- is not super useful when opening files
-require('telescope').setup {
-    pickers = {
-    	find_files = {
-    	    layout_strategy='vertical',layout_config={width=0.6}
-    	}
-    }
-}
-
+-- -- i want a wider space for file names (for instance with
+-- -- java projects having tons of subfolders). Also the preview
+-- -- is not super useful when opening files
+-- require('telescope').setup {
+--     pickers = {
+--     	find_files = {
+--     	    layout_strategy='vertical',layout_config={width=0.6}
+--     	}
+--     }
+-- }
+-- 
 require('telescope').load_extension('fzf')
 
 require('neogit').setup {
@@ -442,6 +442,17 @@ vim.cmd('inoremap <C-BS> <C-\\><C-o>db')
 -- search should not strictly match case unless i use mixed case
 vim.cmd('set ignorecase')
 vim.cmd('set smartcase')
+
+-- https://vi.stackexchange.com/a/27803/38754
+-- the default 'gx' to open links doesn't work.
+-- there are plugins..  https://github.com/felipec/vim-sanegx
+-- https://github.com/tyru/open-browser.vim
+-- https://gist.github.com/habamax/0a6c1d2013ea68adcf2a52024468752e
+-- but this seems KISS and functional
+vim.cmd('nmap gx :silent execute "!xdg-open " . shellescape("<cWORD>")<CR>')
+-- https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript#comment10417791_1533565
+vim.cmd('vmap gx <Esc>:silent execute "!xdg-open " . shellescape(getline("\'<")[getpos("\'<")[2]-1:getpos(".")[2]]) . " &"<CR>')
+
 return {
   doom = doom,
   nvim = nvim,
