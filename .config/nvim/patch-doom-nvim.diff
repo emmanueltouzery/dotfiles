@@ -1,5 +1,5 @@
 diff --git a/lua/doom/extras/keybindings/init.lua b/lua/doom/extras/keybindings/init.lua
-index 5f97ad1..91da640 100644
+index 5f97ad1..eedecca 100644
 --- a/lua/doom/extras/keybindings/init.lua
 +++ b/lua/doom/extras/keybindings/init.lua
 @@ -252,7 +252,7 @@ else
@@ -82,7 +82,7 @@ index 5f97ad1..91da640 100644
 +utils.map(
 +  "n",
 +  "<leader>gB",
-+  "<cmd>lua require'agitator'.git_blame()<cr>",
++  "<cmd>lua require'agitator'.git_blame_toggle()<cr>",
 +  opts,
 +  "Editor",
 +  "git_blame",
