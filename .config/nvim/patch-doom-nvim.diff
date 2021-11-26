@@ -145,6 +145,16 @@ index 5f97ad1..3de498e 100644
 +  "delete_buffer",
 +  "Delete buffer"
 +)
++
++utils.map(
++  "n",
++  "<leader>td",
++  ":tabc<cr>",
++  opts,
++  "Editor",
++  "delete_tab",
++  "Delete tab"
++)
 diff --git a/lua/doom/modules/config/doom-telescope.lua b/lua/doom/modules/config/doom-telescope.lua
 index 06e0b1e..4edd4ae 100644
 --- a/lua/doom/modules/config/doom-telescope.lua
