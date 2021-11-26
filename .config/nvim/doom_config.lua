@@ -432,6 +432,8 @@ require('neogit').setup {
 require('diffview').setup()
 require('diffview').init()
 
+require'telescope'.load_extension('project')
+
 vim.opt.fillchars = vim.opt.fillchars + 'diff:╱'
 
 -- https://vim.fandom.com/wiki/Map_Ctrl-Backspace_to_delete_previous_word

@@ -18,6 +18,7 @@ return {
     {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
     't9md/vim-choosewin',
     'sindrets/diffview.nvim',
-    'emmanueltouzery/agitator.nvim'
+    'emmanueltouzery/agitator.nvim',
+    'nvim-telescope/telescope-project.nvim'
     -- 'emmanueltouzery/spellsitter.nvim'
 }
