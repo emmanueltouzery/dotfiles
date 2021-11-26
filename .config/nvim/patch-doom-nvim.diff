@@ -1,5 +1,5 @@
 diff --git a/lua/doom/extras/keybindings/init.lua b/lua/doom/extras/keybindings/init.lua
-index 5f97ad1..3de498e 100644
+index 5f97ad1..91da640 100644
 --- a/lua/doom/extras/keybindings/init.lua
 +++ b/lua/doom/extras/keybindings/init.lua
 @@ -252,7 +252,7 @@ else
@@ -27,7 +27,7 @@ index 5f97ad1..3de498e 100644
  utils.map(
    "n",
    "<leader>bp",
-@@ -1156,3 +1165,107 @@ utils.map("n", "<leader>m", "<cmd>w<cr>", opts, "Save", "save_right", "Save m")
+@@ -1156,3 +1165,127 @@ utils.map("n", "<leader>m", "<cmd>w<cr>", opts, "Save", "save_right", "Save m")
  
  -- man pages
  utils.map("n", "<leader>h", ":Man ", { silent = false }, "Man page", "man_page", "Man page")
