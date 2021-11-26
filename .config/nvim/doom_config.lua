@@ -455,6 +455,10 @@ vim.cmd('nmap gx :silent execute "!xdg-open " . shellescape("<cWORD>")<CR>')
 -- https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript#comment10417791_1533565
 vim.cmd('vmap gx <Esc>:silent execute "!xdg-open " . shellescape(getline("\'<")[getpos("\'<")[2]-1:getpos(".")[2]]) . " &"<CR>')
 
+
+vim.cmd("let g:choosewin_label = '1234567890'")
+vim.cmd("let g:choosewin_tablabel = 'abcdefghijklmnop'")
+
 return {
   doom = doom,
   nvim = nvim,
