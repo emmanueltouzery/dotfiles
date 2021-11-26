@@ -49,8 +49,18 @@ index 5f97ad1..3de498e 100644
 +  opts,
 +  "Editor",
 +  "search_word",
-+  "Open project"
++  "Search word under cursor, raw"
 +)
++utils.map(
++  "n",
++  "<leader>sr",
++  "<cmd>lua require('telescope').extensions.live_grep_raw.live_grep_raw()<cr>",
++  opts,
++  "Editor",
++  "search_text_raw",
++  "Search text raw"
++)
++
 +utils.map(
 +  "n",
 +  "<leader>wm",
