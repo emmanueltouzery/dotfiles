@@ -19,6 +19,7 @@ return {
     't9md/vim-choosewin',
     'sindrets/diffview.nvim',
     'emmanueltouzery/agitator.nvim',
-    'nvim-telescope/telescope-project.nvim'
+    'nvim-telescope/telescope-project.nvim',
+    'maxbrunsfeld/vim-yankstack', -- considered https://github.com/AckslD/nvim-neoclip.lua too
     -- 'emmanueltouzery/spellsitter.nvim'
 }
