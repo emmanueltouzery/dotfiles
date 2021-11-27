@@ -178,3 +178,37 @@ index 06e0b1e..4edd4ae 100644
          },
          n = {
            ["<C-j>"] = actions.move_selection_next,
+diff --git a/lua/doom/modules/config/doom-whichkey.lua b/lua/doom/modules/config/doom-whichkey.lua
+index ec5bada..091fca7 100644
+--- a/lua/doom/modules/config/doom-whichkey.lua
++++ b/lua/doom/modules/config/doom-whichkey.lua
+@@ -199,6 +199,7 @@ return function()
+       ["m"] = { "Minimap" },
+       ["s"] = { "Symbols" },
+       ["t"] = { "Terminal" },
++      ["p"] = { "Project" }, -- E
+     },
+     ["j"] = {
+       name = "+jumps",
+diff --git a/lua/doom/modules/init.lua b/lua/doom/modules/init.lua
+index 04bf3c6..435199e 100644
+--- a/lua/doom/modules/init.lua
++++ b/lua/doom/modules/init.lua
+@@ -144,7 +144,8 @@ packer.startup(function(use)
+   -- can be disabled to use your own statusline
+   local disabled_statusline = functions.is_plugin_disabled("statusline")
+   use({
+-    "glepnir/galaxyline.nvim",
++    "Unoqwy/galaxyline.nvim",
++    branch = 'short-buftypes-inactive',
+     config = require("doom.modules.config.doom-eviline"),
+     disable = disabled_statusline,
+     event = "ColorScheme",
+@@ -310,6 +311,7 @@ packer.startup(function(use)
+     config = require("doom.modules.config.doom-lspconfig"),
+     disable = disabled_lsp,
+     event = "ColorScheme",
++    commit = '2e6c94069e92cb4a43416b3ac0267e941b3fd47e'
+   })
+ 
+   -- Completion plugin
