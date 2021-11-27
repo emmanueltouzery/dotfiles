@@ -366,11 +366,12 @@ local nvim = {
   mappings = {
         -- https://www.reddit.com/r/neovim/comments/ook0o6/how_to_paste_current_word_under_the_cursor_to/h5zefzo/
         -- {'n', 'M', "':Telescope find_files<cr>' . expand('<cword>')", {}}
-        {'n', 'M', ':lua my_open_tele()<cr>', {}},
-        {'n', 'P', ':lua open_file_git_branch()<cr>', {}},
+        -- {'n', 'M', ':lua my_open_tele()<cr>', {}},
+        -- {'n', 'P', ':lua open_file_git_branch()<cr>', {}},
         {'n', 'ćp', '<Cmd>lua require("gitsigns").prev_hunk()<CR>', {}},
         {'n', 'ćn', '<Cmd>lua require("gitsigns").next_hunk()<CR>', {}},
-        {'n', '-', '<Cmd>ChooseWin<CR>', {}}
+        {'n', '-', '<Cmd>ChooseWin<CR>', {}},
+        -- {'n', '<leader>op', "<Cmd>lua require'telescope'.extensions.project.project{}<CR>", {}},
     },
 
   -- Set custom commands
@@ -419,6 +420,7 @@ local nvim = {
 --     }
 -- }
 -- 
+
 require('telescope').load_extension('fzf')
 
 require('neogit').setup {
@@ -445,6 +447,12 @@ vim.cmd('inoremap <C-BS> <C-\\><C-o>db')
 -- search should not strictly match case unless i use mixed case
 vim.cmd('set ignorecase')
 vim.cmd('set smartcase')
+
+require('spellsitter').setup()
+vim.cmd('autocmd FileType markdown setlocal spell')
+vim.cmd('autocmd FileType gitcommit setlocal spell')
+-- https://jdhao.github.io/2019/04/29/nvim_spell_check/
+-- vim.api.nvim_command("set spell")
 
 -- https://vi.stackexchange.com/a/27803/38754
 -- the default 'gx' to open links doesn't work.

@@ -21,5 +21,5 @@ return {
     'emmanueltouzery/agitator.nvim',
     'nvim-telescope/telescope-project.nvim',
     'maxbrunsfeld/vim-yankstack', -- considered https://github.com/AckslD/nvim-neoclip.lua too
-    -- 'emmanueltouzery/spellsitter.nvim'
+    'emmanueltouzery/spellsitter.nvim'
 }
