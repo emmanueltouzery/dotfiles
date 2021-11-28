@@ -21,5 +21,10 @@ return {
     'emmanueltouzery/agitator.nvim',
     'nvim-telescope/telescope-project.nvim',
     'maxbrunsfeld/vim-yankstack', -- considered https://github.com/AckslD/nvim-neoclip.lua too
-    'emmanueltouzery/spellsitter.nvim'
+
+    -- spellchecks in comments is attractive but when commenting code,
+    -- it goes completely red, and also i had trouble to have vim
+    -- ignore spellcheck errors in URLs in comments.
+    -- So now I'm spell checking only in markdown files.
+    -- 'emmanueltouzery/spellsitter.nvim'
 }

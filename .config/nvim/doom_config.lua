@@ -448,9 +448,12 @@ vim.cmd('inoremap <C-BS> <C-\\><C-o>db')
 vim.cmd('set ignorecase')
 vim.cmd('set smartcase')
 
-require('spellsitter').setup()
+-- require('spellsitter').setup()
 vim.cmd('autocmd FileType markdown setlocal spell')
 vim.cmd('autocmd FileType gitcommit setlocal spell')
+-- https://vi.stackexchange.com/a/4003/38754
+-- don't spellcheck URLs in markdown files and similar
+vim.cmd([[autocmd FileType markdown syn match UrlNoSpell "\w\+:\/\/[^]] .. '[:space:]]' .. [[\+" contains=@NoSpell]])
 -- https://jdhao.github.io/2019/04/29/nvim_spell_check/
 -- vim.api.nvim_command("set spell")
 
