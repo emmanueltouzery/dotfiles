@@ -1,5 +1,5 @@
 diff --git a/lua/doom/extras/keybindings/init.lua b/lua/doom/extras/keybindings/init.lua
-index 5f97ad1..eedecca 100644
+index 5f97ad1..81001c3 100644
 --- a/lua/doom/extras/keybindings/init.lua
 +++ b/lua/doom/extras/keybindings/init.lua
 @@ -252,7 +252,7 @@ else
@@ -18,11 +18,11 @@ index 5f97ad1..eedecca 100644
 +utils.map(
 +  "n",
 +  "<leader><tab>",
-+  '<cmd>lua require("bufferline").cycle(-1)<CR>',
++  '<cmd>e #<CR>',
 +  opts,
 +  "Buffer",
-+  "prev_buffer_alt2",
-+  "Goto previous buffer"
++  "switch_buffer2",
++  "Switch buffer 2"
 +)
  utils.map(
    "n",
