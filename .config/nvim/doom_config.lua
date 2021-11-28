@@ -471,6 +471,10 @@ vim.cmd('vmap gx <Esc>:silent execute "!xdg-open " . shellescape(getline("\'<")[
 vim.cmd("let g:choosewin_label = '1234567890'")
 vim.cmd("let g:choosewin_tablabel = 'abcdefghijklmnop'")
 
+-- visible tab
+vim.cmd("set list")
+vim.cmd("set listchars=tab:→\\ ")
+
 return {
   doom = doom,
   nvim = nvim,
