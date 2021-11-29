@@ -472,8 +472,9 @@ vim.cmd("let g:choosewin_label = '1234567890'")
 vim.cmd("let g:choosewin_tablabel = 'abcdefghijklmnop'")
 
 -- visible tab
+-- https://www.reddit.com/r/vim/comments/4hoa6e/what_do_you_use_for_your_listchars/
 vim.cmd("set list")
-vim.cmd("set listchars=tab:→\\ ")
+vim.cmd("set listchars=tab:→\\ ,trail:·,nbsp:␣")
 
 return {
   doom = doom,
