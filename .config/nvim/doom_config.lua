@@ -419,7 +419,22 @@ local nvim = {
 --     	}
 --     }
 -- }
--- 
+
+require("telescope").setup {
+  pickers = {
+    buffers = {
+      show_all_buffers = true,
+      sort_lastused = true,
+      -- theme = "dropdown",
+      -- previewer = false,
+      mappings = {
+        i = {
+          ["<c-d>"] = "delete_buffer",
+        }
+      }
+    }
+  }
+}
 
 require('telescope').load_extension('fzf')
 
@@ -454,6 +469,7 @@ vim.cmd('autocmd FileType gitcommit setlocal spell')
 -- https://vi.stackexchange.com/a/4003/38754
 -- don't spellcheck URLs in markdown files and similar
 vim.cmd([[autocmd FileType markdown syn match UrlNoSpell "\w\+:\/\/[^]] .. '[:space:]]' .. [[\+" contains=@NoSpell]])
+
 -- https://jdhao.github.io/2019/04/29/nvim_spell_check/
 -- vim.api.nvim_command("set spell")
 
