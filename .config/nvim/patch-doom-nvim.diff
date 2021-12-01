@@ -36,7 +36,7 @@ index 5f97ad1..81001c3 100644
 +utils.map(
 +  "n",
 +  "<leader>op",
-+  "<cmd>lua require'telescope'.extensions.project.project{}<CR>",
++  "<cmd>lua require'telescope'.extensions.project.project{ display_type = 'full' }<CR>",
 +  opts,
 +  "Editor",
 +  "open_project",
