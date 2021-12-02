@@ -178,6 +178,19 @@ index 06e0b1e..4edd4ae 100644
          },
          n = {
            ["<C-j>"] = actions.move_selection_next,
+diff --git a/lua/doom/modules/config/doom-treesitter.lua b/lua/doom/modules/config/doom-treesitter.lua
+index 60089d1..772c017 100644
+--- a/lua/doom/modules/config/doom-treesitter.lua
++++ b/lua/doom/modules/config/doom-treesitter.lua
+@@ -48,7 +48,7 @@ return function()
+     autopairs = {
+       enable = functions.is_plugin_disabled("autopairs") and false or true,
+     },
+-    indent = { enable = true },
++    indent = { enable = false },
+     tree_docs = { enable = true },
+     context_commentstring = { enable = true },
+     autotag = {
 diff --git a/lua/doom/modules/config/doom-whichkey.lua b/lua/doom/modules/config/doom-whichkey.lua
 index ec5bada..091fca7 100644
 --- a/lua/doom/modules/config/doom-whichkey.lua
