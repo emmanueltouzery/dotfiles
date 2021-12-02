@@ -370,6 +370,8 @@ local nvim = {
         -- {'n', 'P', ':lua open_file_git_branch()<cr>', {}},
         {'n', 'ćp', '<Cmd>lua require("gitsigns").prev_hunk()<CR>', {}},
         {'n', 'ćn', '<Cmd>lua require("gitsigns").next_hunk()<CR>', {}},
+        {'n', 'šp', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', {}},
+        {'n', 'šn', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', {}},
         {'n', '-', '<Cmd>ChooseWin<CR>', {}},
         -- {'n', '<leader>op', "<Cmd>lua require'telescope'.extensions.project.project{}<CR>", {}},
     },
