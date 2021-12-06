@@ -155,6 +155,36 @@ index 5f97ad1..81001c3 100644
 +  "delete_tab",
 +  "Delete tab"
 +)
++
++utils.map(
++  "n",
++  "<leader>sS",
++  "<cmd>Telescope lsp_workspace_symbols<CR>",
++  opts,
++  "LSP",
++  "lsp_w_symbols",
++  "Goto workspace symbol"
++)
++
++ vim.api.nvim_exec([[
++function! ToggleQuickFix()
++    if empty(filter(getwininfo(), 'v:val.quickfix'))
++        copen
++    else
++        cclose
++    endif
++endfunction
++ ]], false)
++
++utils.map(
++  "n",
++  "<leader>oq",
++  ":call ToggleQuickFix()<cr>",
++  opts,
++  "Editor",
++  "toggle_quickfix",
++  "Toggle quickfix"
++)
 diff --git a/lua/doom/modules/config/doom-telescope.lua b/lua/doom/modules/config/doom-telescope.lua
 index 06e0b1e..4edd4ae 100644
 --- a/lua/doom/modules/config/doom-telescope.lua
