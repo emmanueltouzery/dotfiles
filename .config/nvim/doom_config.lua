@@ -523,6 +523,10 @@ vim.cmd("let g:choosewin_tablabel = 'abcdefghijklmnop'")
 vim.cmd("set list")
 vim.cmd("set listchars=tab:→\\ ,trail:·,nbsp:␣")
 
+-- disable completions in the telescope prompt.
+-- https://github.com/nvim-telescope/telescope.nvim/issues/161
+-- with cmp => autocmd FileType TelescopePrompt lua require('cmp').setup.buffer { enabled = false }
+vim.cmd("autocmd FileType TelescopePrompt call compe#setup({ 'source': { 'omni': v:true } }, 0)")
 return {
   doom = doom,
   nvim = nvim,
