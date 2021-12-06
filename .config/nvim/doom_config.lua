@@ -527,6 +527,9 @@ vim.cmd("set listchars=tab:→\\ ,trail:·,nbsp:␣")
 -- https://github.com/nvim-telescope/telescope.nvim/issues/161
 -- with cmp => autocmd FileType TelescopePrompt lua require('cmp').setup.buffer { enabled = false }
 vim.cmd("autocmd FileType TelescopePrompt call compe#setup({ 'source': { 'omni': v:true } }, 0)")
+
+-- customize ex mode completion, bash-like. C-y to accept match
+vim.cmd("set wildmode=longest:full,full")
 return {
   doom = doom,
   nvim = nvim,
