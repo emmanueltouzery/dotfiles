@@ -199,7 +199,17 @@ index 06e0b1e..4edd4ae 100644
        find_command = {
          "rg",
          "--no-heading",
-@@ -62,6 +65,8 @@ return function()
+@@ -18,7 +21,8 @@ return function()
+       selection_strategy = "reset",
+       sorting_strategy = "descending",
+       layout_strategy = "horizontal",
+-      prompt_prefix = "   ",
++      -- prompt_prefix = "   ",
++      prompt_prefix = "", -- work around bugs https://github.com/nvim-telescope/telescope.nvim/issues/1251 https://github.com/nvim-telescope/telescope.nvim/issues/567
+       selection_caret = " ",
+       layout_config = {
+         width = 0.75,
+@@ -62,6 +66,8 @@ return function()
            ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
            ["<Leader>f"] = actions.close, -- works like a toggle, sometimes can be buggy
            ["<CR>"] = actions.select_default + actions.center,
@@ -234,7 +244,7 @@ index ec5bada..091fca7 100644
      ["j"] = {
        name = "+jumps",
 diff --git a/lua/doom/modules/init.lua b/lua/doom/modules/init.lua
-index 04bf3c6..435199e 100644
+index 04bf3c6..9a302a0 100644
 --- a/lua/doom/modules/init.lua
 +++ b/lua/doom/modules/init.lua
 @@ -144,7 +144,8 @@ packer.startup(function(use)
