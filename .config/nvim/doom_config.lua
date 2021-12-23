@@ -8,531 +8,473 @@
 --   2. Nvim, this one defines all the custom configurations that you want to
 --      use in Neovim, e.g. a colorscheme italic_comments global variable
 
--- {{{ Doom
-local doom = {
-  -- Autosave
-  -- false : Disable autosave
-  -- true  : Enable autosave
-  -- @default = false
-  autosave = false,
+local M = {}
 
-  -- Format on save
-  -- false : Disable format on save
-  -- true  : Enable format on save
-  -- @default = false
-  fmt_on_save = false,
+M.source = debug.getinfo(1, "S").source:sub(2)
 
-  -- Disable Vim macros
-  -- false : Enable Vim macros
-  -- true  : Disable Vim macros
-  -- @default = false
-  disable_macros = false,
-
-  -- Autosave sessions
-  -- false : Disable session autosave
-  -- true  : Enable session autosave
-  -- @default = false
-  autosave_sessions = false,
-
-  -- Autoload sessions
-  -- false : Disable session autoload
-  -- true  : Enable session autoload
-  -- @default = false
-  autoload_last_session = false,
-
-  -- Enable Swap files
-  -- false : no swap files
-  -- true  : enables swap files
-  -- @default = false
-  swap_files = false,
-
-  -- Undo Directories
-  -- the backup variable enables backup related settings (undofile, undodir)
-  -- false : ignores undo Directories (this code block will be ignored)
-  -- true  : enable undo files/undo dirs.
-  -- @default = false
-  backup = false, -- WARNING: if you change this to false and you have an undo dir already, it will REMOVE the undodir (loss of data might take place)
-
-  -- Enable Line wrapping
-  -- false : disables line wrapping
-  -- true  : enables line wrapping
-  -- @default = false
-  line_wrap = false,
-
-  -- Enable Show mode ( -- INSERT --, -- NORMAL --, -- VISUAL -- )
-  -- false : disables show mode
-  -- true  : enables show mode
-  -- @default = false
-  show_mode = false,
-
-  -- Enable scroll off
-  -- false : disables scroll off
-  -- true  : enables scroll off
-  -- @default = true, @default scrolloff_amount = 4,
-  scrolloff = true,
-  scrolloff_amount = 4,
-
-  -- Enable mouse
-  -- false : disables mouse
-  -- true  : enables mouse
-  -- @default = true
-  mouse = true,
-
-  -- Preserve last editing position
-  -- false : Disable preservation of last editing position
-  -- true  : Enable preservation of last editing position
-  -- @default = false
-  preserve_edit_pos = true,
-
-  -- Allow overriding the default Doom Nvim keybinds
-  -- false : Default keybinds cannot be overwritten
-  -- true  : Default keybinds can be overwritten
-  -- @default = true
-  allow_default_keymaps_overriding = true,
-
-  -- horizontal split on creating a new file (<Leader>fn)
-  -- false : doesn't split the window when creating a new file
-  -- true  : horizontal split on creating a new file
-  -- @default = true
-  new_file_split = false,
-
-  -- enable current line highlight
-  -- false : disables current line highlight
-  -- true  : enables current line highlight
-  -- @default = true
-  line_highlight = true,
-
-  -- Automatically split right
-  -- false : splits right (vertically)
-  -- true  : splits left (vertically)
-  -- @default = true
-  split_right = true,
-
-  -- Automatically split above
-  -- false : splits above (horizontally)
-  -- true  : splits below (horizontally)
-  -- @default = true
-  split_below = true,
-
-  -- Use clipboard outside of vim
-  -- false : won't use third party clipboard
-  -- true  : enables third part clipboard
-  -- @default = true
-  clipboard = true,
-
-  -- Enable auto comment (current line must be commented)
-  -- false : disables auto comment
-  -- true  : enables auto comment
-  -- @default = false
-  auto_comment = false,
-
-  -- Show indent lines
-  -- @default = true
-  show_indent = true,
-
-  -- Expand tabs
-  -- Specifies if spaces or tabs must be used
-  -- false : spaces
-  -- true  : tabs
-  -- @default = true
-  expand_tabs = true,
-
-  -- Set numbering
-  -- false : Shows absolute number lines
-  -- true  : Shows relative number lines
-  -- @default = true
-  relative_num = true,
-
-  -- Enable winwidth
-  -- false : Manually set win width
-  -- true  : Active window auto sets width
-  -- @default = false, @default win_width_nr = 85
-  win_width = false,
-  win_width_nr = 85,
-
-  -- Enable Highlight on yank
-  -- false : disables highligh on yank
-  -- true  : enables highlight on yank
-  -- @default = true
-  highlight_yank = true,
-
-  -- Enable guicolors
-  -- Enables gui colors on GUI versions of Neovim
-  -- @default = true
-  enable_guicolors = true,
-
-  -- Tree explorer on the right
-  -- Places the Tree explorer buffer to the right when enabled
-  -- @default = false
-  explorer_right = false,
-
-  -- Show hidden files
-  -- @default = true
-  show_hidden = true,
-
-  -- Checkupdates on start
-  -- @default = false
-  check_updates = false,
-
-  -- Auto install plugins on launch, useful if you don't want to run
-  -- PackerInstall every time you add a new plugin
-  -- @default = true
-  auto_install_plugins = true,
-
-  -- Disable dashboard status line (does not work perfectly)
-  -- false : disables dashboard status line
-  -- true  : enables dashboard status line
-  -- @default = true
-  dashboard_statline = true,
-
-  -- Default indent size
-  -- @default = 4
-  indent = 4,
-
-  -- Set max cols
-  -- Defines the column to show a vertical marker
-  -- @default = 80
-  max_columns = 80,
-
-  -- Completion box height
-  -- @default = 10
-  complete_size = 10,
-
-  -- Completion box transparency
-  -- 0 = no transparency
-  -- 100 = fully transparent
-  -- @default = 25
-  complete_transparency = 25,
-
-  -- Sidebar sizing
-  -- Specifies the default width of Tree Explorer and Tagbar
-  -- @default = 25
-  sidebar_width = 25,
-
-  -- Set the Terminal width
-  -- Applies only to float direction
-  -- @default = 70
-  terminal_width = 70,
-
-  -- Set the Terminal height
-  -- Applies to all directions except window
-  -- @default = 20
-  terminal_height = 20,
-
-  -- Conceal level
-  -- Set Neovim conceal level
-  -- 0 : Disable indentline and show all
-  -- 1 : Conceal some functions and show indentlines
-  -- 2 : Concealed text is completely hidden unless it has a custom replacement
-  --     character defined
-  -- 3 : Concealed text is completely hidden
-  conceallevel = 0,
-
-  -- Logging level
-  -- Set Doom logging level
-  -- Available levels:
-  --   · trace
-  --   · debug
-  --   · info
-  --   · warn
-  --   · error
-  --   · fatal
-  -- @default = 'info'
-  logging = "info",
-
-  -- Set the Terminal direction
-  -- Available directions:
-  --   - vertical
-  --   - horizontal
-  --   - window
-  --   - float
-  -- @default = 'horizontal'
-  terminal_direction = "horizontal",
-
-  -- NOTE: This will only be activated if 'backup' is true.
-  -- We don'recommend you put this outside of neovim so we've restricted to the path: ~/.config/nvim
-  -- WARNING: only put the folder name that you want. (eg: undo_dir = '/undodir')
-  -- @default_directory = '~/.config/nvim/undodir'
-  undo_dir = "/undodir",
-
-  -- Default colorscheme
-  -- @default = doom-one
-  colorscheme = "doom-one",
-
-  -- Background color
-  -- @default = dark
-  colorscheme_bg = "dark",
-
-  -- Doom One colorscheme settings
-  doom_one = {
-    -- If the cursor color should be blue
-    -- @default = false
-    cursor_coloring = false,
-    -- If TreeSitter highlighting should be enabled
+M.config = {
+  doom = {
+    -- Pins plugins to a commit sha to prevent breaking changes
     -- @default = true
-    enable_treesitter = true,
-    -- If the comments should be italic
+    freeze_dependencies = true,
+
+    -- Autosave
+    -- false : Disable autosave
+    -- true  : Enable autosave
     -- @default = false
-    italic_comments = false,
-    -- If the telescope plugin window should be colored
+    autosave = false,
+
+    -- Format on save
+    -- false : Disable format on save
+    -- true  : Enable format on save
+    -- @default = false
+    fmt_on_save = false,
+
+    -- Disable Vim macros
+    -- false : Enable Vim macros
+    -- true  : Disable Vim macros
+    -- @default = false
+    disable_macros = false,
+
+    -- Use netrw as files explorer
+    -- false : Use nvim-tree.lua
+    -- true  : Use netrw
+    -- @default = false
+    use_netrw = false,
+
+    -- Enable folding
+    -- true : fold is enabled
+    -- false : fold is disabled
     -- @default = true
-    telescope_highlights = true,
-    -- If the built-in Neovim terminal should use the doom-one
-    -- colorscheme palette
+    foldenable = true,
+
+    -- Autosave sessions
+    -- false : Disable session autosave
+    -- true  : Enable session autosave
     -- @default = false
-    terminal_colors = true,
-    -- If the Neovim instance should be transparent
+    autosave_sessions = false,
+
+    -- Autoload sessions
+    -- false : Disable session autoload
+    -- true  : Enable session autoload
     -- @default = false
-    transparent_background = false,
-  },
+    autoload_last_session = false,
 
-  -- Set gui fonts here
-  -- @default = "FiraCode Nerd Font", @default font size = 15,
-  -- WARNING: Font sizes must be in string format!
-  guifont = "FiraCode Nerd Font",
-  guifont_size = "10.5",
+    -- Enable Swap files
+    -- false : no swap files
+    -- true  : enables swap files
+    -- @default = false
+    swap_files = false,
 
-  -- change Which Key background color
-  -- can use hex, or normal color names (eg: Red, Gree, Blue)
-  -- @default = #202328
-  whichkey_bg = "#202328",
+    -- Undo Directories
+    -- the backup variable enables backup related settings (undofile, undodir)
+    -- false : ignores undo Directories (this code block will be ignored)
+    -- true  : enable undo files/undo dirs.
+    -- @default = false
+    -- WARNING: if you change this to false and you have an undo dir already,
+    --          it will REMOVE the undodir (loss of data might take place)
+    backup = false,
 
-  -- set your custom lsp diagnostic symbols below
-  lsp_error = "",
-  lsp_warning = "",
-  lsp_hint = "",
-  lsp_information = "",
-  lsp_virtual_text = " ",
+    -- Enable Line wrapping
+    -- false : disables line wrapping
+    -- true  : enables line wrapping
+    -- @default = false
+    line_wrap = false,
 
-  -- Set your dashboard custom colors below
-  -- @default = doom emacs' default dashboard colors
-  dashboard_custom_colors = {
-    header_color = "#586268",
-    center_color = "#51afef",
-    shortcut_color = "#a9a1e1",
-    footer_color = "#586268",
-  },
+    -- Enable Show mode ( -- INSERT --, -- NORMAL --, -- VISUAL -- )
+    -- false : disables show mode
+    -- true  : enables show mode
+    -- @default = false
+    show_mode = false,
 
-  -- Set your custom dashboard header below
-  -- @default = doom emacs' default dashboard header
-  dashboard_custom_header = {
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⡟⢻⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⡀⠀⠀⠀⣠⣴⠟⠋⠀⠘⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⢶⣄⠀⠀⢠⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠟⠛⠉⠙⠻⣦⣶⠟⠋⠁⠀⠀⠀⠀⢹⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠷⣦⣈⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⠇⠀⠀⠀⠀⠀⠈⢻⣆⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⢰⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣆⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠆⢼⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡟⠛⠿⢶⣤⣄⣀⣀⡀⠀⠀⠀⣀⣀⣀⣀⣀⣀⣀⣀⣤⣤⣿⣷⡀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⠀⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣷⣤⣴⡶⠾⠿⠟⠛⠛⠛⠛⠛⠛⠛⠋⠉⠉⠉⠉⠉⠉⠉⢻⣿⣿⣤⡀⠀⠀⢀⣼⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⠻⠶⠾⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⢠⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣷⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⢸⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠛⠻⢶⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠄⢸⣿⣿⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠿⣶⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⣸⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⣈⣉⣡⣿⣇⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣯⣭⣭⣼⣧⣀⣤⣤⣤⣠⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣏⣉⣉⣉⣩⣭⣭⣥⣤⣤⣤⠶⠶⠶⠶⠶⠶⠶⠶⠶⠤⠤⠶⠶⠶⠶⣶⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⢻⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢨⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-  },
-}
--- }}}
+    -- Enable scroll off
+    -- false : disables scroll off
+    -- true  : enables scroll off
+    -- @default = true, @default scrolloff_amount = 4,
+    scrolloff = true,
+    scrolloff_amount = 4,
 
-function _G.my_open_tele()
-    local w = vim.fn.expand('<cword>')
-    -- require('telescope.builtin').live_grep()
-    require("telescope").extensions.live_grep_raw.live_grep_raw()
-    vim.fn.feedkeys(w)
-end
+    -- Enable mouse
+    -- false : disables mouse
+    -- true  : enables mouse
+    -- @default = true
+    mouse = true,
 
-function _G.maximize()
-    local fname = vim.fn.expand('%:p')
-    local save_pos = vim.fn.getpos(".")
-    vim.cmd('tabnew')
-    vim.cmd('e ' .. fname)
-    vim.fn.setpos('.', save_pos)
-end
+    -- Preserve last editing position
+    -- false : Disable preservation of last editing position
+    -- true  : Enable preservation of last editing position
+    -- @default = false
+    preserve_edit_pos = false,
 
--- {{{ Nvim
-local nvim = {
-  -- Set custom Neovim global variables
-  -- @default = {}
-  -- example:
-  --   { ['sonokai_style'] = 'andromeda' }
-  global_variables = {},
+    -- Allow overriding the default Doom Nvim keybinds
+    -- false : Default keybinds cannot be overwritten
+    -- true  : Default keybinds can be overwritten
+    -- @default = true
+    allow_default_keymaps_overriding = true,
 
-  -- Set custom autocommands
-  -- @default = {}
-  -- example:
-  --   augroup_name = {
-  --      { 'BufNewFile,BufRead', 'doomrc', 'set ft=lua'}
-  --   }
-  autocmds = {},
+    -- horizontal split on creating a new file (<Leader>fn)
+    -- false : doesn't split the window when creating a new file
+    -- true  : horizontal split on creating a new file
+    -- @default = true
+    new_file_split = true,
 
-  -- Set custom key bindings
-  -- @default = {}
-  -- example:
-  --   {
-  --      {'n', 'ca', ':Lspsaga code_action<CR>', options}
-  --   }
-  --
-  --   where
-  --     'n' is the map scope
-  --     'ca' is the map activator
-  --     ':Lspsaga ...' is the command to be executed
-  --     options is a Lua table containing the mapping options, e.g.
-  --     { silent = true }, see ':h map-arguments'.
-  mappings = {
-        -- https://www.reddit.com/r/neovim/comments/ook0o6/how_to_paste_current_word_under_the_cursor_to/h5zefzo/
-        -- {'n', 'M', "':Telescope find_files<cr>' . expand('<cword>')", {}}
-        -- {'n', 'M', ':lua my_open_tele()<cr>', {}},
-        -- {'n', 'P', ':lua open_file_git_branch()<cr>', {}},
-        {'n', 'ćp', '<Cmd>lua require("gitsigns").prev_hunk()<CR>', {}},
-        {'n', 'ćn', '<Cmd>lua require("gitsigns").next_hunk()<CR>', {}},
-        {'n', 'šp', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', {}},
-        {'n', 'šn', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', {}},
-        {'n', '-', '<Cmd>ChooseWin<CR>', {}},
-        -- {'n', '<leader>op', "<Cmd>lua require'telescope'.extensions.project.project{}<CR>", {}},
+    -- enable current line highlight
+    -- false : disables current line highlight
+    -- true  : enables current line highlight
+    -- @default = true
+    line_highlight = true,
+
+    -- Automatically split right
+    -- false : splits left (vertically)
+    -- true  : splits right (vertically)
+    -- @default = true
+    split_right = true,
+
+    -- Automatically split above
+    -- false : splits above (horizontally)
+    -- true  : splits below (horizontally)
+    -- @default = true
+    split_below = true,
+
+    -- Use clipboard outside of vim
+    -- false : won't use third party clipboard
+    -- true  : enables third part clipboard
+    -- @default = true
+    clipboard = true,
+
+    -- Enable auto comment (current line must be commented)
+    -- false : disables auto comment
+    -- true  : enables auto comment
+    -- @default = false
+    auto_comment = false,
+
+    -- Show indent lines
+    -- @default = true
+    show_indent = true,
+
+    -- Expand tabs
+    -- Specifies if spaces or tabs must be used
+    -- false : spaces
+    -- true  : tabs
+    -- @default = true
+    expand_tabs = true,
+
+    -- Set numbering
+    -- false : Enable  number lines
+    -- true  : Disable number lines
+    -- @default = false
+    disable_numbering = false,
+
+    -- Set numbering style
+    -- false : Shows absolute number lines
+    -- true  : Shows relative number lines
+    -- @default = true
+    relative_num = true,
+
+    -- Enable winwidth
+    -- false : Manually set win width
+    -- true  : Active window auto sets width
+    -- @default = false, @default win_width_nr = 85
+    win_width = false,
+    win_width_nr = 85,
+
+    -- Enable Highlight on yank
+    -- false : disables highligh on yank
+    -- true  : enables highlight on yank
+    -- @default = true
+    highlight_yank = true,
+
+    -- Enable guicolors
+    -- Enables gui colors on GUI versions of Neovim
+    -- @default = true
+    enable_guicolors = true,
+
+    -- Tree explorer on the right
+    -- Places the Tree explorer buffer to the right when enabled
+    -- @default = false
+    explorer_right = false,
+
+    -- Show hidden files
+    -- @default = true
+    show_hidden = true,
+
+    -- Checkupdates on start
+    -- @default = false
+    check_updates = false,
+
+    -- Auto install plugins on launch, useful if you don't want to run
+    -- PackerInstall every time you add a new plugin
+    -- @default = true
+    auto_install_plugins = true,
+
+    -- Disable dashboard status line (does not work perfectly)
+    -- false : disables dashboard status line
+    -- true  : enables dashboard status line
+    -- @default = true
+    dashboard_statline = true,
+
+    -- Show the editing file path in your status line
+    -- false : show only file name on status line
+    -- true  : show file name and the updir in status line
+    statusline_show_file_path = true,
+
+    -- Set the keybindings modules that you want to use
+    -- false : disables keybindings module
+    -- true  : enables keybindings module
+    keybinds_modules = {
+      -- Core doom keybindings
+      core = true,
+      -- Movement keybindings, jump between your windows, buffers and code
+      movement = true,
+      -- Leader keybindings, a bunch of useful keybindings managed by space key
+      -- WARNING: disabling this will break which-key plugin if the plugin is enabled
+      leader = true,
+      -- Completion and snippets keybindings
+      completion = true,
     },
 
-  -- Set custom commands
-  -- @default = {}
-  -- example:
-  --   {
-  --      'echo "Hello, custom commands!"'
-  --   }
-  commands = {},
+    -- sequences used for escaping insert mode
+    -- @default = { 'jk', 'kj' }
+    escape_sequences = { "jk", "kj" },
 
-  -- Set custom functions
-  -- @default = {}
-  -- example:
-  --   {
-  --      hello_custom_func = function()
-  --        print("Hello, custom functions!")
-  --      end
-  --   }
-  functions = {
-     init_komments = function()
-        require('kommentary.config').configure_language("default", {
-            prefer_single_line_comments = true,
-        })
-        require('galaxyline').inactive_window_shortline = false
-     end
+    -- Disable or enable Doom autocommands, this can break some configuration options (they will stop working)
+    -- e.g. preserve_edit_pos or autosave
+    --
+    -- false : enable autocommands module
+    -- true  : disable autocommands module
+    -- @default = false
+    disable_autocommands = false,
+
+    -- Enable LSP diagnostics virtual text
+    -- @default = false
+    enable_lsp_virtual_text = false,
+
+    -- Use floating windows for plugins manager (packer) operations
+    -- @default = false
+    use_floating_win_packer = false,
+
+    -- Default indent size
+    -- @default = 4
+    indent = 4,
+
+    -- Set max cols
+    -- Defines the column to show a vertical marker
+    -- @default = 80
+    max_columns = 80,
+
+    -- Completion box height
+    -- @default = 10
+    complete_size = 10,
+
+    -- Completion box transparency
+    -- 0 = no transparency
+    -- 100 = fully transparent
+    -- @default = 25
+    complete_transparency = 25,
+
+    -- Sidebar sizing
+    -- Specifies the default width of Tree Explorer and Tagbar
+    -- @default = 25
+    sidebar_width = 25,
+
+    -- Set the Terminal width
+    -- Applies only to float direction
+    -- @default = 70
+    terminal_width = 70,
+
+    -- Set the Terminal height
+    -- Applies to all directions except window
+    -- @default = 20
+    terminal_height = 20,
+
+    -- Conceal level
+    -- Set Neovim conceal level
+    -- 0 : Disable indentline and show all
+    -- 1 : Conceal some functions and show indentlines
+    -- 2 : Concealed text is completely hidden unless it has a custom replacement
+    --     character defined
+    -- 3 : Concealed text is completely hidden
+    conceallevel = 0,
+
+    -- Logging level
+    -- Set Doom logging level
+    -- Available levels:
+    --   · trace
+    --   · debug
+    --   · info
+    --   · warn
+    --   · error
+    --   · fatal
+    -- @default = 'info'
+    logging = "info",
+
+    -- Set the Terminal direction
+    -- Available directions:
+    --   - vertical
+    --   - horizontal
+    --   - window
+    --   - float
+    -- @default = 'horizontal'
+    terminal_direction = "horizontal",
+
+    -- NOTE: This will only be activated if 'backup' is true.
+    -- We don'recommend you put this outside of neovim so we've restricted to the path: ~/.config/nvim
+    -- WARNING: only put the folder name that you want. (eg: undo_dir = '/undodir')
+    -- @default_directory = '~/.config/nvim/undodir'
+    undo_dir = "/undodir",
+
+    -- Default colorscheme
+    -- @default = doom-one
+    colorscheme = "doom-one",
+
+    -- Background color
+    -- @default = dark
+    colorscheme_bg = "dark",
+
+    -- Doom One colorscheme settings
+    doom_one = {
+      -- If the cursor color should be blue
+      -- @default = false
+      cursor_coloring = false,
+      -- If TreeSitter highlighting should be enabled
+      -- @default = true
+      enable_treesitter = true,
+      -- If the comments should be italic
+      -- @default = false
+      italic_comments = false,
+      -- If the telescope plugin window should be colored
+      -- @default = true
+      telescope_highlights = true,
+      -- If the built-in Neovim terminal should use the doom-one
+      -- colorscheme palette
+      -- @default = false
+      terminal_colors = true,
+      -- If the Neovim instance should be transparent
+      -- @default = false
+      transparent_background = false,
+    },
+
+    -- Set gui fonts here
+    -- @default = "FiraCode Nerd Font", @default font size = 15,
+    -- WARNING: Font sizes must be in string format!
+    guifont = "FiraCode Nerd Font",
+    guifont_size = "15",
+
+    -- Change Which Key background color
+    -- can use hex, or normal color names (eg: Red, Gree, Blue)
+    -- @default = #202328
+    whichkey_bg = "#202328",
+
+    -- Set your custom lsp diagnostic symbols below
+    lsp_error = "",
+    lsp_warn = "",
+    lsp_hint = "",
+    lsp_info = "",
+    lsp_virtual_text = " ",
+
+    -- Set your linters for the programming languages that you use,
+    -- see https://github.com/mfussenegger/nvim-lint#available-linters
+    linters = {
+      c = {},
+      cpp = {},
+      css = {},
+      html = {},
+      javascript = {},
+      lua = {},
+      markdown = {},
+      nix = {},
+      python = {},
+      ruby = {},
+      sh = {},
+      typescript = {},
+    },
+
+    -- Set your dashboard custom colors below
+    -- @default = doom emacs' default dashboard colors
+    dashboard_custom_colors = {
+      header_color = "#586268",
+      center_color = "#51afef",
+      shortcut_color = "#a9a1e1",
+      footer_color = "#586268",
+    },
+
+    -- Set your custom dashboard header below
+    -- @default = doom emacs' default dashboard header
+    dashboard_custom_header = {},
   },
 
-  -- Set custom options
-  -- @default = {}
-  -- example:
-  --   {
-  --      ['shiftwidth'] = 4
-  --   }
-  options = {},
-}
--- }}}
+  nvim = {
+    -- Set custom Neovim global variables
+    -- @default = {}
+    -- example:
+    --   {
+    --     ['sonokai_style'] = 'andromeda',
+    --     ['modelineexpr'] = true,
+    --   }
+    --
+    --   modeline feature was turned off to reduce security exploit surfaces.
+    --   Since modeline now uses whitelist approach since nvim 0.4 /vim 8.1,
+    --   enabling this is as safe as external packages such as securemodelines.
+    --   See https://github.com/neovim/neovim/issues/2865
+    --
+    global_variables = {},
 
--- -- i want a wider space for file names (for instance with
--- -- java projects having tons of subfolders). Also the preview
--- -- is not super useful when opening files
--- require('telescope').setup {
---     pickers = {
---     	find_files = {
---     	    layout_strategy='vertical',layout_config={width=0.6}
---     	}
---     }
--- }
+    -- Set custom autocommands
+    -- @default = {}
+    -- example:
+    --   augroup_name = {
+    --      { 'BufNewFile,BufRead', 'doom_modules.lua', 'set ft=lua'}
+    --   }
+    autocmds = {},
 
-require("telescope").setup {
-  pickers = {
-    buffers = {
-      show_all_buffers = true,
-      sort_lastused = true,
-      -- theme = "dropdown",
-      -- previewer = false,
-      mappings = {
-        i = {
-          ["<c-d>"] = "delete_buffer",
-        }
-      }
-    }
-  }
-}
+    -- Set custom key bindings
+    -- @default = {}
+    -- example:
+    --   {
+    --      {'n', 'ca', ':Lspsaga code_action<CR>', options}
+    --   }
+    --
+    --   where
+    --     'n' is the map scope
+    --     'ca' is the map activator
+    --     ':Lspsaga ...' is the command to be executed
+    --     options is a Lua table containing the mapping options, e.g.
+    --     { silent = true }, see ':h map-arguments'.
+    mappings = {},
 
-require('telescope').load_extension('fzf')
+    -- Set custom commands
+    -- @default = {}
+    -- example:
+    --   {
+    --      'echo "Hello, custom commands!"'
+    --   }
+    commands = {},
 
-require('neogit').setup {
-  signs = {
-    -- { CLOSED, OPENED }
-    section = { "▶", "▼" },
-    item = { "▶", "▼" },
-    hunk = { "", "" },
-  }
-}
+    -- Set custom functions
+    -- @default = {}
+    -- example:
+    --   {
+    --      {
+    --         hello_custom_func = function()
+    --           print("Hello, custom functions!")
+    --         end,
+    --         -- If the function should be ran on neovim launch or if it should
+    --         -- be a global function accesible from anywhere
+    --         run_on_start = false,
+    --      },
+    --   }
+    functions = {},
 
-require('diffview').setup()
-require('diffview').init()
-
-require'telescope'.load_extension('project')
-
-vim.opt.fillchars = vim.opt.fillchars + 'diff:╱'
-
--- https://vim.fandom.com/wiki/Map_Ctrl-Backspace_to_delete_previous_word
-vim.cmd('inoremap <C-h> <C-\\><C-o>db')
-vim.cmd('inoremap <C-BS> <C-\\><C-o>db')
-
--- https://vim.fandom.com/wiki/Searching#Case_sensitivity
--- search should not strictly match case unless i use mixed case
-vim.cmd('set ignorecase')
-vim.cmd('set smartcase')
-
--- require('spellsitter').setup()
-vim.cmd('autocmd FileType markdown setlocal spell')
-vim.cmd('autocmd FileType gitcommit setlocal spell')
-vim.cmd('autocmd FileType NeogitCommitMessage setlocal spell')
--- https://vi.stackexchange.com/a/4003/38754
--- don't spellcheck URLs in markdown files and similar
-vim.cmd([[autocmd FileType markdown syn match UrlNoSpell "\w\+:\/\/[^]] .. '[:space:]]' .. [[\+" contains=@NoSpell]])
-vim.cmd([[autocmd FileType NeogitCommitMessage syn match UrlNoSpell "\w\+:\/\/[^]] .. '[:space:]]' .. [[\+" contains=@NoSpell]])
-
--- https://jdhao.github.io/2019/04/29/nvim_spell_check/
--- vim.api.nvim_command("set spell")
-
--- https://vi.stackexchange.com/a/27803/38754
--- the default 'gx' to open links doesn't work.
--- there are plugins..  https://github.com/felipec/vim-sanegx
--- https://github.com/tyru/open-browser.vim
--- https://gist.github.com/habamax/0a6c1d2013ea68adcf2a52024468752e
--- but this seems KISS and functional
-vim.cmd('nmap gx :silent execute "!xdg-open " . shellescape("<cWORD>")<CR>')
--- https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript#comment10417791_1533565
-vim.cmd('vmap gx <Esc>:silent execute "!xdg-open " . shellescape(getline("\'<")[getpos("\'<")[2]-1:getpos(".")[2]]) . " &"<CR>')
-
-
-vim.cmd("let g:choosewin_label = '1234567890'")
-vim.cmd("let g:choosewin_tablabel = 'abcdefghijklmnop'")
-
--- visible tab
--- https://www.reddit.com/r/vim/comments/4hoa6e/what_do_you_use_for_your_listchars/
-vim.cmd("set list")
-vim.cmd("set listchars=tab:→\\ ,trail:·,nbsp:␣")
-
--- disable completions in the telescope prompt.
--- https://github.com/nvim-telescope/telescope.nvim/issues/161
--- with cmp => autocmd FileType TelescopePrompt lua require('cmp').setup.buffer { enabled = false }
-vim.cmd("autocmd FileType TelescopePrompt call compe#setup({ 'source': { 'omni': v:true } }, 0)")
-
--- customize ex mode completion, bash-like. C-y to accept match
-vim.cmd("set wildmode=longest:full,full")
-return {
-  doom = doom,
-  nvim = nvim,
+    -- Set custom options
+    -- @default = {}
+    -- example:
+    --   {
+    --      ['shiftwidth'] = 4
+    --   }
+    options = {},
+  },
 }
 
--- vim: fdm=marker
+return M
+
+-- vim: sw=2 sts=2 ts=2 fdm=indent noexpandtab
