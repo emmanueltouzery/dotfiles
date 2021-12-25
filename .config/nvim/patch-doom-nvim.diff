@@ -1,0 +1,280 @@
+diff --git a/lua/doom/core/settings/init.lua b/lua/doom/core/settings/init.lua
+index ac95600..2523964 100644
+--- a/lua/doom/core/settings/init.lua
++++ b/lua/doom/core/settings/init.lua
+@@ -30,7 +30,7 @@ settings.load_default_options = function()
+   vim.opt.inccommand = "split"
+   vim.opt.path = "**"
+   vim.opt.signcolumn = "auto:2-3"
+-  vim.opt.foldcolumn = "auto:9"
++  -- vim.opt.foldcolumn = "auto:9"
+ 
+   vim.opt.fillchars = {
+     vert = "▕",
+diff --git a/lua/doom/extras/keybindings/leader.lua b/lua/doom/extras/keybindings/leader.lua
+index 7fd5b51..00bf3ef 100644
+--- a/lua/doom/extras/keybindings/leader.lua
++++ b/lua/doom/extras/keybindings/leader.lua
+@@ -62,7 +62,7 @@ mappings.map(
+ mappings.map(
+   "n",
+   "<leader>.",
+-  "<cmd>Telescope file_browser<CR>",
++  "<cmd>Telescope file_browser hidden=true<CR>",
+   opts,
+   "Editor",
+   "file_browser",
+@@ -322,7 +322,7 @@ mappings.map(
+ mappings.map(
+   "n",
+   "<leader>ff",
+-  "<cmd>Telescope find_files<CR>",
++  "<cmd>Telescope find_files hidden=true<CR>",
+   opts,
+   "Editor",
+   "find_files_alt",
+@@ -856,3 +856,157 @@ mappings.map("n", "<leader>m", "<cmd>w<cr>", opts, "Save", "save_right", "Save m
+ 
+ -- man pages
+ mappings.map("n", "<leader>h", ":Man ", { silent = false }, "Man page", "man_page", "Man page")
++
++-- MINE
++mappings.map(
++  "n",
++  "<leader>op",
++  "<cmd>lua require'telescope'.extensions.project.project{ display_type = 'full' }<CR>",
++  opts,
++  "Editor",
++  "open_project",
++  "Open project"
++)
++mappings.map(
++  "n",
++  "<leader>*",
++  "<cmd>lua my_open_tele()<cr>",
++  opts,
++  "Editor",
++  "search_word",
++  "Search word under cursor, raw"
++)
++mappings.map(
++  "n",
++  "<leader>sr",
++  "<cmd>lua require('telescope').extensions.live_grep_raw.live_grep_raw()<cr>",
++  opts,
++  "Editor",
++  "search_text_raw",
++  "Search text raw"
++)
++
++mappings.map(
++  "n",
++  "<leader>wm",
++  "<cmd>lua maximize()<cr>",
++  opts,
++  "Editor",
++  "maximize",
++  "Maximize window"
++)
++mappings.map(
++  "n",
++  "<leader>gt",
++  "<cmd>lua require'agitator'.git_time_machine()<cr>",
++  opts,
++  "Editor",
++  "git_time_machine",
++  "Open project"
++)
++mappings.map(
++  "n",
++  "<leader>gB",
++  "<cmd>lua require'agitator'.git_blame_toggle()<cr>",
++  opts,
++  "Editor",
++  "git_blame",
++  "Open project"
++)
++mappings.map(
++  "n",
++  "<leader>gf",
++  "<cmd>lua require'agitator'.open_file_git_branch()<cr>",
++  opts,
++  "Editor",
++  "open_file_git_branch",
++  "Open project"
++)
++mappings.map(
++  "n",
++  "<leader>gd",
++  "<cmd>lua require'diffview'.open()<cr>",
++  opts,
++  "Editor",
++  "diffview",
++  "Open project"
++)
++mappings.map(
++  "n",
++  "<leader>gL",
++  "<cmd>lua require'diffview'.file_history('.')<cr>",
++  opts,
++  "Editor",
++  "project_history",
++  "Open project"
++)
++mappings.map(
++  "n",
++  "<leader>gT",
++  "<cmd>lua require'diffview'.file_history()<cr>",
++  opts,
++  "Editor",
++  "file_history",
++  "Open project"
++)
++mappings.map(
++  "n",
++  "<leader>gg",
++  "<cmd>Neogit<cr>",
++  opts,
++  "Editor",
++  "neogit",
++  "Open project"
++)
++
++-- https://stackoverflow.com/a/19619038/516188
++-- if that doesn't cut it, consider https://github.com/qpkorr/vim-bufkill
++mappings.map(
++  "n",
++  "<leader>bd",
++  ":b#<bar>bd#<CR>",
++  opts,
++  "Editor",
++  "delete_buffer",
++  "Delete buffer"
++)
++
++mappings.map(
++  "n",
++  "<leader>td",
++  ":tabc<cr>",
++  opts,
++  "Editor",
++  "delete_tab",
++  "Delete tab"
++)
++
++mappings.map(
++  "n",
++  "<leader>sS",
++  "<cmd>Telescope lsp_workspace_symbols<CR>",
++  opts,
++  "LSP",
++  "lsp_w_symbols",
++  "Goto workspace symbol"
++)
++
++ vim.api.nvim_exec([[
++function! ToggleQuickFix()
++    if empty(filter(getwininfo(), 'v:val.quickfix'))
++        copen
++    else
++        cclose
++    endif
++endfunction
++ ]], false)
++
++mappings.map(
++  "n",
++  "<leader>oq",
++  ":call ToggleQuickFix()<cr>",
++  opts,
++  "Editor",
++  "toggle_quickfix",
++  "Toggle quickfix"
++)
+diff --git a/lua/doom/extras/keybindings/movement.lua b/lua/doom/extras/keybindings/movement.lua
+index fc3b63f..207ad9f 100644
+--- a/lua/doom/extras/keybindings/movement.lua
++++ b/lua/doom/extras/keybindings/movement.lua
+@@ -4,7 +4,7 @@ local mappings = require("doom.utils.mappings")
+ local opts = { silent = true }
+ 
+ -- TAB to cycle buffers too, why not?
+-mappings.map("n", "<Tab>", ":bnext<CR>", opts, "Movement", "cycle_next_buffer", "Goto next buffer")
++-- mappings.map("n", "<Tab>", ":bnext<CR>", opts, "Movement", "cycle_next_buffer", "Goto next buffer")
+ mappings.map(
+   "n",
+   "<S-Tab>",
+@@ -165,3 +165,12 @@ mappings.map(
+   "resize_left",
+   "Resize window (increase height)"
+ )
++mappings.map(
++  "n",
++  "<leader><tab>",
++  '<cmd>e #<CR>',
++  opts,
++  "Buffer",
++  "switch_buffer2",
++  "Switch buffer 2"
++)
+diff --git a/lua/doom/modules/config/doom-telescope.lua b/lua/doom/modules/config/doom-telescope.lua
+index 06e0b1e..432dbe8 100644
+--- a/lua/doom/modules/config/doom-telescope.lua
++++ b/lua/doom/modules/config/doom-telescope.lua
+@@ -6,6 +6,7 @@ return function()
+ 
+   telescope.setup({
+     defaults = {
++      path_display = {'truncate'},
+       find_command = {
+         "rg",
+         "--no-heading",
+@@ -18,7 +19,8 @@ return function()
+       selection_strategy = "reset",
+       sorting_strategy = "descending",
+       layout_strategy = "horizontal",
+-      prompt_prefix = "   ",
++      -- prompt_prefix = "   ",
++      prompt_prefix = "", -- work around bugs https://github.com/nvim-telescope/telescope.nvim/issues/1251 https://github.com/nvim-telescope/telescope.nvim/issues/567
+       selection_caret = " ",
+       layout_config = {
+         width = 0.75,
+@@ -62,6 +64,8 @@ return function()
+           ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+           ["<Leader>f"] = actions.close, -- works like a toggle, sometimes can be buggy
+           ["<CR>"] = actions.select_default + actions.center,
++          ["<C-n>"] = actions.cycle_history_next,
++          ["<C-p>"] = actions.cycle_history_prev,
+         },
+         n = {
+           ["<C-j>"] = actions.move_selection_next,
+diff --git a/lua/doom/modules/config/doom-treesitter.lua b/lua/doom/modules/config/doom-treesitter.lua
+index 99ff913..acbec70 100644
+--- a/lua/doom/modules/config/doom-treesitter.lua
++++ b/lua/doom/modules/config/doom-treesitter.lua
+@@ -51,7 +51,7 @@ return function()
+     autopairs = {
+       enable = is_plugin_disabled("autopairs") and false or true,
+     },
+-    indent = { enable = true },
++    indent = { enable = false },
+     playground = { enable = true },
+     tree_docs = { enable = true },
+     context_commentstring = { enable = true },
+diff --git a/lua/doom/modules/init.lua b/lua/doom/modules/init.lua
+index d092bc0..1fc3fa2 100644
+--- a/lua/doom/modules/init.lua
++++ b/lua/doom/modules/init.lua
+@@ -173,8 +173,10 @@ packer.startup(function(use)
+   -- can be disabled to use your own statusline
+   local disabled_statusline = is_plugin_disabled("statusline")
+   use({
+-    "NTBBloodbath/galaxyline.nvim",
+-    commit = pin_commit("7b812cfddfcac7d9031e2f8e03f2b71fe8b2558d"),
++    -- "NTBBloodbath/galaxyline.nvim",
++    -- commit = pin_commit("7b812cfddfcac7d9031e2f8e03f2b71fe8b2558d"),
++    "emmanueltouzery/galaxyline.nvim",
++    branch = "doom-branch-patched",
+     config = require("doom.modules.config.doom-eviline"),
+     disable = disabled_statusline,
+   })
