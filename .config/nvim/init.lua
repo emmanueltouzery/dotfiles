@@ -83,6 +83,11 @@ function emmanuel_init()
             hunk = { "", "" },
         }
     }
+    require("todo-comments").setup {
+        highlight = {
+            pattern = {[[\s*\/\/.*<(KEYWORDS)\s*]], [[\s*--.*<(KEYWORDS)\s*]], [[\s*#.*<(KEYWORDS)\s*]]},
+        }
+    }
 
     require('kommentary.config').configure_language("default", {
         prefer_single_line_comments = true,

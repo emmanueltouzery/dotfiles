@@ -84,9 +84,9 @@ M.modules = {
     -- "lazygit",         -- LazyGit integration for Neovim, requires LazyGit
     "neogit",          -- Magit for Neovim
     "range-highlight",    -- Hightlights ranges you have entered in commandline
-    -- "suda",            -- Write and read files without sudo permissions
+    "suda",            -- Write and read files without sudo permissions
     -- "superman",        -- Read Unix man pages faster than a speeding bullet!
-    -- "todo_comments",   -- Highlight, list and search todo comments in your projects
+    "todo_comments",   -- Highlight, list and search todo comments in your projects
   },
   web = {
     -- "colorizer",       -- Fastest colorizer for Neovim
