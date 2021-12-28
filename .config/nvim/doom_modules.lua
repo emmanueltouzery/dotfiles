@@ -39,7 +39,7 @@ M.modules = {
     "dap",                -- Debug Adapter Protocol
     -- "editorconfig",    -- EditorConfig support for Neovim
     "explorer",           -- Tree explorer
-    "formatter",          -- File formatting
+    -- "formatter",          -- File formatting
     "gitsigns",           -- Git signs
     "kommentary",         -- Comments plugin
     -- "linter",          -- Asynchronous linter, see errors in your code on the fly

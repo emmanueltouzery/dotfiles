@@ -165,4 +165,27 @@ function emmanuel_init()
 
     -- customize ex mode completion, bash-like. C-y to accept match
     vim.cmd("set wildmode=longest:full,full")
+
+    -- formatter, mhartington/formatter.nvim START
+    require('formatter').setup({
+        filetype = {
+            rust = {
+                -- Rustfmt
+                function()
+                    return {
+                        exe = "rustfmt",
+                        args = {"--emit=stdout"},
+                        stdin = true
+                    }
+                end
+            },
+        }
+    })
+    vim.api.nvim_exec([[
+    augroup FormatAutogroup
+    autocmd!
+    autocmd BufWritePost *.rs FormatWrite
+    augroup END
+    ]], true)
+    -- formatter END
 end
