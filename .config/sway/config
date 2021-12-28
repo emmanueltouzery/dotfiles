@@ -213,6 +213,11 @@ set $output2 eDP-1
     for_window [class="VirtualBox Manager"] floating enable
     for_window [title="Remmina Remote Desktop Client"] floating enable
 
+
+# https://www.reddit.com/r/swaywm/comments/conhod/inhibit_idle_while_a_fullscreen_app_is_running/ewl8i96/?utm_source=reddit&utm_medium=web2x&context=3
+for_window [class="^.*"] inhibit_idle fullscreen
+for_window [app_id="^.*"] inhibit_idle fullscreen
+
 #
 # Layout stuff:
 #
