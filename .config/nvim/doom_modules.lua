@@ -62,7 +62,7 @@ M.modules = {
     "javascript",      -- JavaScript support
     "typescript",      -- TypeScript support
 
-    "bash",            -- The terminal gods language
+    "bash +lsp",            -- The terminal gods language
     "elixir",          -- Build scalable and maintainable software
     "lua",                -- Support for our gods language
     -- "python +lsp",     -- Python support + lsp
