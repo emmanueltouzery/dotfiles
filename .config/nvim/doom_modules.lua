@@ -50,7 +50,7 @@ M.modules = {
     -- "symbols",         -- LSP symbols and tags
     "telescope",          -- Highly extendable fuzzy finder over lists
     "terminal",        -- Terminal for Neovim (NOTE: needed for runner and compiler)
-    -- "trouble",         -- A pretty list to help you solve all the trouble your code is causing.
+    "trouble",         -- A pretty list to help you solve all the trouble your code is causing.
   },
   langs = {
     -- To enable the language server for a language just add the +lsp flag
