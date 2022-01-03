@@ -59,8 +59,8 @@ M.modules = {
     --
     "css",             -- CSS support
     "html",            -- HTML support
-    "javascript",      -- JavaScript support
-    "typescript",      -- TypeScript support
+    "javascript +lsp",      -- JavaScript support
+    "typescript +lsp",      -- TypeScript support
 
     "bash +lsp",            -- The terminal gods language
     "elixir +lsp(elixirls)",          -- Build scalable and maintainable software
