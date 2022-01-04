@@ -47,7 +47,7 @@ M.modules = {
     -- "minimap",         -- Code minimap, requires github.com/wfxr/code-minimap
     -- "ranger",          -- Ranger File Browser, requires ranger file browser
     "snippets",           -- Code snippets
-    -- "symbols",         -- LSP symbols and tags
+    "symbols",         -- LSP symbols and tags
     "telescope",          -- Highly extendable fuzzy finder over lists
     "terminal",        -- Terminal for Neovim (NOTE: needed for runner and compiler)
     "trouble",         -- A pretty list to help you solve all the trouble your code is causing.
