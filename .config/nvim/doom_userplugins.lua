@@ -26,6 +26,7 @@ M.plugins = {
     'nvim-telescope/telescope-project.nvim',
     'maxbrunsfeld/vim-yankstack', -- considered https://github.com/AckslD/nvim-neoclip.lua too
     'mhartington/formatter.nvim',
+    'elixir-editors/vim-elixir',
 
     -- spellchecks in comments is attractive but when commenting code,
     -- it goes completely red, and also i had trouble to have vim
