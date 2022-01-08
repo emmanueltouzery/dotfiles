@@ -188,4 +188,7 @@ function emmanuel_init()
     augroup END
     ]], true)
     -- formatter END
+    
+    -- for instance nginx configuration files
+    vim.cmd('autocmd BufNewFile,BufRead *.conf set syntax=conf')
 end
