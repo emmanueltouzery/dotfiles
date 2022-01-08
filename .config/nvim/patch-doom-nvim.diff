@@ -12,7 +12,7 @@ index ac95600..2523964 100644
    vim.opt.fillchars = {
      vert = "▕",
 diff --git a/lua/doom/extras/keybindings/leader.lua b/lua/doom/extras/keybindings/leader.lua
-index 7fd5b51..a5df207 100644
+index 7fd5b51..95ad692 100644
 --- a/lua/doom/extras/keybindings/leader.lua
 +++ b/lua/doom/extras/keybindings/leader.lua
 @@ -62,7 +62,7 @@ mappings.map(
@@ -33,7 +33,7 @@ index 7fd5b51..a5df207 100644
    opts,
    "Editor",
    "find_files_alt",
-@@ -856,3 +856,167 @@ mappings.map("n", "<leader>m", "<cmd>w<cr>", opts, "Save", "save_right", "Save m
+@@ -856,3 +856,177 @@ mappings.map("n", "<leader>m", "<cmd>w<cr>", opts, "Save", "save_right", "Save m
  
  -- man pages
  mappings.map("n", "<leader>h", ":Man ", { silent = false }, "Man page", "man_page", "Man page")
@@ -201,6 +201,16 @@ index 7fd5b51..a5df207 100644
 +  "toggle_lsp_refs",
 +  "Toggle lsp references"
 +)
++
++mappings.map(
++  "n",
++  "<leader>gG",
++  ":lua require('diffview').open()<cr>",
++  opts,
++  "Editor",
++  "git_diff_twoway",
++  "Git two-way diff"
++)
 diff --git a/lua/doom/extras/keybindings/movement.lua b/lua/doom/extras/keybindings/movement.lua
 index fc3b63f..207ad9f 100644
 --- a/lua/doom/extras/keybindings/movement.lua
@@ -227,6 +237,25 @@ index fc3b63f..207ad9f 100644
 +  "switch_buffer2",
 +  "Switch buffer 2"
 +)
+diff --git a/lua/doom/modules/config/doom-blankline.lua b/lua/doom/modules/config/doom-blankline.lua
+index b23bc58..a8fc7d4 100644
+--- a/lua/doom/modules/config/doom-blankline.lua
++++ b/lua/doom/modules/config/doom-blankline.lua
+@@ -3,10 +3,13 @@ return function()
+ 
+   require("indent_blankline").setup({
+     enabled = config.doom.show_indent,
+-    char = "│",
++    char = "",
++    context_char = "│",
+     -- If treesitter plugin is enabled then use its indentation
+     use_treesitter = require("doom.utils").check_plugin("nvim-treesitter", "opt"),
+     show_first_indent_level = false,
++    show_current_context = true,
++    show_current_context_start = true,
+     filetype_exclude = { "help", "dashboard", "packer", "norg", "DoomInfo" },
+     buftype_exclude = { "terminal" },
+   })
 diff --git a/lua/doom/modules/config/doom-telescope.lua b/lua/doom/modules/config/doom-telescope.lua
 index 06e0b1e..432dbe8 100644
 --- a/lua/doom/modules/config/doom-telescope.lua
