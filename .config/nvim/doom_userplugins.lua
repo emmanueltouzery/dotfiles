@@ -17,7 +17,7 @@ local M = {}
 M.source = debug.getinfo(1, "S").source:sub(2)
 
 M.plugins = {
-    'airblade/vim-rooter',
+    {'airblade/vim-rooter', config = function() vim.g['rooter_silent_chdir'] = 1 end},
     'nvim-telescope/telescope-live-grep-raw.nvim',
     {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
     't9md/vim-choosewin',
