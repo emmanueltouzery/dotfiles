@@ -180,11 +180,18 @@ function emmanuel_init()
                 end
             },
             json = {
-                -- prettier
+                -- -- prettier
+                -- function()
+                --     return {
+                --         exe = "prettier",
+                --         args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote', '--parser', 'json'},
+                --         stdin = true
+                --     }
+                -- end
+                -- jq
                 function()
                     return {
-                        exe = "prettier",
-                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote', '--parser', 'json'},
+                        exe = "jq",
                         stdin = true
                     }
                 end
