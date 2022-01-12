@@ -335,7 +335,7 @@ M.config = {
     doom_one = {
       -- If the cursor color should be blue
       -- @default = false
-      cursor_coloring = false,
+      cursor_coloring = true,
       -- If TreeSitter highlighting should be enabled
       -- @default = true
       enable_treesitter = true,
