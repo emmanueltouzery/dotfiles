@@ -92,7 +92,7 @@ function emmanuel_init()
     require('kommentary.config').configure_language("default", {
         prefer_single_line_comments = true,
     })
-    require('galaxyline').inactive_window_shortline = false
+    -- require('galaxyline').inactive_window_shortline = false
 
     require('diffview').setup()
     require('diffview').init()
@@ -208,4 +208,25 @@ function emmanuel_init()
     
     -- for instance nginx configuration files
     vim.cmd('autocmd BufNewFile,BufRead *.conf set syntax=conf')
+
+    require('lualine').setup {
+        options = { disabled_filetypes = {'NeogitStatus'} }, -- perf issues over sshfs
+        sections = {
+            lualine_a = {'mode'},
+            lualine_b = {'branch', 'diff', 'diagnostics'},
+            lualine_c = {'filename'},
+            lualine_x = {'encoding', 'fileformat', 'filetype'},
+            lualine_y = {'progress'},
+            lualine_z = {'location'}
+        },
+        inactive_sections = {
+            lualine_a = {},
+            lualine_b = {'branch', 'diff', 'diagnostics'},
+            lualine_c = {'filename'},
+            -- lualine_y = {'progress'},
+            -- lualine_x = {'location'},
+            lualine_z = {}
+        },
+    }
+
 end
