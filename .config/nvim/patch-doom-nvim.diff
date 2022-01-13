@@ -12,7 +12,7 @@ index ac95600..2523964 100644
    vim.opt.fillchars = {
      vert = "▕",
 diff --git a/lua/doom/extras/keybindings/leader.lua b/lua/doom/extras/keybindings/leader.lua
-index 7fd5b51..b417ccc 100644
+index 7fd5b51..0806218 100644
 --- a/lua/doom/extras/keybindings/leader.lua
 +++ b/lua/doom/extras/keybindings/leader.lua
 @@ -62,7 +62,7 @@ mappings.map(
@@ -214,12 +214,12 @@ index 7fd5b51..b417ccc 100644
 +
 +mappings.map(
 +  "n",
-+  "<leader>th",
-+  ":set invhlsearch<cr>",
++  "<leader>fp",
++  ':let @+ = expand("%")<cr>',
 +  opts,
 +  "Editor",
-+  "toggle_highlight",
-+  "Toggle highlight"
++  "copy_file_path",
++  "Copy file path"
 +)
 +
 +mappings.map(
