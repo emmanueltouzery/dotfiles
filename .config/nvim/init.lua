@@ -210,7 +210,13 @@ function emmanuel_init()
     vim.cmd('autocmd BufNewFile,BufRead *.conf set syntax=conf')
 
     require('lualine').setup {
-        options = { disabled_filetypes = {'NeogitStatus'} }, -- perf issues over sshfs
+        options = { 
+            disabled_filetypes = {
+                'NeogitStatus', -- perf issues over sshfs
+                'dashboard',
+            },
+            theme = 'nord',
+        }, 
         sections = {
             lualine_a = {'mode'},
             lualine_b = {'branch', 'diff', 'diagnostics'},
