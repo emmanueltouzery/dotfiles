@@ -220,13 +220,14 @@ function emmanuel_init()
         sections = {
             lualine_a = {'mode'},
             lualine_b = {'branch', 'diff', 'diagnostics'},
-            lualine_c = {'filename'},
-            lualine_x = {'encoding', 'fileformat', 'filetype'},
+            lualine_c = {{'filename', path=1}}, -- path=1 => relative filename
+            -- lualine_x = { 'encoding', 'fileformat', 'filetype'},
+            lualine_x = { 'filesize', 'filetype'},
             lualine_y = {'progress'},
             lualine_z = {'location'}
         },
         inactive_sections = {
-            lualine_a = {},
+            lualine_a = {--[["require'lsp-status'.status()"--]]},
             lualine_b = {'branch', 'diff', 'diagnostics'},
             lualine_c = {'filename'},
             -- lualine_y = {'progress'},
