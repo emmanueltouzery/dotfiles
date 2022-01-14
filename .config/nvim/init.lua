@@ -239,12 +239,19 @@ function emmanuel_init()
             },
         },
         inactive_sections = {
-            lualine_a = {--[["require'lsp-status'.status()"--]]},
-            lualine_b = {'branch', 'diff', 'diagnostics'},
+            lualine_a = {},
+            lualine_b = {
+                {'branch', separator = { left = ''}, color = {bg='#4c566a'}},
+                {'diff', color = {bg='#4c566a'}},
+                {'diagnostics', color = {bg='#4c566a'} },
+                {function(str) return "" end, color = {fg='#4c566a'}, padding=0 }
+            },
             lualine_c = {{'filename', path=1}}, -- path=1 => relative filename
-            -- lualine_y = {'progress'},
-            -- lualine_x = {'location'},
-            lualine_z = {}
+            lualine_x = { 'filesize', {'filetype', colored = false}},
+            lualine_y = {'progress'},
+            lualine_z = {
+                { 'location', separator = { left = '', right = '' }, left_padding = 2, color = {bg='#4c566a', fg='white'} },
+            },
         },
     }
 
