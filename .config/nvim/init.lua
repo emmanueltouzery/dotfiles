@@ -214,6 +214,9 @@ function emmanuel_init()
             disabled_filetypes = {
                 'NeogitStatus', -- perf issues over sshfs
                 'dashboard',
+                'NvimTree',
+                'Outline',
+                'NeogitCommitMessage',
             },
             theme = 'nord',
         }, 
