@@ -318,10 +318,22 @@ index 06e0b1e..432dbe8 100644
          n = {
            ["<C-j>"] = actions.move_selection_next,
 diff --git a/lua/doom/modules/config/doom-tree.lua b/lua/doom/modules/config/doom-tree.lua
-index 62ccf80..9b8daec 100644
+index 62ccf80..cb45205 100644
 --- a/lua/doom/modules/config/doom-tree.lua
 +++ b/lua/doom/modules/config/doom-tree.lua
-@@ -147,7 +147,7 @@ return function()
+@@ -32,6 +32,11 @@ return function()
+   -- 1000 means the tree can be refresh once per 1000ms.
+   vim.g.nvim_tree_refresh_wait = 500
+ 
++  -- trying to get the same numbers as vim-choosewin.
++  -- there i get digits, but since that one includes the nvim-tree
++  -- window, i start at 2 (since for vim-choosewin, the nvim-tree window is 1)
++  vim.g.nvim_tree_window_picker_chars = '234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'
++
+   -- Ignored filetypes and buffers when window picker is enabled
+   vim.g.nvim_tree_window_picker_exclude = {
+     filetype = {
+@@ -147,7 +152,7 @@ return function()
          -- list of mappings to set on the tree manually
          list = {
            { key = { "o", "<2-LeftMouse>" }, cb = tree_cb("edit") },
@@ -330,6 +342,16 @@ index 62ccf80..9b8daec 100644
            { key = "<C-v>", cb = tree_cb("vsplit") },
            { key = "<C-x>", cb = tree_cb("split") },
            { key = "<C-t>", cb = tree_cb("tabnew") },
+@@ -166,7 +171,8 @@ return function()
+           { key = "p", cb = tree_cb("paste") },
+           { key = "[c", cb = tree_cb("prev_git_item") },
+           { key = "]c", cb = tree_cb("next_git_item") },
+-          { key = "-", cb = tree_cb("dir_up") },
++          -- I want - for vim-choosewin
++          { key = "<S-BS>", cb = tree_cb("dir_up") },
+           { key = "q", cb = tree_cb("close") },
+           { key = "g?", cb = tree_cb("toggle_help") },
+         },
 diff --git a/lua/doom/modules/config/doom-treesitter.lua b/lua/doom/modules/config/doom-treesitter.lua
 index 99ff913..acbec70 100644
 --- a/lua/doom/modules/config/doom-treesitter.lua
