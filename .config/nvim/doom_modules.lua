@@ -77,8 +77,8 @@ M.modules = {
     -- "scala",           -- Java, but good
 
     -- "comment",         -- Better annotations and comments
-    -- "config",          -- Configuration files (JSON, YAML, TOML)
-    -- "dockerfile",      -- Do you like containers, right?
+    "config",          -- Configuration files (JSON, YAML, TOML)
+    "dockerfile",      -- Do you like containers, right?
   },
   utilities = {
     -- "lazygit",         -- LazyGit integration for Neovim, requires LazyGit
