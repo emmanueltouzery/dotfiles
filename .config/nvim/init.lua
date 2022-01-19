@@ -232,6 +232,8 @@ function emmanuel_init()
     
     -- for instance nginx configuration files
     vim.cmd('autocmd BufNewFile,BufRead *.conf set syntax=conf')
+    vim.cmd('autocmd BufNewFile,BufRead *.conf.template set syntax=conf')
+    vim.cmd('autocmd BufNewFile,BufRead *.yml.template set syntax=yaml')
 
     require('lualine').setup {
         options = { 
