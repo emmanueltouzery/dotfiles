@@ -59,6 +59,30 @@ vim.defer_fn(function()
 
 end, 0)
 
+-- huge hack. the first time I'd open nvim-tree in doom-nvim,
+-- the current file wouldn't be focused. the second time it would be.
+-- I think it's connected with packer's lazy loading.. 
+-- anyway, huge workaround, the first time the tree is used, when packer
+-- loads it, trigger it 3x -- first call, show, the file's node isn't expanded...
+-- second time, hide back the tree. Third call, show the tree, the file is
+-- expanded. And we do that only the first time the tree is invoked.
+function _G.toggle_tree()
+    if packer_plugins and packer_plugins["nvim-tree.lua"] and packer_plugins["nvim-tree.lua"].loaded then
+        -- tree is loaded
+        vim.cmd("NvimTreeToggle")
+    else
+        -- tree ain't loaded
+        vim.cmd("NvimTreeToggle")
+        vim.defer_fn(function()
+            vim.cmd("NvimTreeToggle")
+            vim.defer_fn(function()
+                vim.cmd("NvimTreeToggle")
+            end, 0)
+        end, 0)
+        -- print(vim.inspect(packer_plugins))
+    end
+end
+
 function _G.my_open_tele()
     local w = vim.fn.expand('<cword>')
     -- require('telescope.builtin').live_grep()

@@ -12,7 +12,7 @@ index ac95600..2523964 100644
    vim.opt.fillchars = {
      vert = "▕",
 diff --git a/lua/doom/extras/keybindings/leader.lua b/lua/doom/extras/keybindings/leader.lua
-index 7fd5b51..92d7364 100644
+index 7fd5b51..e682218 100644
 --- a/lua/doom/extras/keybindings/leader.lua
 +++ b/lua/doom/extras/keybindings/leader.lua
 @@ -62,7 +62,7 @@ mappings.map(
@@ -33,7 +33,18 @@ index 7fd5b51..92d7364 100644
    opts,
    "Editor",
    "find_files_alt",
-@@ -856,3 +856,207 @@ mappings.map("n", "<leader>m", "<cmd>w<cr>", opts, "Save", "save_right", "Save m
+@@ -592,7 +592,9 @@ if not config.doom.use_netrw then
+   mappings.map(
+     "n",
+     "<leader>oe",
+-    "<cmd>NvimTreeToggle<CR>",
++    "<cmd>lua toggle_tree()<cr>",
++    -- "<cmd>NvimTreeToggle<CR>",
++    -- "<cmd>NvimTreeToggle<CR>",
+     opts,
+     "Editor",
+     "open_tree_alt",
+@@ -856,3 +858,207 @@ mappings.map("n", "<leader>m", "<cmd>w<cr>", opts, "Save", "save_right", "Save m
  
  -- man pages
  mappings.map("n", "<leader>h", ":Man ", { silent = false }, "Man page", "man_page", "Man page")
