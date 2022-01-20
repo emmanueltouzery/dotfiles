@@ -235,6 +235,14 @@ function emmanuel_init()
     vim.cmd('autocmd BufNewFile,BufRead *.conf.template set syntax=conf')
     vim.cmd('autocmd BufNewFile,BufRead *.yml.template set syntax=yaml')
 
+
+    -- https://superuser.com/a/271024/214371
+    -- when in comment fields, prepend the comment character
+    -- on newline.
+    -- in theory the auto_comment doom-nvim setting should set
+    -- this up, but it doesn't seem to work...
+    vim.cmd("set formatoptions+=cro")
+
     require('lualine').setup {
         options = { 
             disabled_filetypes = {
