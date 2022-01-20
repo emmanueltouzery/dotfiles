@@ -146,7 +146,7 @@ M.config = {
     -- false : disables auto comment
     -- true  : enables auto comment
     -- @default = false
-    auto_comment = false,
+    auto_comment = true,
 
     -- Show indent lines
     -- @default = true
