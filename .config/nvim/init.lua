@@ -101,6 +101,12 @@ function _G.maximize()
     vim.fn.setpos('.', save_pos)
 end
 
+function emmanuel_job_specific()
+    -- https://stackoverflow.com/a/14407121/516188
+    -- two space indent for job stuff
+    vim.cmd("au BufRead,BufNewFile,BufEnter /home/emmanuel/projects/* setlocal sw=2")
+end
+
 function emmanuel_init()
     require('neogit').setup {
         signs = {
@@ -246,6 +252,7 @@ function emmanuel_init()
     -- this up, but it doesn't seem to work...
     vim.cmd("set formatoptions+=cro")
 
+    -- START lualine
     require('lualine').setup {
         options = { 
             disabled_filetypes = {
@@ -291,5 +298,7 @@ function emmanuel_init()
             },
         },
     }
+    -- END lualine
 
+    emmanuel_job_specific()
 end
