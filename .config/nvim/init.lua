@@ -93,14 +93,6 @@ function _G.my_open_tele()
     vim.fn.feedkeys(w)
 end
 
-function _G.maximize()
-    local fname = vim.fn.expand('%:p')
-    local save_pos = vim.fn.getpos(".")
-    vim.cmd('tabnew')
-    vim.cmd('e ' .. fname)
-    vim.fn.setpos('.', save_pos)
-end
-
 function emmanuel_job_specific()
     -- https://stackoverflow.com/a/14407121/516188
     -- two space indent for job stuff
