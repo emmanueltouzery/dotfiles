@@ -261,6 +261,7 @@ function emmanuel_init()
                 'NvimTree',
                 'Outline',
                 'NeogitCommitMessage',
+                'DiffviewFiles',
             },
             theme = 'nord',
             component_separators = '|',
