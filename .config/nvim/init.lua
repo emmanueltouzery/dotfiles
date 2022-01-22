@@ -35,12 +35,15 @@ vim.defer_fn(function()
   -- If the current buffer name is empty then trigger Dashboard.
   -- NOTE: this is done to avoid some weird issues with Dashboard and
   --       number / signcolumn when Dashboard gets triggered automatically
-  if
-    (vim.api.nvim_buf_get_name(0):len() == 0)
-    and (packer_plugins and packer_plugins["dashboard-nvim"])
-  then
-    vim.cmd("Dashboard")
-  end
+  --
+  -- Emmanuel: disabled manually, see:
+  -- https://github.com/NTBBloodbath/doom-nvim/issues/294
+  -- if
+  --   (vim.api.nvim_buf_get_name(0):len() == 0)
+  --   and (packer_plugins and packer_plugins["dashboard-nvim"])
+  -- then
+  --   vim.cmd("Dashboard")
+  -- end
 
   vim.cmd([[
     PackerLoad nvim-treesitter
