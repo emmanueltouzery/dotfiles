@@ -236,6 +236,7 @@ function emmanuel_init()
     vim.cmd('autocmd BufNewFile,BufRead *.conf.template set syntax=conf')
     vim.cmd('autocmd BufNewFile,BufRead *.yml.template set syntax=yaml')
 
+    vim.g.glow_width = 100
 
     -- https://superuser.com/a/271024/214371
     -- when in comment fields, prepend the comment character
