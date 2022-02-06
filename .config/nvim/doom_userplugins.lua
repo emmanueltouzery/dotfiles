@@ -29,6 +29,7 @@ M.plugins = {
     'elixir-editors/vim-elixir',
     'nvim-lualine/lualine.nvim',
     'ellisonleao/glow.nvim',
+    'tpope/vim-abolish',
 
     -- spellchecks in comments is attractive but when commenting code,
     -- it goes completely red, and also i had trouble to have vim
