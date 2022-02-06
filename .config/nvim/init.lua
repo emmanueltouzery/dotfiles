@@ -295,5 +295,9 @@ function emmanuel_init()
     }
     -- END lualine
 
+    -- this should be covered by lua/doom/extras/autocmds/init.lua but somehow
+    -- I must add this here too.
+    vim.cmd("au BufWinEnter,BufWritePost * lua require('lint').try_lint()")
+
     emmanuel_job_specific()
 end

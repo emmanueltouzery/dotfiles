@@ -42,7 +42,7 @@ M.modules = {
     -- "formatter",          -- File formatting
     "gitsigns",           -- Git signs
     "kommentary",         -- Comments plugin
-    -- "linter",          -- Asynchronous linter, see errors in your code on the fly
+    "linter",          -- Asynchronous linter, see errors in your code on the fly
     "lsp",                -- Language Server Protocols
     -- "minimap",         -- Code minimap, requires github.com/wfxr/code-minimap
     -- "ranger",          -- Ranger File Browser, requires ranger file browser
