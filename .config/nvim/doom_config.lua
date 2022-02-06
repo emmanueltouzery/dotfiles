@@ -280,12 +280,12 @@ M.config = {
     -- Set the Terminal width
     -- Applies only to float direction
     -- @default = 70
-    terminal_width = 70,
+    terminal_width = 140,
 
     -- Set the Terminal height
     -- Applies to all directions except window
     -- @default = 20
-    terminal_height = 20,
+    terminal_height = 45,
 
     -- Conceal level
     -- Set Neovim conceal level
@@ -315,7 +315,7 @@ M.config = {
     --   - window
     --   - float
     -- @default = 'horizontal'
-    terminal_direction = "horizontal",
+    terminal_direction = "float",
 
     -- NOTE: This will only be activated if 'backup' is true.
     -- We don'recommend you put this outside of neovim so we've restricted to the path: ~/.config/nvim
