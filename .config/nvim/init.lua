@@ -255,6 +255,7 @@ function emmanuel_init()
                 'Outline',
                 'NeogitCommitMessage',
                 'DiffviewFiles',
+                'packer',
             },
             theme = 'nord',
             component_separators = '|',
