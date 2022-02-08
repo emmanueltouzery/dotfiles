@@ -20,7 +20,8 @@ M.plugins = {
     {'airblade/vim-rooter', config = function() vim.g['rooter_silent_chdir'] = 1 end},
     'nvim-telescope/telescope-live-grep-raw.nvim',
     {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
-    't9md/vim-choosewin',
+    --'t9md/vim-choosewin',
+    'CodingdAwn/vim-choosewin', -- fork which adds the "close window" feature
     'sindrets/diffview.nvim',
     'emmanueltouzery/agitator.nvim',
     'nvim-telescope/telescope-project.nvim',
