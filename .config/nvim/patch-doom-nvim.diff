@@ -12,7 +12,7 @@ index ac95600..2523964 100644
    vim.opt.fillchars = {
      vert = "▕",
 diff --git a/lua/doom/extras/keybindings/leader.lua b/lua/doom/extras/keybindings/leader.lua
-index 7fd5b51..5fefe62 100644
+index 7fd5b51..ee7a5da 100644
 --- a/lua/doom/extras/keybindings/leader.lua
 +++ b/lua/doom/extras/keybindings/leader.lua
 @@ -62,7 +62,7 @@ mappings.map(
@@ -44,7 +44,7 @@ index 7fd5b51..5fefe62 100644
      opts,
      "Editor",
      "open_tree_alt",
-@@ -856,3 +858,225 @@ mappings.map("n", "<leader>m", "<cmd>w<cr>", opts, "Save", "save_right", "Save m
+@@ -856,3 +858,238 @@ mappings.map("n", "<leader>m", "<cmd>w<cr>", opts, "Save", "save_right", "Save m
  
  -- man pages
  mappings.map("n", "<leader>h", ":Man ", { silent = false }, "Man page", "man_page", "Man page")
@@ -142,12 +142,25 @@ index 7fd5b51..5fefe62 100644
 +  "Open project"
 +)
 +
++mappings.map(
++  "n",
++  "<leader>?",
++  --":b#<bar>bd#<CR>",
++  ":Cheat40<cr>",
++  opts,
++  "Editor",
++  "help",
++  "help"
++)
++
 +-- https://stackoverflow.com/a/19619038/516188
 +-- if that doesn't cut it, consider https://github.com/qpkorr/vim-bufkill
++-- and check https://www.reddit.com/r/vim/comments/m6jl0b/i_made_a_plugin_a_replacement_for_bdelete_that/
 +mappings.map(
 +  "n",
 +  "<leader>bd",
-+  ":b#<bar>bd#<CR>",
++  --":b#<bar>bd#<CR>",
++  ":BD<cr>",
 +  opts,
 +  "Editor",
 +  "delete_buffer",
@@ -315,6 +328,19 @@ index b23bc58..a8fc7d4 100644
      filetype_exclude = { "help", "dashboard", "packer", "norg", "DoomInfo" },
      buftype_exclude = { "terminal" },
    })
+diff --git a/lua/doom/modules/config/doom-cmp.lua b/lua/doom/modules/config/doom-cmp.lua
+index 43302d2..4caf2c3 100644
+--- a/lua/doom/modules/config/doom-cmp.lua
++++ b/lua/doom/modules/config/doom-cmp.lua
+@@ -83,7 +83,7 @@ return function()
+       ["<C-e>"] = cmp.mapping.close(),
+       -- ["<ESC>"] = cmp.mapping.close(),
+       ["<CR>"] = cmp.mapping.confirm({
+-        behavior = cmp.ConfirmBehavior.Replace,
++        behavior = cmp.ConfirmBehavior.Insert,
+         select = true,
+       }),
+       ["<Tab>"] = cmp.mapping(function(fallback)
 diff --git a/lua/doom/modules/config/doom-telescope.lua b/lua/doom/modules/config/doom-telescope.lua
 index 06e0b1e..432dbe8 100644
 --- a/lua/doom/modules/config/doom-telescope.lua

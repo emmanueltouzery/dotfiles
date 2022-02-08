@@ -305,6 +305,8 @@ function emmanuel_init()
 
     vim.g.glow_width = 100
 
+    vim.cmd('au FileType * if (&ft ==? "cheat40") | setlocal signcolumn=no | endif')
+
     -- https://superuser.com/a/271024/214371
     -- when in comment fields, prepend the comment character
     -- on newline.
@@ -323,6 +325,7 @@ function emmanuel_init()
                 'NeogitCommitMessage',
                 'DiffviewFiles',
                 'packer',
+                'cheat40',
             },
             theme = 'nord',
             component_separators = '|',

@@ -25,12 +25,17 @@ M.plugins = {
     'sindrets/diffview.nvim',
     'emmanueltouzery/agitator.nvim',
     'nvim-telescope/telescope-project.nvim',
-    'maxbrunsfeld/vim-yankstack', -- considered https://github.com/AckslD/nvim-neoclip.lua too
+    -- vim.cmd("let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 's', 'S', 'x', 'X', 'y', 'Y']")
+    -- drop s and S due to lightspeed
+    {'maxbrunsfeld/vim-yankstack', config= function() vim.cmd("let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']") end}, -- considered https://github.com/AckslD/nvim-neoclip.lua too
     'mhartington/formatter.nvim',
     'elixir-editors/vim-elixir',
     'nvim-lualine/lualine.nvim',
     'ellisonleao/glow.nvim',
     'tpope/vim-abolish',
+    'qpkorr/vim-bufkill',
+    'lifepillar/vim-cheat40',
+    'ggandor/lightspeed.nvim',
 
     -- spellchecks in comments is attractive but when commenting code,
     -- it goes completely red, and also i had trouble to have vim
