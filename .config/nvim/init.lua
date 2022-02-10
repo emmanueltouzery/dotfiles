@@ -369,7 +369,7 @@ function emmanuel_init()
         inactive_sections = {
             lualine_b = {
                 {winnr, separator = { left = ''}, color = {bg='#4c566a'}},
-                {'branch'},
+                {'branch', color = {bg='#4c566a'}},
                 {'diff', color = {bg='#4c566a'}},
                 {'diagnostics', color = {bg='#4c566a'} },
                 {function(str) return "" end, color = {fg='#4c566a'}, padding=0 }
