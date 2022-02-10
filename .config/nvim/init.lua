@@ -315,6 +315,21 @@ function emmanuel_init()
     vim.cmd("set formatoptions+=cro")
 
     -- START lualine
+    local function winnr()
+        local nr = vim.fn.winnr()
+        if nr == 1 then return ''
+        elseif nr == 2 then return ''
+        elseif nr == 3 then return ''
+        elseif nr == 4 then return ''
+        elseif nr == 5 then return ''
+        elseif nr == 6 then return ''
+        elseif nr == 7 then return ''
+        elseif nr == 8 then return ''
+        elseif nr == 9 then return ''
+        else return ''
+        end
+    end
+
     require('lualine').setup {
         options = { 
             disabled_filetypes = {
@@ -333,7 +348,8 @@ function emmanuel_init()
         }, 
         sections = {
             lualine_a = {
-                { 'mode', separator = { left = '' }, right_padding = 2 },
+                { winnr, padding = 0, separator = { left = '' }},
+                { 'mode', separator = {left=nil, right=''} },
             },
             -- lualine_a = {'mode'},
             lualine_b = {'branch', 'diff', 'diagnostics'},
@@ -348,9 +364,9 @@ function emmanuel_init()
             },
         },
         inactive_sections = {
-            lualine_a = {},
             lualine_b = {
-                {'branch', separator = { left = ''}, color = {bg='#4c566a'}},
+                {winnr, separator = { left = ''}, color = {bg='#4c566a'}},
+                {'branch'},
                 {'diff', color = {bg='#4c566a'}},
                 {'diagnostics', color = {bg='#4c566a'} },
                 {function(str) return "" end, color = {fg='#4c566a'}, padding=0 }
