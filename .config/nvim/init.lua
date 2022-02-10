@@ -228,6 +228,9 @@ function emmanuel_init()
     vim.cmd([[autocmd FileType markdown syn match UrlNoSpell "\w\+:\/\/[^]] .. '[:space:]]' .. [[\+" contains=@NoSpell]])
     vim.cmd([[autocmd FileType NeogitCommitMessage syn match UrlNoSpell "\w\+:\/\/[^]] .. '[:space:]]' .. [[\+" contains=@NoSpell]])
 
+    -- word-wrapping in markdown files
+    vim.cmd('autocmd FileType markdown setlocal wrap linebreak')
+
     -- https://jdhao.github.io/2019/04/29/nvim_spell_check/
     -- vim.api.nvim_command("set spell")
 
