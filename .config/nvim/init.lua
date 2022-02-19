@@ -100,6 +100,9 @@ function emmanuel_job_specific()
 end
 
 function emmanuel_init()
+    -- vim.cmd("let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 's', 'S', 'x', 'X', 'y', 'Y']")
+    -- drop s and S due to lightspeed
+    vim.cmd("let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']")
     require('neogit').setup {
         signs = {
             -- { CLOSED, OPENED }
@@ -112,6 +115,10 @@ function emmanuel_init()
         highlight = {
             pattern = {[[\s*\/\/.*<(KEYWORDS)\s*]], [[\s*--.*<(KEYWORDS)\s*]], [[\s*#.*<(KEYWORDS)\s*]]},
         }
+    }
+
+    require'lightspeed'.setup {
+        ignore_case = true,
     }
 
     require('kommentary.config').configure_language("default", {
