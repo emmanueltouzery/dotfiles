@@ -333,6 +333,17 @@ function emmanuel_init()
         end
     end
 
+    local function project()
+        return vim.fn.getcwd():match("[^/]+$");
+    end
+
+    -- lualine's builtin filename function breaks down for non-focused
+    -- windows. instead of showing the relative path in the module, it
+    -- shows the relative path from the home dir... do it by hand.
+    local function inactiveRelativePath()
+        return vim.fn.expand('%:p'):gsub(vim.fn.getcwd() .. "/", "")
+    end
+
     require('lualine').setup {
         options = { 
             disabled_filetypes = {
@@ -356,7 +367,7 @@ function emmanuel_init()
             },
             -- lualine_a = {'mode'},
             lualine_b = {'branch', 'diff', 'diagnostics'},
-            lualine_c = {{'filename', path=1}}, -- path=1 => relative filename
+            lualine_c = {project, {'filename', path=1}}, -- path=1 => relative filename
             -- lualine_x = { 'encoding', 'fileformat', 'filetype'},
             -- don't color the filetype icon, else it's not always visible with the 'nord' theme.
             lualine_x = { 'filesize', {'filetype', colored = false}},
@@ -374,7 +385,7 @@ function emmanuel_init()
                 {'diagnostics', color = {bg='#4c566a'} },
                 {function(str) return "" end, color = {fg='#4c566a'}, padding=0 }
             },
-            lualine_c = {{'filename', path=1}}, -- path=1 => relative filename
+            lualine_c = {project, inactiveRelativePath},
             lualine_x = { 'filesize', {'filetype', colored = false}},
             lualine_y = {'progress'},
             lualine_z = {
