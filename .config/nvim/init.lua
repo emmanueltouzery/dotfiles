@@ -93,6 +93,54 @@ function _G.my_open_tele()
     vim.fn.feedkeys(w)
 end
 
+function is_diff_line(line_no)
+    -- https://www.reddit.com/r/vim/comments/k2r7b/how_do_i_execute_a_command_on_all_differences_in/c2hee5z/
+    -- https://stackoverflow.com/a/20010859/516188
+    return vim.fn.diff_hlID(line_no, 1) > 0
+end
+
+function diffget_and_keep(put_before)
+    -- https://vi.stackexchange.com/a/36854/38754
+    local line = vim.fn.line(".") + 1
+    local startline = line
+    while (is_diff_line(startline - 1))
+    do
+        startline = startline - 1
+    end
+    local endline = line
+    while (is_diff_line(endline + 1))
+    do
+        endline = endline + 1
+    end
+    -- yank relevant lines into register f
+    vim.cmd(startline .. ',' .. endline .. 'y f')
+    local line_count_before = vim.fn.line('$')
+    vim.cmd("diffget")
+    local line_count_after = vim.fn.line('$')
+
+    if put_before then
+        vim.fn.feedkeys('k"fp')
+    else
+        -- to paste afer, we must move to the end of the block
+        -- but we overwrote the block with the remote block, which
+        -- may have more, or less, lines. Correct with the number
+        -- of lines in the files before & after overwriting the hunk.
+        local hunk_lines = endline - startline + line_count_after - line_count_before
+        for i=1,hunk_lines do
+            vim.fn.feedkeys('j')
+        end
+        vim.fn.feedkeys('"fp')
+    end
+end
+
+function _G.diffget_and_keep_before()
+    diffget_and_keep(true)
+end
+
+function _G.diffget_and_keep_after()
+    diffget_and_keep(false)
+end
+
 function emmanuel_job_specific()
     -- https://stackoverflow.com/a/14407121/516188
     -- two space indent for job stuff
