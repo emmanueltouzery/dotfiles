@@ -39,6 +39,8 @@ M.plugins = {
     'qpkorr/vim-bufkill',
     'lifepillar/vim-cheat40',
     'ggandor/lightspeed.nvim',
+    'samoshkin/vim-mergetool',
+
 
     -- spellchecks in comments is attractive but when commenting code,
     -- it goes completely red, and also i had trouble to have vim

@@ -99,9 +99,9 @@ function is_diff_line(line_no)
     return vim.fn.diff_hlID(line_no, 1) > 0
 end
 
-function diffget_and_keep(put_before)
+function diffget_and_keep(put_after)
     -- https://vi.stackexchange.com/a/36854/38754
-    local line = vim.fn.line(".") + 1
+    local line = vim.fn.line(".")
     local startline = line
     while (is_diff_line(startline - 1))
     do
@@ -118,10 +118,10 @@ function diffget_and_keep(put_before)
     vim.cmd("diffget")
     local line_count_after = vim.fn.line('$')
 
-    if put_before then
+    if put_after then
         vim.fn.feedkeys('k"fp')
     else
-        -- to paste afer, we must move to the end of the block
+        -- to paste after, we must move to the end of the block
         -- but we overwrote the block with the remote block, which
         -- may have more, or less, lines. Correct with the number
         -- of lines in the files before & after overwriting the hunk.
@@ -134,11 +134,11 @@ function diffget_and_keep(put_before)
 end
 
 function _G.diffget_and_keep_before()
-    diffget_and_keep(true)
+    diffget_and_keep(false)
 end
 
 function _G.diffget_and_keep_after()
-    diffget_and_keep(false)
+    diffget_and_keep(true)
 end
 
 function emmanuel_job_specific()
@@ -315,6 +315,10 @@ function emmanuel_init()
 
     -- customize ex mode completion, bash-like. C-y to accept match
     vim.cmd("set wildmode=longest:full,full")
+
+    -- customization for https://github.com/samoshkin/vim-mergetool
+    vim.cmd("nmap <expr> db &diff? ':lua diffget_and_keep_before()<cr>' : 'db'")
+    vim.cmd("nmap <expr> da &diff? ':lua diffget_and_keep_after()<cr>' : 'da'")
 
     -- formatter, mhartington/formatter.nvim START
     require('formatter').setup({
