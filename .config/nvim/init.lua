@@ -334,18 +334,49 @@ function emmanuel_init()
                 end
             },
             json = {
-                -- -- prettier
-                -- function()
-                --     return {
-                --         exe = "prettier",
-                --         args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote', '--parser', 'json'},
-                --         stdin = true
-                --     }
-                -- end
-                -- jq
                 function()
                     return {
                         exe = "jq",
+                        stdin = true
+                    }
+                end
+            },
+            javascript = {
+                -- prettier
+                function()
+                    return {
+                        exe = "~/.asdf/shims/prettier",
+                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+                        stdin = true
+                    }
+                end
+            },
+            javascriptreact = {
+                -- prettier
+                function()
+                    return {
+                        exe = "~/.asdf/shims/prettier",
+                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+                        stdin = true
+                    }
+                end
+            },
+            typescript = {
+                -- prettier
+                function()
+                    return {
+                        exe = "~/.asdf/shims/prettier",
+                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+                        stdin = true
+                    }
+                end
+            },
+            typescriptreact = {
+                -- prettier
+                function()
+                    return {
+                        exe = "~/.asdf/shims/prettier",
+                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
                         stdin = true
                     }
                 end
@@ -356,6 +387,10 @@ function emmanuel_init()
     augroup FormatAutogroup
     autocmd!
     autocmd BufWritePost *.rs FormatWrite
+    autocmd BufWritePost *.js FormatWrite
+    autocmd BufWritePost *.jsx FormatWrite
+    autocmd BufWritePost *.ts FormatWrite
+    autocmd BufWritePost *.tsx FormatWrite
     augroup END
     ]], true)
     -- formatter END
