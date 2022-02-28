@@ -148,6 +148,11 @@ function emmanuel_job_specific()
 end
 
 function emmanuel_init()
+
+    -- workaround for "Read errors" on C-g when opening ts/tsx files
+    -- and plain errors on ":e test.ts" with 0.5.1
+    vim.cmd("TSDisableAll highlight typescript")
+
     -- vim.cmd("let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 's', 'S', 'x', 'X', 'y', 'Y']")
     -- drop s and S due to lightspeed
     vim.cmd("let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']")
