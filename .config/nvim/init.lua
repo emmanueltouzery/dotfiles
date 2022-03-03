@@ -99,7 +99,7 @@ function is_diff_line(line_no)
     return vim.fn.diff_hlID(line_no, 1) > 0
 end
 
-function diffget_and_keep(put_after)
+function diff_get_start_end_line()
     -- https://vi.stackexchange.com/a/36854/38754
     local line = vim.fn.line(".")
     local startline = line
@@ -112,24 +112,32 @@ function diffget_and_keep(put_after)
     do
         endline = endline + 1
     end
+    return startline, endline
+end
+
+function diffget_and_keep(put_after)
+    -- switch to other window
+    vim.cmd('wincmd l')
+    local startline_other, endline_other = diff_get_start_end_line()
+    -- go to the start line of the hunk to simplify things
+    -- vim.fn.feedkeys(startline .. 'G')
     -- yank relevant lines into register f
-    vim.cmd(startline .. ',' .. endline .. 'y f')
-    local line_count_before = vim.fn.line('$')
-    vim.cmd("diffget")
-    local line_count_after = vim.fn.line('$')
+    vim.cmd(startline_other .. ',' .. endline_other .. 'y f')
+
+    -- back to where i was
+    vim.cmd('wincmd h')
+
+    local startline_here, endline_here = diff_get_start_end_line()
 
     if put_after then
-        vim.fn.feedkeys('k"fp')
-    else
         -- to paste after, we must move to the end of the block
-        -- but we overwrote the block with the remote block, which
-        -- may have more, or less, lines. Correct with the number
-        -- of lines in the files before & after overwriting the hunk.
-        local hunk_lines = endline - startline + line_count_after - line_count_before
+        local hunk_lines = endline_here - startline_here
         for i=1,hunk_lines do
             vim.fn.feedkeys('j')
         end
         vim.fn.feedkeys('"fp')
+    else
+        vim.fn.feedkeys('k"fp')
     end
 end
 
