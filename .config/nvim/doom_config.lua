@@ -379,14 +379,14 @@ M.config = {
       cpp = {},
       css = {},
       html = {},
-      javascript = {"eslint"},
+      javascript = {},
       lua = {},
       markdown = {},
       nix = {},
       python = {},
       ruby = {},
       sh = {"shellcheck"},
-      typescript = {"eslint"},
+      typescript = {},
     },
 
     -- Set your dashboard custom colors below

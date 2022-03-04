@@ -359,6 +359,43 @@ index 43302d2..4caf2c3 100644
          select = true,
        }),
        ["<Tab>"] = cmp.mapping(function(fallback)
+diff --git a/lua/doom/modules/config/doom-lsp-installer.lua b/lua/doom/modules/config/doom-lsp-installer.lua
+index 0d05a54..d15de46 100644
+--- a/lua/doom/modules/config/doom-lsp-installer.lua
++++ b/lua/doom/modules/config/doom-lsp-installer.lua
+@@ -92,8 +92,13 @@ return function()
+     },
+   }
+ 
++  -- https://github.com/jose-elias-alvarez/null-ls.nvim/discussions/244
++  -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts
++  local on_attach -- = function(client)
++  --     client.resolved_capabilities.document_formatting = false
++  --     client.resolved_capabilities.document_range_formatting = false
++  -- end
+   --- Intelligent highlighting of word under cursor
+-  local on_attach
+   if not is_plugin_disabled("illuminated") and packer_plugins["vim-illuminate"] then
+     on_attach = function(client)
+       require("illuminate").on_attach(client)
+@@ -165,6 +170,17 @@ return function()
+           end
+         end
+       end
++
++local null_ls = require("null-ls")
++null_ls.config({ sources = {
++    null_ls.builtins.diagnostics.eslint,
++    -- null_ls.builtins.formatting.prettier,
++    -- null_ls.builtins.formatting.rustfmt,
++    -- null_ls.builtins.formatting.mix,
++    -- null_ls.builtins.formatting.eslint,
++}})
++
++        require("lspconfig")["null-ls"].setup({})
+     end
+ 
+     -- Flatten the array of default servers.
 diff --git a/lua/doom/modules/config/doom-telescope.lua b/lua/doom/modules/config/doom-telescope.lua
 index 06e0b1e..432dbe8 100644
 --- a/lua/doom/modules/config/doom-telescope.lua
