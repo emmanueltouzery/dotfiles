@@ -334,78 +334,78 @@ function emmanuel_init()
     vim.cmd("nmap <expr> da &diff? ':lua diffget_and_keep_after()<cr>' : 'da'")
 
     -- formatter, mhartington/formatter.nvim START
-    require('formatter').setup({
-        filetype = {
-            rust = {
-                -- Rustfmt
-                function()
-                    return {
-                        exe = "rustfmt",
-                        args = {"--emit=stdout"},
-                        stdin = true
-                    }
-                end
-            },
-            json = {
-                function()
-                    return {
-                        exe = "jq",
-                        stdin = true
-                    }
-                end
-            },
-            javascript = {
-                -- prettier
-                function()
-                    return {
-                        exe = "~/.asdf/shims/prettier",
-                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
-                        stdin = true
-                    }
-                end
-            },
-            javascriptreact = {
-                -- prettier
-                function()
-                    return {
-                        exe = "~/.asdf/shims/prettier",
-                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
-                        stdin = true
-                    }
-                end
-            },
-            typescript = {
-                -- prettier
-                function()
-                    return {
-                        exe = "~/.asdf/shims/prettier",
-                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
-                        stdin = true
-                    }
-                end
-            },
-            typescriptreact = {
-                -- prettier
-                function()
-                    return {
-                        exe = "~/.asdf/shims/prettier",
-                        args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
-                        stdin = true
-                    }
-                end
-            },
-        }
-    })
-    vim.api.nvim_exec([[
-    augroup FormatAutogroup
-    autocmd!
-    autocmd BufWritePost *.rs FormatWrite
-    autocmd BufWritePost *.js FormatWrite
-    autocmd BufWritePost *.jsx FormatWrite
-    autocmd BufWritePost *.ts FormatWrite
-    autocmd BufWritePost *.tsx FormatWrite
-    augroup END
-    ]], true)
+    -- require('formatter').setup({
+    --     filetype = {
+    --         rust = {
+    --             -- Rustfmt
+    --             function()
+    --                 return {
+    --                     exe = "rustfmt",
+    --                     args = {"--emit=stdout"},
+    --                     stdin = true
+    --                 }
+    --             end
+    --         },
+    --         json = {
+    --             function()
+    --                 return {
+    --                     exe = "jq",
+    --                     stdin = true
+    --                 }
+    --             end
+    --         },
+    --         javascript = {
+    --             -- prettier
+    --             function()
+    --                 return {
+    --                     exe = "~/.asdf/shims/prettier",
+    --                     args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+    --                     stdin = true
+    --                 }
+    --             end
+    --         },
+    --         javascriptreact = {
+    --             -- prettier
+    --             function()
+    --                 return {
+    --                     exe = "~/.asdf/shims/prettier",
+    --                     args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+    --                     stdin = true
+    --                 }
+    --             end
+    --         },
+    --         typescript = {
+    --             -- prettier
+    --             function()
+    --                 return {
+    --                     exe = "~/.asdf/shims/prettier",
+    --                     args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+    --                     stdin = true
+    --                 }
+    --             end
+    --         },
+    --         typescriptreact = {
+    --             -- prettier
+    --             function()
+    --                 return {
+    --                     exe = "~/.asdf/shims/prettier",
+    --                     args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+    --                     stdin = true
+    --                 }
+    --             end
+    --         },
+    --     }
+    -- })
+    -- vim.api.nvim_exec([[
+    -- augroup FormatAutogroup
+    -- autocmd!
+    -- autocmd BufWritePost *.rs FormatWrite
+    -- autocmd BufWritePost *.js FormatWrite
+    -- autocmd BufWritePost *.jsx FormatWrite
+    -- autocmd BufWritePost *.ts FormatWrite
+    -- autocmd BufWritePost *.tsx FormatWrite
+    -- augroup END
+    -- ]], true)
     -- formatter END
     
     -- for instance nginx configuration files
@@ -505,6 +505,17 @@ function emmanuel_init()
     -- this should be covered by lua/doom/extras/autocmds/init.lua but somehow
     -- I must add this here too.
     vim.cmd("au BufWinEnter,BufWritePost * lua require('lint').try_lint()")
+
+-- require("lspconfig")["null-ls"].setup({
+--   -- add to a specific server's on_attach,
+--   -- or to a common on_attach callback to enable for all supported filetypes
+--   on_attach = function(client)
+--       if client.resolved_capabilities.document_formatting then
+--           vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+--       end
+--   end
+-- })
+    vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()]]
 
     emmanuel_job_specific()
 end

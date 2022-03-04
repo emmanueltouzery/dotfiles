@@ -31,7 +31,7 @@ M.plugins = {
     -- vim.cmd("let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 's', 'S', 'x', 'X', 'y', 'Y']")
     -- drop s and S due to lightspeed
     {'maxbrunsfeld/vim-yankstack', config= function() vim.cmd("let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']") end}, -- considered https://github.com/AckslD/nvim-neoclip.lua too
-    'mhartington/formatter.nvim',
+    -- 'mhartington/formatter.nvim',
     'elixir-editors/vim-elixir',
     'nvim-lualine/lualine.nvim',
     'ellisonleao/glow.nvim',
@@ -40,7 +40,16 @@ M.plugins = {
     'lifepillar/vim-cheat40',
     'ggandor/lightspeed.nvim',
     'samoshkin/vim-mergetool',
+    {'jose-elias-alvarez/null-ls.nvim', commit='8828af78d8c2d96a884769a070951a47c2e6a6ff', config = function()
+local null_ls = require("null-ls")
+null_ls.config({ sources = {
+    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.rustfmt,
+    null_ls.builtins.formatting.mix,
+    null_ls.builtins.diagnostics.eslint,
+}})
 
+    end},
 
     -- spellchecks in comments is attractive but when commenting code,
     -- it goes completely red, and also i had trouble to have vim
