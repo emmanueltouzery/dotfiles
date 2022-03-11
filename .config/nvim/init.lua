@@ -486,6 +486,48 @@ function emmanuel_init()
         return vim.fn.expand('%:p'):gsub(escape_pattern(vim.fn.getcwd()) .. "/", "")
     end
 
+    local function scroll_indicator()
+        local current_line = vim.fn.line('w0')
+        local current_bottom_line = vim.fn.line('w$')
+        local total_lines = vim.fn.line('$')
+        local scroll_ratio = current_line / total_lines
+        local height = vim.fn.winheight(0)
+        local display_ratio = height / total_lines
+        local display_ratio_step1 = 0.10
+        local display_ratio_step2 = 0.25
+        if height >= total_lines then
+            return "⣿⣿"
+        end
+        if display_ratio < display_ratio_step1 then
+            -- indicator is 1 row tall
+            if current_line == 1 then
+                return "⠉⠉"
+            elseif scroll_ratio < 0.4 then
+                return "⠒⠒"
+            elseif current_bottom_line < total_lines then
+                return "⠤⠤"
+            else
+                return "⣀⣀"
+            end
+        elseif display_ratio < display_ratio_step2 then
+            -- indicator is 2 rows tall
+            if current_line == 1 then
+                return "⠛⠛"
+            elseif current_bottom_line < total_lines then
+                return "⠶⠶"
+            else
+                return "⣤⣤"
+            end
+        else 
+            -- indicator is 3 rows tall
+            if scroll_ratio < 0.4 then
+                return "⠿⠿"
+            else
+                return "⣶⣶"
+            end
+        end
+    end
+
     require('lualine').setup {
         options = { 
             disabled_filetypes = {
@@ -513,7 +555,7 @@ function emmanuel_init()
             -- lualine_x = { 'encoding', 'fileformat', 'filetype'},
             -- don't color the filetype icon, else it's not always visible with the 'nord' theme.
             lualine_x = { 'filesize', {'filetype', colored = false, icon_only = true}},
-            lualine_y = {'progress'},
+            lualine_y = {'progress', scroll_indicator},
             -- lualine_z = {'location'}
             lualine_z = {
                 { 'location', separator = { right = '' }, left_padding = 2 },
@@ -529,7 +571,7 @@ function emmanuel_init()
             },
             lualine_c = {project, inactiveRelativePath},
             lualine_x = { 'filesize', {'filetype', colored = false, icon_only = true}},
-            lualine_y = {'progress'},
+            lualine_y = {'progress', scroll_indicator},
             lualine_z = {
                 { 'location', separator = { left = '', right = '' }, left_padding = 2, color = {bg='#4c566a', fg='white'} },
             },
