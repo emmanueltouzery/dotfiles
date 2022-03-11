@@ -512,7 +512,7 @@ function emmanuel_init()
             lualine_c = {project, {'filename', path=1}}, -- path=1 => relative filename
             -- lualine_x = { 'encoding', 'fileformat', 'filetype'},
             -- don't color the filetype icon, else it's not always visible with the 'nord' theme.
-            lualine_x = { 'filesize', {'filetype', colored = false}},
+            lualine_x = { 'filesize', {'filetype', colored = false, icon_only = true}},
             lualine_y = {'progress'},
             -- lualine_z = {'location'}
             lualine_z = {
@@ -528,7 +528,7 @@ function emmanuel_init()
                 {function(str) return "" end, color = {fg='#4c566a'}, padding=0 }
             },
             lualine_c = {project, inactiveRelativePath},
-            lualine_x = { 'filesize', {'filetype', colored = false}},
+            lualine_x = { 'filesize', {'filetype', colored = false, icon_only = true}},
             lualine_y = {'progress'},
             lualine_z = {
                 { 'location', separator = { left = '', right = '' }, left_padding = 2, color = {bg='#4c566a', fg='white'} },
