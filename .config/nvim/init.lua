@@ -474,11 +474,16 @@ function emmanuel_init()
         vim.api.nvim_buf_set_option(0, "commentstring", commentstring)
     end
 
+    -- https://stackoverflow.com/a/34953646/516188
+    function escape_pattern(text)
+        return text:gsub("([^%w])", "%%%1")
+    end
+
     -- lualine's builtin filename function breaks down for non-focused
     -- windows. instead of showing the relative path in the module, it
     -- shows the relative path from the home dir... do it by hand.
     local function inactiveRelativePath()
-        return vim.fn.expand('%:p'):gsub(vim.fn.getcwd() .. "/", "")
+        return vim.fn.expand('%:p'):gsub(escape_pattern(vim.fn.getcwd()) .. "/", "")
     end
 
     require('lualine').setup {
