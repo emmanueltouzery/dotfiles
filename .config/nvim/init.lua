@@ -547,7 +547,7 @@ function emmanuel_init()
         sections = {
             lualine_a = {
                 { winnr, padding = 0, separator = { left = '' }},
-                { 'mode', separator = {left=nil, right=''} },
+                { 'mode', fmt = function(str) return str:sub(1,3) end , separator = {left=nil, right=''} },
             },
             -- lualine_a = {'mode'},
             lualine_b = {'branch', 'diff', 'diagnostics'},
