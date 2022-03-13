@@ -12,7 +12,7 @@ index ac95600..2523964 100644
    vim.opt.fillchars = {
      vert = "▕",
 diff --git a/lua/doom/extras/keybindings/leader.lua b/lua/doom/extras/keybindings/leader.lua
-index 7fd5b51..e9d594e 100644
+index 7fd5b51..6df8677 100644
 --- a/lua/doom/extras/keybindings/leader.lua
 +++ b/lua/doom/extras/keybindings/leader.lua
 @@ -62,7 +62,7 @@ mappings.map(
@@ -44,7 +44,7 @@ index 7fd5b51..e9d594e 100644
      opts,
      "Editor",
      "open_tree_alt",
-@@ -856,3 +858,256 @@ mappings.map("n", "<leader>m", "<cmd>w<cr>", opts, "Save", "save_right", "Save m
+@@ -856,3 +858,265 @@ mappings.map("n", "<leader>m", "<cmd>w<cr>", opts, "Save", "save_right", "Save m
  
  -- man pages
  mappings.map("n", "<leader>h", ":Man ", { silent = false }, "Man page", "man_page", "Man page")
@@ -301,6 +301,15 @@ index 7fd5b51..e9d594e 100644
 +  "toggle_gitmerge",
 +  "toggle_gitmerge"
 +)
++mappings.map(
++  "n",
++  "<leader>fW",
++  ":noautocmd w<cr>",
++  opts,
++  "Editor",
++  "save_noindent",
++  "save_noindent"
++)
 diff --git a/lua/doom/extras/keybindings/movement.lua b/lua/doom/extras/keybindings/movement.lua
 index fc3b63f..207ad9f 100644
 --- a/lua/doom/extras/keybindings/movement.lua
@@ -360,7 +369,7 @@ index 43302d2..4caf2c3 100644
        }),
        ["<Tab>"] = cmp.mapping(function(fallback)
 diff --git a/lua/doom/modules/config/doom-lsp-installer.lua b/lua/doom/modules/config/doom-lsp-installer.lua
-index 0d05a54..d15de46 100644
+index 0d05a54..b3fca09 100644
 --- a/lua/doom/modules/config/doom-lsp-installer.lua
 +++ b/lua/doom/modules/config/doom-lsp-installer.lua
 @@ -92,8 +92,13 @@ return function()
@@ -378,14 +387,17 @@ index 0d05a54..d15de46 100644
    if not is_plugin_disabled("illuminated") and packer_plugins["vim-illuminate"] then
      on_attach = function(client)
        require("illuminate").on_attach(client)
-@@ -165,6 +170,17 @@ return function()
+@@ -165,6 +170,20 @@ return function()
            end
          end
        end
 +
 +local null_ls = require("null-ls")
-+null_ls.config({ sources = {
++null_ls.config({ 
++    -- debug=true, 
++    sources = {
 +    null_ls.builtins.diagnostics.eslint,
++    -- null_ls.builtins.diagnostics.shellcheck,
 +    -- null_ls.builtins.formatting.prettier,
 +    -- null_ls.builtins.formatting.rustfmt,
 +    -- null_ls.builtins.formatting.mix,
