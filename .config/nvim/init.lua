@@ -93,6 +93,11 @@ function _G.my_open_tele()
     vim.fn.feedkeys(w)
 end
 
+function _G.ShowCommitAtLine()
+    local commit_sha = require"agitator".git_blame_commit_for_line()
+    vim.cmd("DiffviewOpen " .. commit_sha .. "^.." .. commit_sha)
+end
+
 function is_diff_line(line_no)
     -- https://www.reddit.com/r/vim/comments/k2r7b/how_do_i_execute_a_command_on_all_differences_in/c2hee5z/
     -- https://stackoverflow.com/a/20010859/516188
