@@ -401,14 +401,49 @@ function emmanuel_init()
             },
         }
     })
+
+    -- absolutely ABOMINABLE HACK to avoid losing cursor position when reindent
+    -- occurs and i have the same file in multiple windows.
+    -- https://github.com/mhartington/formatter.nvim/issues/22
+    -- I believe switching to null-ls for reindentation should fix this
+    -- properly, but I didn't manage to switch for prettier for now.
+
+    function _G.save_scrollpos_if_file(fname, winnr)
+        if vim.fn.expand('%:p') == fname and vim.fn.winnr() ~= winnr then
+            local p = vim.fn.getcurpos()
+            if p[2] ~= 1 then
+                vim.w.scroll_save_pos = vim.fn.winsaveview()
+            end
+        end
+    end
+
+    function _G.restore_scrollpos_if_file(fname, winnr)
+        if vim.fn.expand('%:p') == fname and vim.fn.winnr() ~= winnr then
+            vim.fn.winrestview(vim.w.scroll_save_pos)
+        end
+    end
+    
+    function _G.format_safe()
+        local fname=vim.fn.expand('%:p')
+        local winnr=vim.fn.winnr()
+        vim.cmd('windo lua save_scrollpos_if_file("' .. fname .. '", ' .. winnr .. ')')
+        vim.cmd(winnr .. 'wincmd w')
+        vim.cmd("FormatWrite")
+        vim.cmd('windo lua restore_scrollpos_if_file("' .. fname .. '", ' .. winnr .. ')')
+        vim.cmd(winnr .. 'wincmd w')
+    end
+
+    -- end HACK. Without the hack, put FormatWrite instead of 'lua format_safe'
+    -- in the next block.
+
     vim.api.nvim_exec([[
     augroup FormatAutogroup
     autocmd!
-    autocmd BufWritePost *.rs FormatWrite
-    autocmd BufWritePost *.js FormatWrite
-    autocmd BufWritePost *.jsx FormatWrite
-    autocmd BufWritePost *.ts FormatWrite
-    autocmd BufWritePost *.tsx FormatWrite
+    autocmd BufWritePost *.rs lua format_safe()
+    autocmd BufWritePost *.js lua format_safe()
+    autocmd BufWritePost *.jsx lua format_safe()
+    autocmd BufWritePost *.ts lua format_safe()
+    autocmd BufWritePost *.tsx lua format_safe()
     augroup END
     ]], true)
     -- formatter END
