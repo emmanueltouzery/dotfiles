@@ -378,7 +378,7 @@ index 43302d2..4caf2c3 100644
        }),
        ["<Tab>"] = cmp.mapping(function(fallback)
 diff --git a/lua/doom/modules/config/doom-lsp-installer.lua b/lua/doom/modules/config/doom-lsp-installer.lua
-index 0d05a54..b3fca09 100644
+index 0d05a54..d20c277 100644
 --- a/lua/doom/modules/config/doom-lsp-installer.lua
 +++ b/lua/doom/modules/config/doom-lsp-installer.lua
 @@ -92,8 +92,13 @@ return function()
@@ -396,7 +396,7 @@ index 0d05a54..b3fca09 100644
    if not is_plugin_disabled("illuminated") and packer_plugins["vim-illuminate"] then
      on_attach = function(client)
        require("illuminate").on_attach(client)
-@@ -165,6 +170,20 @@ return function()
+@@ -165,6 +170,21 @@ return function()
            end
          end
        end
@@ -406,6 +406,7 @@ index 0d05a54..b3fca09 100644
 +    -- debug=true, 
 +    sources = {
 +    null_ls.builtins.diagnostics.eslint,
++    -- null_ls.builtins.diagnostics.credo,
 +    -- null_ls.builtins.diagnostics.shellcheck,
 +    -- null_ls.builtins.formatting.prettier,
 +    -- null_ls.builtins.formatting.rustfmt,
@@ -719,7 +720,7 @@ index e6f6331..479ad21 100644
      ["j"] = {
        name = "+jumps",
 diff --git a/lua/doom/modules/init.lua b/lua/doom/modules/init.lua
-index d092bc0..2c0cf79 100644
+index d092bc0..d63edb6 100644
 --- a/lua/doom/modules/init.lua
 +++ b/lua/doom/modules/init.lua
 @@ -154,6 +154,7 @@ packer.startup(function(use)
@@ -743,12 +744,14 @@ index d092bc0..2c0cf79 100644
      config = require("doom.modules.config.doom-eviline"),
      disable = disabled_statusline,
    })
-@@ -350,7 +353,7 @@ packer.startup(function(use)
+@@ -349,8 +352,8 @@ packer.startup(function(use)
+   -- Neogit
    local disabled_neogit = is_plugin_disabled("neogit")
    use({
-     "TimUntersberger/neogit",
+-    "TimUntersberger/neogit",
 -    commit = pin_commit("ab772d21b108127ad6c703f7457c279f5817f379"),
-+    commit = pin_commit("0ff8e0c53092a9cb3a2bf138b05f7efd1f6d2481"),
++    "emmanueltouzery/neogit",
++    branch = "delete_path",
      config = function()
        require("neogit").setup({})
      end,
