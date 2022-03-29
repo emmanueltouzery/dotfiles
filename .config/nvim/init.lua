@@ -639,5 +639,20 @@ function emmanuel_init()
     vim.api.nvim_set_keymap('n', 'gCC', '<cmd>lua toggle_comment_custom_commentstring_curline()<cr>', { noremap = true, silent = true })
     vim.api.nvim_set_keymap('v', 'gC', ':<C-u>lua toggle_comment_custom_commentstring_sel()<cr>', { noremap = true, silent = true })
 
+  -- https://github.com/mfussenegger/nvim-lint/pull/196/files
+  require('lint').linters.credo = {
+      cmd = 'mix',
+      stdin = true,
+      args = { 'credo', 'list', '--format=oneline', '--read-from-stdin' },
+      stream = 'stdout',
+      ignore_exitcode = true, -- credo only returns 0 if there are no errors
+      parser = require('lint.parser').from_errorformat('[%t] %. %f:%l:%c %m, [%t] %. %f:%l %m')
+  }
+
+  require("lint").linters_by_ft = {
+    sh = {"shellcheck"},
+    elixir = {"credo"},
+  }
+
     emmanuel_job_specific()
 end
