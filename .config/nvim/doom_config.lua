@@ -357,8 +357,9 @@ M.config = {
     -- Set gui fonts here
     -- @default = "FiraCode Nerd Font", @default font size = 15,
     -- WARNING: Font sizes must be in string format!
-    guifont = "FiraCode Nerd Font",
-    guifont_size = "10.5",
+    guifont = "JetBrainsM3n3 Nerd Font",
+    -- guifont = "JetBrains Mono Nerd Font"
+    guifont_size = "10.6", -- or 10.9 or 11
 
     -- Change Which Key background color
     -- can use hex, or normal color names (eg: Red, Gree, Blue)
