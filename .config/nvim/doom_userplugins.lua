@@ -40,10 +40,10 @@ M.plugins = {
     {'lifepillar/vim-cheat40', commit='ae237b02f9031bc82a8ad9202bffee2bcef71ed1'},
     {'ggandor/lightspeed.nvim', commit='23565bcdd45afea0c899c71a367b14fc121dbe13'},
     {'samoshkin/vim-mergetool', commit='0275a85256ad173e3cde586d54f66566c01b607f'},
+    {'tpope/vim-dispatch', commit='00e77d90452e3c710014b26dc61ea919bc895e92'}, -- used by vim-test
+    {'vim-test/vim-test', commit='56bbfa295fe62123d2ebe8ed57dd002afab46097'},
     {'jose-elias-alvarez/null-ls.nvim', commit='43dc39f704558ca4445ffbd89777dbe5367c2dd1', config = function()
 
-
-    end},
     end,
     requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig"}
   },

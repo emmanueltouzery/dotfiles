@@ -473,6 +473,8 @@ M.config = {
         -- {'n', 'M', "':Telescope find_files<cr>' . expand('<cword>')", {}}
         -- {'n', 'M', ':lua my_open_tele()<cr>', {}},
         -- {'n', 'P', ':lua open_file_git_branch()<cr>', {}},
+        {'n', 'čp', '<Cmd>:cp<CR>', {}},
+        {'n', 'čn', '<Cmd>:cn<CR>', {}},
         {'n', 'ćp', '<Cmd>lua require("gitsigns").prev_hunk()<CR>', {}},
         {'n', 'ćn', '<Cmd>lua require("gitsigns").next_hunk()<CR>', {}},
         {'n', 'žp', '[c', {}}, -- :h jumpto-diffs diffs+diffview.nvim
