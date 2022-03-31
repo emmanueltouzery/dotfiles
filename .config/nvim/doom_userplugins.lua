@@ -48,6 +48,7 @@ M.plugins = {
       vim.g.markify_error_text = ""
       vim.g.markify_warning_text = ""
       vim.g.markify_info_text = ""
+      vim.g.markify_info_texthl = "Todo"
     end},
     {'jose-elias-alvarez/null-ls.nvim', commit='43dc39f704558ca4445ffbd89777dbe5367c2dd1', config = function()
 
