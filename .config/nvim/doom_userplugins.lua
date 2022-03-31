@@ -42,6 +42,13 @@ M.plugins = {
     {'samoshkin/vim-mergetool', commit='0275a85256ad173e3cde586d54f66566c01b607f'},
     {'tpope/vim-dispatch', commit='00e77d90452e3c710014b26dc61ea919bc895e92'}, -- used by vim-test
     {'vim-test/vim-test', commit='56bbfa295fe62123d2ebe8ed57dd002afab46097'},
+    -- vim-markify, considered alternative: https://github.com/tomtom/quickfixsigns_vim
+    -- useful in combination with vim-test, to highlight the test failures from quickfix
+    {'dhruvasagar/vim-markify', commit='14158865c0f37a02a5d6d738437eb00a821b31ef', config = function()
+      vim.g.markify_error_text = ""
+      vim.g.markify_warning_text = ""
+      vim.g.markify_info_text = ""
+    end},
     {'jose-elias-alvarez/null-ls.nvim', commit='43dc39f704558ca4445ffbd89777dbe5367c2dd1', config = function()
 
     end,
