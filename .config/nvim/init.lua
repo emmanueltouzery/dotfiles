@@ -62,6 +62,28 @@ vim.defer_fn(function()
 
 end, 0)
 
+function _G.select_current_qf(also_print)
+    local qf_entries = vim.fn.getqflist()
+    local i = 1
+    local cur_text = ""
+    while qf_entries[i] do
+        local qf_entry = qf_entries[i]
+        if qf_entry.lnum == 0 then
+            cur_text = cur_text .. "\n" .. qf_entry.text
+        elseif qf_entry.lnum == vim.fn.line('.') then
+            if also_print then
+                print(cur_text)
+            end
+            vim.cmd(":cc " .. i)
+            cur_text = ""
+        else
+            -- new message, reset
+            cur_text = ""
+        end
+        i = i+1
+    end
+end
+
 -- huge hack. the first time I'd open nvim-tree in doom-nvim,
 -- the current file wouldn't be focused. the second time it would be.
 -- I think it's connected with packer's lazy loading.. 
