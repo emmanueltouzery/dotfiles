@@ -70,7 +70,7 @@ function _G.select_current_qf(also_print)
         local qf_entry = qf_entries[i]
         if qf_entry.lnum == 0 then
             cur_text = cur_text .. "\n" .. qf_entry.text
-        elseif qf_entry.lnum == vim.fn.line('.') then
+        elseif qf_entry.lnum == vim.fn.line('.') and qf_entry.bufnr == vim.fn.bufnr() then
             if also_print then
                 print(cur_text)
             end
