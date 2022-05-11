@@ -180,6 +180,8 @@ function emmanuel_job_specific()
     -- https://stackoverflow.com/a/14407121/516188
     -- two space indent for job stuff
     vim.cmd("au BufRead,BufNewFile,BufEnter /home/emmanuel/projects/* setlocal sw=2")
+
+    vim.cmd("let g:test#elixir#exunit#options = { 'all': '--warnings-as-errors'}")
 end
 
 function emmanuel_init()
