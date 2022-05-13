@@ -55,6 +55,8 @@ M.plugins = {
     end,
     requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig"}
   },
+  {'ruifm/gitlinker.nvim', commit='ff33d07'},
+
 
     -- spellchecks in comments is attractive but when commenting code,
     -- it goes completely red, and also i had trouble to have vim

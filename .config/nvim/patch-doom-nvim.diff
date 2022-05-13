@@ -663,7 +663,7 @@ index 829285b..6bad9e1 100644
 +    })
  end
 diff --git a/lua/doom/modules/config/doom-whichkey.lua b/lua/doom/modules/config/doom-whichkey.lua
-index e6f6331..005cfd7 100644
+index e6f6331..b8f1bf2 100644
 --- a/lua/doom/modules/config/doom-whichkey.lua
 +++ b/lua/doom/modules/config/doom-whichkey.lua
 @@ -72,6 +72,8 @@ return function()
@@ -728,7 +728,7 @@ index e6f6331..005cfd7 100644
      },
      ["g"] = {
        name = "+git",
-@@ -150,6 +177,17 @@ return function()
+@@ -150,6 +177,18 @@ return function()
        ["b"] = { "Blame line" },
        ["B"] = { "Branches" },
        ["c"] = { "Commits" },
@@ -743,10 +743,11 @@ index e6f6331..005cfd7 100644
 +      ["g"] = { "Neogit" },
 +      ["m"] = { "Git merge" },
 +      ["v"] = { "View commit for cur line" },
++      ["y"] = { "Copy repo web URL" },
      },
      ["p"] = {
        name = "+plugins",
-@@ -173,6 +211,9 @@ return function()
+@@ -173,6 +212,9 @@ return function()
        ["s"] = { "Goto symbol" },
        ["h"] = { "Command history" },
        ["m"] = { "Jump to mark" },
@@ -756,7 +757,7 @@ index e6f6331..005cfd7 100644
      },
      ["t"] = {
        name = "+tweak",
-@@ -184,6 +225,9 @@ return function()
+@@ -184,6 +226,9 @@ return function()
        -- ["p"] = { "autopairs" }, -- moved below as conditional
        ["s"] = { "spell" },
        ["x"] = { "syntax/treesetter" },
@@ -766,7 +767,7 @@ index e6f6331..005cfd7 100644
      },
      ["w"] = {
        name = "+windows",
-@@ -203,6 +247,9 @@ return function()
+@@ -203,6 +248,9 @@ return function()
        ["="] = { "Balance window" },
        ["s"] = { "Split window below" },
        ["v"] = { "Split window right" },
@@ -776,7 +777,7 @@ index e6f6331..005cfd7 100644
      },
      ["o"] = {
        name = "+open",
-@@ -213,6 +260,9 @@ return function()
+@@ -213,6 +261,9 @@ return function()
        ["m"] = { "Minimap" },
        ["s"] = { "Symbols" },
        ["t"] = { "Terminal" },

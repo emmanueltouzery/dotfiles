@@ -678,5 +678,13 @@ function emmanuel_init()
     elixir = {"credo"},
   }
 
-    emmanuel_job_specific()
+  require"gitlinker".setup({
+      callbacks = {
+          ["gitlab.*"] = require"gitlinker.hosts".get_gitlab_type_url
+      },
+      -- default mapping to call url generation with action_callback
+      mappings = "<leader>gy"
+  })
+
+  emmanuel_job_specific()
 end
