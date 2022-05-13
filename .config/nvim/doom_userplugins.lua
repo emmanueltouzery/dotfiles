@@ -25,7 +25,7 @@ M.plugins = {
     {'nvim-telescope/telescope-fzf-native.nvim', run = 'make', commit='8ec164b541327202e5e74f99bcc5fe5845720e18'},
     --'t9md/vim-choosewin',
     {'CodingdAwn/vim-choosewin', commit='554edfec23c9b7fe523f957a90821b4e0da7aa36'}, -- fork which adds the "close window" feature
-    {'sindrets/diffview.nvim', commit='eef47458679a922ef101c1e4c07fb7b36d701385'},
+    {'sindrets/diffview.nvim', commit='71e972ecec34cc9b4917ccdacbbd29062ef9657c'},
     '/home/emmanuel/home/agitator.nvim/',
     {'nvim-telescope/telescope-project.nvim', commit='d317c3cef6917d650d9a638c627b54d3e1173031'},
     -- vim.cmd("let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 's', 'S', 'x', 'X', 'y', 'Y']")
