@@ -84,19 +84,29 @@ function _G.select_current_qf(also_print)
     end
 end
 
-function _G.copy_file_line()
+function _G.get_file_line()
     local file_path = vim.fn.expand("%")
     local line = vim.fn.line(".")
-    local to_copy = "`" .. file_path .. ":" .. line .. "`"
+    return "`" .. file_path .. ":" .. line .. "`"
+end
+
+function _G.copy_file_line()
+    local to_copy = get_file_line()
     vim.cmd("let @+ = '" .. to_copy .. "'")
     print(to_copy)
 end
 
-function _G.copy_file_line_sel()
+function _G.get_file_line_sel()
     local file_path = vim.fn.expand("%")
-    local start_line = vim.fn.line("'<")
-    local end_line = vim.fn.line("'>")
-    local to_copy = "`" .. file_path .. ":" .. start_line .. "-" .. end_line .. "`"
+    local start_line = vim.fn.getpos("v")[2]
+    local end_line = vim.fn.getcurpos()[2]
+    -- local start_line = vim.fn.line("'<")
+    -- local end_line = vim.fn.line("'>")
+    return "`" .. file_path .. ":" .. start_line .. "-" .. end_line .. "`"
+end
+
+function _G.copy_file_line_sel()
+    local to_copy = get_file_line_sel()
     vim.cmd("let @+ = '" .. to_copy .. "'")
     print(to_copy)
 end
@@ -696,6 +706,18 @@ function emmanuel_init()
   }
 
   require"gitlinker".setup({
+      opts = {
+          action_callback = function(url)
+              local human_readable_url = ''
+              if vim.fn.mode() == 'n' then
+                  human_readable_url = _G.get_file_line()
+              else
+                  human_readable_url = _G.get_file_line_sel()
+              end
+
+              vim.api.nvim_command('let @+ = \'' .. human_readable_url .. ' ' .. url .. '\'')
+          end,
+      },
       callbacks = {
           ["gitlab.*"] = require"gitlinker.hosts".get_gitlab_type_url
       },
