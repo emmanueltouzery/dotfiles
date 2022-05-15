@@ -84,6 +84,23 @@ function _G.select_current_qf(also_print)
     end
 end
 
+function _G.copy_file_line()
+    local file_path = vim.fn.expand("%")
+    local line = vim.fn.line(".")
+    local to_copy = "`" .. file_path .. ":" .. line .. "`"
+    vim.cmd("let @+ = '" .. to_copy .. "'")
+    print(to_copy)
+end
+
+function _G.copy_file_line_sel()
+    local file_path = vim.fn.expand("%")
+    local start_line = vim.fn.line("'<")
+    local end_line = vim.fn.line("'>")
+    local to_copy = "`" .. file_path .. ":" .. start_line .. "-" .. end_line .. "`"
+    vim.cmd("let @+ = '" .. to_copy .. "'")
+    print(to_copy)
+end
+
 -- huge hack. the first time I'd open nvim-tree in doom-nvim,
 -- the current file wouldn't be focused. the second time it would be.
 -- I think it's connected with packer's lazy loading.. 
