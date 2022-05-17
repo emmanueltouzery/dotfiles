@@ -12,7 +12,7 @@ index ac95600..2523964 100644
    vim.opt.fillchars = {
      vert = "▕",
 diff --git a/lua/doom/extras/keybindings/leader.lua b/lua/doom/extras/keybindings/leader.lua
-index 7fd5b51..d0c67cf 100644
+index 7fd5b51..caeafb5 100644
 --- a/lua/doom/extras/keybindings/leader.lua
 +++ b/lua/doom/extras/keybindings/leader.lua
 @@ -62,7 +62,7 @@ mappings.map(
@@ -44,7 +44,7 @@ index 7fd5b51..d0c67cf 100644
      opts,
      "Editor",
      "open_tree_alt",
-@@ -856,3 +858,346 @@ mappings.map("n", "<leader>m", "<cmd>w<cr>", opts, "Save", "save_right", "Save m
+@@ -856,3 +858,356 @@ mappings.map("n", "<leader>m", "<cmd>w<cr>", opts, "Save", "save_right", "Save m
  
  -- man pages
  mappings.map("n", "<leader>h", ":Man ", { silent = false }, "Man page", "man_page", "Man page")
@@ -230,7 +230,8 @@ index 7fd5b51..d0c67cf 100644
 +mappings.map(
 +  "n",
 +  "<leader>fp",
-+  ':let @+ = expand("%")<cr>',
++  -- ':let @+ = expand("%")<cr>',
++  ':lua copy_to_clipboard(cur_file_path_in_project())<cr>',
 +  opts,
 +  "Editor",
 +  "copy_file_path",
@@ -390,6 +391,15 @@ index 7fd5b51..d0c67cf 100644
 +  "Editor",
 +  "Copy line and line number",
 +  "Copy line and line number"
++)
++mappings.map(
++  "n",
++  "<leader>oc",
++  ":lua goto_fileline()<cr>",
++  opts,
++  "Editor",
++  "Open code (file+line)",
++  "Open code (file+line)"
 +)
 diff --git a/lua/doom/extras/keybindings/movement.lua b/lua/doom/extras/keybindings/movement.lua
 index fc3b63f..207ad9f 100644
@@ -681,7 +691,7 @@ index 829285b..6bad9e1 100644
 +    })
  end
 diff --git a/lua/doom/modules/config/doom-whichkey.lua b/lua/doom/modules/config/doom-whichkey.lua
-index e6f6331..b8f1bf2 100644
+index e6f6331..a07ada2 100644
 --- a/lua/doom/modules/config/doom-whichkey.lua
 +++ b/lua/doom/modules/config/doom-whichkey.lua
 @@ -72,6 +72,8 @@ return function()
@@ -795,13 +805,14 @@ index e6f6331..b8f1bf2 100644
      },
      ["o"] = {
        name = "+open",
-@@ -213,6 +261,9 @@ return function()
+@@ -213,6 +261,10 @@ return function()
        ["m"] = { "Minimap" },
        ["s"] = { "Symbols" },
        ["t"] = { "Terminal" },
 +      -- MINE
 +      ["p"] = { "Project" },
 +      ["q"] = { "Quickfix" },
++      ["c"] = { "Code file line" },
      },
      ["j"] = {
        name = "+jumps",
