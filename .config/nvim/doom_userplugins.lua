@@ -32,7 +32,7 @@ M.plugins = {
     -- drop s and S due to lightspeed
     {'maxbrunsfeld/vim-yankstack', commit='157a659c1b101c899935d961774fb5c8f0775370', config= function() vim.cmd("let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']") end}, -- considered https://github.com/AckslD/nvim-neoclip.lua too
     {'mhartington/formatter.nvim', commit='2e82574f2cb6686849fb8e7a0231537734161fd4'},
-    {'emmanueltouzery/vim-elixir', commit='c5c2ab5c86d71d2816695593a14c058bc79c7ebd'},
+    {'emmanueltouzery/vim-elixir', commit='735528cecc19ecffa002ffa20176e9984cced970'},
     {'nvim-lualine/lualine.nvim', commit='016a20711ee595a11426f9c1f4ab3e04967df553'},
     {'ellisonleao/glow.nvim', commit='c6685381d31df262b776775b9f4252f6c7fa98d0'},
     {'tpope/vim-abolish', commit='3f0c8faadf0c5b68bcf40785c1c42e3731bfa522'},
