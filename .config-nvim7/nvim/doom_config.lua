@@ -483,8 +483,8 @@ M.config = {
         {'n', 'ćn', '<Cmd>lua require("gitsigns").next_hunk()<CR>', {}},
         {'n', 'žp', '[c', {}}, -- :h jumpto-diffs diffs+diffview.nvim
         {'n', 'žn', ']c', {}},
-        {'n', 'šp', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', {}},
-        {'n', 'šn', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', {}},
+        {'n', 'šp', '<Cmd>lua vim.diagnostic.goto_prev()<CR>', {}},
+        {'n', 'šn', '<Cmd>lua vim.diagnostic.goto_next()<CR>', {}},
         {'n', '-', '<Cmd>ChooseWin<CR>', {}},
         -- {'n', '<leader>op', "<Cmd>lua require'telescope'.extensions.project.project{}<CR>", {}},
     },
