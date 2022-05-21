@@ -350,6 +350,7 @@ function emmanuel_init()
                 ["U"]             = cb("unstage_all"),          -- Unstage all entries.
                 ["X"]             = cb("restore_entry"),        -- Restore entry to the state on the left side.
                 ["R"]             = cb("refresh_files"),        -- Update stats and entries in the file list.
+                ["L"]             = cb("open_commit_log"),      -- Open the commit log panel.
                 ["<tab>"]         = cb("select_next_entry"),
                 ["<s-tab>"]       = cb("select_prev_entry"),
                 ["gf"]            = cb("goto_file"),
@@ -364,6 +365,7 @@ function emmanuel_init()
                 ["g!"]            = cb("options"),            -- Open the option panel
                 ["<C-A-d>"]       = cb("open_in_diffview"),   -- Open the entry under the cursor in a diffview
                 ["y"]             = cb("copy_hash"),          -- Copy the commit hash of the entry under the cursor
+                ["L"]             = cb("open_commit_log"),
                 ["zR"]            = cb("open_all_folds"),
                 ["zM"]            = cb("close_all_folds"),
                 ["j"]             = cb("next_entry"),

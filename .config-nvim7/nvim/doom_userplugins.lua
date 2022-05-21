@@ -25,7 +25,7 @@ M.plugins = {
     {'nvim-telescope/telescope-fzf-native.nvim', run = 'make', commit='8ec164b541327202e5e74f99bcc5fe5845720e18'},
     --'t9md/vim-choosewin',
     {'CodingdAwn/vim-choosewin', commit='554edfec23c9b7fe523f957a90821b4e0da7aa36'}, -- fork which adds the "close window" feature
-    {'sindrets/diffview.nvim', commit='71e972ecec34cc9b4917ccdacbbd29062ef9657c'},
+    {'sindrets/diffview.nvim', commit='9d3e868376b30737aa4adc982c0d95ecb95b46ca'},
     '/home/emmanuel/home/agitator.nvim/',
     {'nvim-telescope/telescope-project.nvim', commit='d317c3cef6917d650d9a638c627b54d3e1173031'},
     -- vim.cmd("let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 's', 'S', 'x', 'X', 'y', 'Y']")
@@ -83,6 +83,9 @@ M.plugins = {
     requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig"}
   },
   {'ruifm/gitlinker.nvim', commit='ff33d07'},
+  {'j-hui/fidget.nvim', commit='37d536bbbee47222ddfeca0e8186e8ee6884f9a2', config= function()
+      require"fidget".setup{}
+  end},
 
     -- 'j-hui/fidget.nvim',
 
