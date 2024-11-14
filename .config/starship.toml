@@ -6,6 +6,7 @@ $directory\
 $git_branch\
 $git_status\
 $jobs\
+$cmd_duration\
 [](fg:#394260)\
 $character"""
 
@@ -36,3 +37,7 @@ format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
 [jobs]
 style = "bg:#394260"
 format = "[$symbol$number]($style)"
+
+[cmd_duration]
+style = "bg:#394260"
+format = '[ $duration]($style)'
