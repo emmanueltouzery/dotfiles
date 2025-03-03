@@ -1,181 +1,122 @@
-export TERM="xterm-256color"
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+setopt HIST_SAVE_NO_DUPS
+setopt INC_APPEND_HISTORY
 
-POWERLEVEL9K_MODE='awesome-fontconfig'
+# Configure the push directory stack (most people don't need this)
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Emacs keybindings
+bindkey -e
 
-# Path to your oh-my-zsh installation.
-  export ZSH=/home/emmanuel/.oh-my-zsh
+# Use the up and down keys to navigate the history
+bindkey "\e[B" history-beginning-search-forward
+# bindkey "\e[A" history-beginning-search-backward
+# https://unix.stackexchange.com/a/690912/36566
+function history-beginning-search-backward-end-of-line {
+  # local original_buffer_length=$#BUFFER
+  CURSOR=0
+  zle history-beginning-search-backward
+  # if ((original_buffer_length == 0)); then
+    CURSOR=$#BUFFER
+  # fi
+}
+zle -N history-beginning-search-backward-end-of-line
+bindkey "\e[A" history-beginning-search-backward-end-of-line
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="powerlevel9k/powerlevel9k"
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey "^[[3~" delete-char
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[F"   end-of-line
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs dir_writable)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time)
-POWERLEVEL9K_STATUS_VERBOSE=false
+# Move to directories without cd
+setopt autocd
 
-# POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
-# POWERLEVEL9K_SHORTEN_DELIMITER=""
-# POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
-POWERLEVEL9K_SHORTEN_DELIMITER=".."
-POWERLEVEL9K_SHORTEN_STRATEGY="Default"
+# Initialize completion
+autoload -U compinit; compinit
 
-#ZSH_THEME="bullet-train"
-#
-#BULLETTRAIN_PROMPT_ORDER=(
-#  dir
-#  git
-#)
-#BULLETTRAIN_PROMPT_SEPARATE_LINE=false
-#BULLETTRAIN_PROMPT_CHAR=
-#BULLETTRAIN_PROMPT_ADD_NEWLINE=false
+alias gupa='git pull --rebase --autostash'
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+# Set up zoxide to move between folders efficiently
+# eval "$(zoxide init zsh)"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+# Set up the Starship prompt
+eval "$(starship init zsh)"
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git mvn npm fasd zsh-autosuggestions history history-substring-search)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-POWERLEVEL9K_DIR_PATH_SEPARATOR="%F{black} $(print_icon 'LEFT_SUBSEGMENT_SEPARATOR') %F{black}"
-# POWERLEVEL9K_HOME_FOLDER_ABBREVIATION="%k%F{white}~%F{blue}"
-POWERLEVEL9K_HOME_FOLDER_ABBREVIATION=""
-
-# https://github.com/zzrough/gs-extensions-drop-down-terminal/issues/57#issuecomment-170202054
-# 0 is the text foreground color
-# 2 is the git branch info back color
-# 4 is the dir path back color
-# tput initc 0 172 196 200
-# tput initc 1 776 0 0
-# tput initc 2 298 568 19
-# tput initc 3 749 592 0
-# tput initc 4 200 372 800
-# tput initc 5 447 294 376
-# tput initc 6 23 560 470
-# tput initc 7 815 835 800
-# tput initc 8 329 337 313
-# tput initc 9 929 160 156
-# tput initc 10 537 878 196
-# tput initc 11 980 905 298
-# tput initc 12 380 600 1000
-# tput initc 13 992 243 886
-# tput initc 14 203 878 854
-# tput initc 15 905 909 901
-
-# alternative
-# tput initc 0 300 300 300
-# tput initc 1 800 210 100
-# tput initc 2 650 760 380
-# tput initc 3 800 460 180
-# tput initc 4 350 530 670
-# tput initc 5 630 380 470
-# tput initc 6 470 710 760
-# tput initc 7 810 810 810
-# tput initc 8 570 570 570
-# tput initc 9 1000 280 200
-# tput initc 10 720 710 0
-# tput initc 11 1000 780 430
-# tput initc 12 530 760 1000
-# tput initc 13 820 820 1000
-# tput initc 14 440 760 830
-# tput initc 15 910 910 910
-
-tput initc 0 172 196 200
-tput initc 1 800 210 100
-tput initc 2 220 560 220
-tput initc 3 800 460 180
-tput initc 4 350 530 670
-tput initc 5 630 380 470
-tput initc 6 470 710 760
-tput initc 7 810 810 810
-tput initc 8 570 570 570
-tput initc 9 1000 280 200
-tput initc 10 720 710 0
-tput initc 11 1000 780 430
-tput initc 12 530 760 1000
-tput initc 13 820 820 1000
-tput initc 14 440 760 830
-tput initc 15 910 910 910
-
-# https://unix.stackexchange.com/a/114243/36566
-zstyle ':completion:*' special-dirs true
-
-
-source $HOME/.zprofile
-source $HOME/.oh-my-zsh/custom/plugins/zsh-you-should-use/you-should-use.plugin.zsh
+# # Lines configured by zsh-newuser-install
+# HISTFILE=~/.histfile
+# HISTSIZE=10000
+# SAVEHIST=10000
+# bindkey -e
+# # End of lines configured by zsh-newuser-install
+# # The following lines were added by compinstall
+# zstyle :compinstall filename '/home/emmanuel/.zshrc'
+# 
+# autoload -Uz compinit
+# compinit
+# # End of lines added by compinstall
+# 
+# eval "$(starship init zsh)"
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# https://github.com/emmanueltouzery/projectpad2
+# shell integration for ppcli: control-space to run
+
+# two options were considered so that we can add ppcli-run commands
+# to the shell history:
+# 1. creating a temporary file, give the path to ppcli, ppcli writes
+#    the command that was run there
+# 2. this approach: in shell integration mode, ppcli doesn't run
+#    commands, but gives the shell all the info needed, and the
+#    shell runs the commands and writes to the history
+# I started with #2 and kept it as it was working OK.
+ppcli-run() {
+    output=$(ppcli --shell-integration)
+    # split by NUL https://stackoverflow.com/a/2269760/516188
+    pieces=( ${(ps.\0.)output} )
+    case "$pieces[1]" in
+        R) # R == run
+            cur_folder=$(pwd)
+            if [[ ! -z $pieces[3] ]]; then
+               cmd="cd $pieces[3] && $pieces[2]"
+            else
+               cmd="$pieces[2]"
+            fi
+            echo -e "\e[3m$cmd\e[0m" # print with italics because it wasn't really _typed_
+            print -s "$cmd" # https://stackoverflow.com/a/2816792/516188
+            # need the </dev/tty and the stty so that ssh shells work
+            # https://stackoverflow.com/questions/57539180/why-is-interactive-command-breaking-when-using-zsh-widget-to-execute-it#comment101556821_57539863
+            # i need the printf to avoid ~0 and ~1 around pasting https://unix.stackexchange.com/a/196574/36566
+            eval "stty sane; printf '\e[?2004l'; $cmd" </dev/tty
+            cd $cur_folder
+            # accept-line: give me a prompt, and that takes into account the
+            # new history i've added with print -s (zle reset-prompt doesn't do that)
+            zle && zle accept-line
+            ;;
+        P) # P == print to the prompt
+            zle -U "$pieces[2]"
+            ;;
+        C) # C == Copy to the clipboard
+            # https://stackoverflow.com/questions/42655304/how-do-i-check-if-a-variable-is-set-in-zsh/42655305
+            if [[ -v WAYLAND_DISPLAY ]]; then
+                wl-copy "$pieces[2]"
+            else
+                echo "$pieces[2]" | xsel --clipboard
+            fi
+            ;;
+    esac
+    if [[ ! -z "$pieces[4]" ]]; then
+        echo "\n\nppcli has detected a new version is available.\nIt's recommended to upgrade by running:\n ppcli --upgrade\n new version URL: $pieces[4]"
+    fi
+}
+zle -N ppcli-run
+bindkey '^ ' ppcli-run
