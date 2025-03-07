@@ -121,3 +121,5 @@ ppcli-run() {
 }
 zle -N ppcli-run
 bindkey '^ ' ppcli-run
+
+export EDITOR=nvim
