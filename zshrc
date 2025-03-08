@@ -28,11 +28,19 @@ function history-beginning-search-backward-end-of-line {
 zle -N history-beginning-search-backward-end-of-line
 bindkey "\e[A" history-beginning-search-backward-end-of-line
 
+# Ctrl binds
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey "^[[3~" delete-char
 bindkey  "^[[H"   beginning-of-line
 bindkey  "^[[F"   end-of-line
+# Bind Ctrl + Delete to delete word to the right
+bindkey '^[[3;5~' kill-word
+# Bind Ctrl + Backspace to delete word to the left
+bindkey '^H' backward-kill-word # kitty
+bindkey '^[[127;5u' backward-kill-word # neovim terminal
+# Bind Ctrl + Right Arrow to move to the next word
+bindkey '^[[1;5C' forward-word
 
 # Move to directories without cd
 setopt autocd
