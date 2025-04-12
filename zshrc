@@ -51,6 +51,7 @@ autoload -U compinit; compinit
 alias gupa='git pull --rebase --autostash'
 alias gst='git status'
 alias gp='git push'
+alias grhh='git reset --hard HEAD'
 
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
