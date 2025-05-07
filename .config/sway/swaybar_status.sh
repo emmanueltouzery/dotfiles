@@ -7,7 +7,8 @@ bat_name=$(upower -e | grep 'BAT')
 bat=$(upower -i $bat_name  | grep percentage | awk '{print " " $2}')
 mem=$(free -h | tail -n 2 | awk '{print "\t" $3}' | tr '\n' ' ' | awk '{print $1 " " $2}')
 # cpu=$(mpstat | tail -n 1 | awk '{print (100 - $12) "%"}')
-cpu=$(top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}')
+# cpu=$(top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}')
+cpu=$(awk '{print $1, $2, $3}' /proc/loadavg)
 
 unmuted=$(pactl list sinks | grep "Mute: yes" | wc -l)
 volume=$(pactl list sinks | grep Volume | head -n 1 | awk '{print $5}')
@@ -18,4 +19,4 @@ else
     audio=🔇
 fi
 
-echo " $cpu%   $mem  $disk  $bat  $audio   $now"
+echo " $cpu   $mem  $disk  $bat  $audio   $now"
