@@ -15,6 +15,7 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 set $term kitty
+# set $term /home/emmanuel/Downloads/kitty-0.24.0-x86_64/bin/kitty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -25,8 +26,10 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # output * bg /usr/share/backgrounds/default.png fill
 output * bg ~/Dropbox/wallpapers/wallpaper.jpg fill
+# output * bg ~/Dropbox/wallpapers/2024-03-02 15.49.00-16-9.jpg fill
 
-set $lockwallpaper ~/Dropbox/wallpapers/wallpaper.jpg
+# set $lockwallpaper ~/Dropbox/wallpapers/wallpaper.jpg
+set $lockwallpaper ~/Dropbox/nakatomi_bsd.jpg
 
 #
 # Example configuration:
@@ -54,9 +57,12 @@ set $lockwallpaper ~/Dropbox/wallpapers/wallpaper.jpg
                 #timeout 300 'swaylock -f -c 000000' \
                 #before-sleep 'swaylock -f -c 000000'
 exec swayidle -w \
-                timeout 300 'swaymsg "output * dpms off"' \
-                     resume 'swaymsg "output * dpms on"' \
-           before-sleep 'swaylock -i $lockwallpaper --scaling=fill'
+               timeout 600 'swaymsg "output * dpms off"' \
+               timeout 300 'swaylock -i $lockwallpaper --scaling=fill' resume 'swaymsg "output * dpms on"'
+
+# exec swayidle -w \
+#                 timeout 300 'swaymsg "output * dpms off"' \
+#                      resume 'swaymsg "output * dpms on"'
 
 # no window title if there's only one window in a workspace
 # https://www.joshmcguigan.com/blog/hot-take-fedora-gnome-arch-sway/
@@ -92,7 +98,8 @@ input * {
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+Return exec $term
+    # bindsym $mod+Return exec $term
+    bindsym $mod+Return exec "$term -e zsh -c 'cat /etc/motd && exec zsh'"
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -209,11 +216,10 @@ set $output2 eDP-1
     assign [class="^discord"] $ws2
     assign [class="^Gimp"] $ws3
     for_window [app_id="projectpad" title="Projectpad"] move scratchpad
-    for_window [app_id="gnome-calculator"] floating enable
+    for_window [app_id="org.gnome.Calculator"] floating enable
+    for_window [title="Builder Basics"] floating enable
     for_window [class="VirtualBox Manager"] floating enable
     for_window [title="Remmina Remote Desktop Client"] floating enable
-
-    # android emulator
     for_window [title="Emulator" floating] move scratchpad
     assign [title="Emulator"] $ws6
 
@@ -307,6 +313,11 @@ bar {
     # swaybar_command 'waybar'
     position bottom
 
+    pango_markup enabled
+
+    # font pango:JetBrainsM3n3 Nerd Font 10
+    font pango:JetBrainsMono Nerd Font 10
+
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
     status_command while ~/.config/sway/swaybar_status.sh; do sleep 10; done
@@ -320,9 +331,12 @@ bar {
     # }
 }
 
+output eDP-1     position 0,0
+output HDMI-A-1 position 1920,0
+
 include /etc/sway/config.d/*
 
-bindsym $mod+Shift+d exec "/home/emmanuel/home/gsimplecal-install/bin/gsimplecal"
+bindsym $mod+Shift+d exec "/home/emmanuel/home/gsimplecal/src/gsimplecal"
 
 # ----- screenshots -----
 bindsym --release $mod+Print exec grim -g "$(slurp)" - | wl-copy
@@ -345,12 +359,16 @@ exec /usr/libexec/xdg-desktop-portal-wlr
 exec swaymsg titlebar_padding 5 1
 
 exec nm-applet --indicator
-exec flatpak run --filesystem=home com.slack.Slack
+# exec flatpak run --filesystem=home com.slack.Slack
 exec flatpak run --filesystem=home com.discordapp.Discord
 exec skypeforlinux
-exec flatpak run com.github.emmanueltouzery.projectpad
+# exec flatpak run com.github.emmanueltouzery.projectpad
+exec /home/emmanuel/home/projectpad2/target/debug/projectpad-gtk4
+# exec /home/emmanuel/home/projectpad2/target/release/projectpad
 exec dropbox start
-exec mkfifo /tmp/wobpipe && tail -f /tmp/wobpipe | wob
+# exec mkfifo /tmp/wobpipe && while true; do tail -f /tmp/wobpipe | wob; done
+exec mkfifo /tmp/wobpipe && tail -f /tmp/wobpipe | /home/emmanuel/home/wob/build/wob
+exec mako --output eDP-1 --max-visible 3 --default-timeout 15000
 
 # exec /usr/libexec/polkit-gnome-authentication-agent-1
 exec /usr/libexec/xfce-polkit
