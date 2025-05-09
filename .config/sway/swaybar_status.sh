@@ -5,7 +5,7 @@ disk=$(df -h -t btrfs | grep home | awk '{print $4}')
 now=$(date +'%Y-%m-%d %H:%M')
 bat_name=$(upower -e | grep 'BAT')
 bat=$(upower -i $bat_name  | grep percentage | awk '{print $2}' | sed 's/%//')
-if [ $bat -lt 15 ]
+if [ $bat -lte 15 ]
 then
     bat="<span color=\"red\"><b> $bat%</b></span>"
 else
@@ -25,4 +25,12 @@ else
     audio=🔇
 fi
 
-echo " $cpu   $mem   $disk  $bat  $audio   $now"
+plugged=$(cat /sys/class/power_supply/AC*/online)
+if [ "$plugged" = "1" ]
+then
+    plug="󱐥"
+else
+    plug="󱐤"
+fi
+
+echo "<span size='13000'>$plug</span>   $cpu   $mem   $disk  $bat  $audio   $now"
