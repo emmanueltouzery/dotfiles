@@ -7,9 +7,9 @@ bat_name=$(upower -e | grep 'BAT')
 bat=$(upower -i $bat_name  | grep percentage | awk '{print $2}' | sed 's/%//')
 if [ $bat -lte 15 ]
 then
-    bat="<span color=\"red\"><b> $bat%</b></span>"
+bat="<span color=\"red\"><b> $bat%</b></span>"
 else
-    bat=" $bat%"
+bat=" $bat%"
 fi
 mem=$(free -h | tail -n 2 | awk '{print "\t" $3}' | tr '\n' ' ' | awk '{print $1 " " $2}')
 # cpu=$(mpstat | tail -n 1 | awk '{print (100 - $12) "%"}')
@@ -20,17 +20,17 @@ unmuted=$(pactl list sinks | grep "Mute: yes" | wc -l)
 volume=$(pactl list sinks | grep Volume | head -n 1 | awk '{print $5}')
 if [ "$unmuted" = "0" ]
 then
-    audio=" $volume"
+audio=" $volume"
 else
-    audio=🔇
+audio=🔇
 fi
 
 plugged=$(cat /sys/class/power_supply/AC*/online)
 if [ "$plugged" = "1" ]
 then
-    plug="󱐥"
+plug="󱐥"
 else
-    plug="󱐤"
+plug="󱐤"
 fi
 
-echo "<span size='13000'>$plug</span>   $cpu   $mem   $disk  $bat  $audio   $now"
+echo " $cpu   $mem   $disk  $bat <span size='13000'>$plug</span>  $audio   $now"
