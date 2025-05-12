@@ -5,7 +5,7 @@ disk=$(df -h -t btrfs | grep home | awk '{print $4}')
 now=$(date +'%Y-%m-%d %H:%M')
 bat_name=$(upower -e | grep 'BAT')
 bat=$(upower -i $bat_name  | grep percentage | awk '{print $2}' | sed 's/%//')
-if [ $bat -lte 15 ]
+if [ $bat -le 15 ]
 then
 bat="<span color=\"red\"><b> $bat%</b></span>"
 else
