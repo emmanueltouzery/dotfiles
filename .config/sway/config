@@ -93,6 +93,11 @@ input * {
      xkb_numlock enabled
 }
 
+# Make unmodified Caps Lock an additional Esc, but Shift + Caps Lock behaves like regular Caps Lock
+input type:keyboard {
+    xkb_options caps:escape_shifted_capslock
+}
+
 ### Key bindings
 #
 # Basics:
@@ -362,8 +367,8 @@ exec nm-applet --indicator
 # exec flatpak run --filesystem=home com.slack.Slack
 exec flatpak run --filesystem=home com.discordapp.Discord
 exec skypeforlinux
-# exec flatpak run com.github.emmanueltouzery.projectpad
-exec /home/emmanuel/home/projectpad2/target/debug/projectpad-gtk4
+exec flatpak run com.github.emmanueltouzery.projectpad
+# exec /home/emmanuel/home/projectpad2/target/debug/projectpad-gtk4
 # exec /home/emmanuel/home/projectpad2/target/release/projectpad
 exec dropbox start
 # exec mkfifo /tmp/wobpipe && while true; do tail -f /tmp/wobpipe | wob; done
